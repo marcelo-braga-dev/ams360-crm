@@ -1,4 +1,4 @@
-import IntegradorLayout from '@/Layouts/Consultor/IntegradorLayout';
+import IntegradorLayout from '@/Layouts/Consultor/Layout';
 import React, {useState} from 'react';
 import {Inertia} from '@inertiajs/inertia';
 import {Container, TextField} from '@mui/material';

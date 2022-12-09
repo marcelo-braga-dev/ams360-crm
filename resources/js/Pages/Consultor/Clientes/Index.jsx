@@ -1,6 +1,6 @@
 // https://egghead.io/lessons/react-move-items-between-columns-with-react-beautiful-dnd-using-ondragend
 //https://www.freecodecamp.org/portuguese/news/como-adicionar-a-funcionalidade-de-arrastar-e-soltar-em-react-com-a-biblioteca-react-beautiful-dnd/
-import IntegradorLayout from '@/Layouts/Consultor/IntegradorLayout';
+import IntegradorLayout from '@/Layouts/Consultor/Layout';
 
 //import {Table} from './Styles';
 import React, {useState} from 'react';

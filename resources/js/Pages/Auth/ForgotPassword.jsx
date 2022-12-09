@@ -2,10 +2,10 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/inertia-react';
+import {Head, Link, useForm} from '@inertiajs/inertia-react';
 
-export default function ForgotPassword({ status }) {
-    const { data, setData, post, processing, errors } = useForm({
+export default function ForgotPassword({status}) {
+    const {data, setData, post, processing, errors} = useForm({
         email: '',
     });
 
@@ -21,11 +21,12 @@ export default function ForgotPassword({ status }) {
 
     return (
         <GuestLayout>
-            <Head title="Forgot Password" />
+            <Head title="Forgot Password"/>
 
             <div className="mb-4 text-sm text-gray-600">
-                Forgot your password? No problem. Just let us know your email address and we will email you a password
-                reset link that will allow you to choose a new one.
+                Esqueceu sua senha?<br/>
+                Sem problemas. Basta nos informar seu endereço de e-mail e enviaremos um e-mail com
+                um link de redefinição de senha que permitirá que você altere sua senha.
             </div>
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
@@ -41,11 +42,18 @@ export default function ForgotPassword({ status }) {
                     handleChange={onHandleChange}
                 />
 
-                <InputError message={errors.email} className="mt-2" />
+                <InputError message={errors.email} className="mt-2"/>
 
-                <div className="flex items-center justify-end mt-4">
+                <div className="flex items-center justify-between mt-4">
+
+                    <Link href={'/'}
+                          className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        Voltar
+                    </Link>
+
                     <PrimaryButton className="ml-4" processing={processing}>
-                        Email Password Reset Link
+                        Solicitar Redefifição
                     </PrimaryButton>
                 </div>
             </form>

@@ -15,7 +15,7 @@ import {Link} from "@mui/material";
 import {useForm} from '@inertiajs/inertia-react'
 
 const pages = [
-    {'title': 'Clientes', 'url': route('consultor.clientes.index')},
+    {'title': 'Leads', 'url': route('consultor.clientes.index')},
     {'title': 'Pedidos', 'url': route('consultor.pedidos.index')},
 ];
 

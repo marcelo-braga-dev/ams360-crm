@@ -1,6 +1,7 @@
 <?php
-if(!function_exists('print_pre')) {
-    function print_pre($valor) {
+if (!function_exists('print_pre')) {
+    function print_pre($valor)
+    {
         echo '<pre>';
         print_r($valor);
         echo '<pre>';
@@ -32,5 +33,19 @@ if (!function_exists('convert_float_money')) {
             $arg = number_format($arg, $decimais, ',', '.');
         }
         return $arg;
+    }
+}
+
+if (!function_exists('modalSucesso')) {
+    function modalSucesso($mensagem)
+    {
+        session()->flash('sucesso', $mensagem);
+    }
+}
+
+if (!function_exists('modalErro')) {
+    function modalErro($mensagem)
+    {
+        session()->flash('erro', $mensagem);
     }
 }

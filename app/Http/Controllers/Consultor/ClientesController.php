@@ -32,19 +32,19 @@ class ClientesController extends Controller
         });
 
         $offset += $limit;
-        return Inertia::render('Integrador/Clientes/Index',
+        return Inertia::render('Consultor/Clientes/Index',
             compact('naoAtendidos', 'emAndamento', 'offset'));
     }
 
     public function create()
     {
-        return Inertia::render('Integrador/Clientes/Create');
+        return Inertia::render('Consultor/Clientes/Create');
     }
 
     public function show($id)
     {
         $cliente = (new Clientes())->newQuery()->find($id);
-        return Inertia::render('Integrador/Clientes/Show', compact('cliente'));
+        return Inertia::render('Consultor/Clientes/Show', compact('cliente'));
     }
 
     public function store(Request $request)

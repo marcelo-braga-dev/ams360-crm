@@ -34,6 +34,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        //$sucesso = ;
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
@@ -43,6 +44,10 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+            'flash' => [
+                'sucesso' => session('sucesso'),
+                'erro' => session('erro'),
+            ],
         ]);
     }
 }
