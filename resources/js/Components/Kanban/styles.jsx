@@ -17,9 +17,9 @@ export function Th({ children, color }) {
 
 export function Td({ children, color }) {
     return (
-        <td style={{minWidth: 300}}>
+        <td style={{minWidth: 380, maxWidth: 380}}>
             <Row className={color + " m-2 rounded"} style={{minHeight: 1000}}>
-                <Col className={"p-0"}>
+                <Col className={"p-2"}>
                     {children}
                 </Col>
             </Row>

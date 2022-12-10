@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Services\Images;
 use App\src\Pedidos\Status\NovoStatusPedido;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -49,5 +48,13 @@ class Pedidos extends Model
                 'status_data' => now(),
                 'prazo' => $prazo
             ]);
+    }
+
+    function cliente() {
+        return $this->hasOne(PedidosClientes::class);
+    }
+
+    function img() {
+        return $this->hasOne(PedidosImagens::class);
     }
 }

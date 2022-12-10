@@ -1,38 +1,53 @@
 <?php
 
-namespace App\Http\Controllers\Consultor\Pedidos;
+namespace App\Http\Controllers\Admin\Pedidos;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PedidosRequest;
 use App\Models\Pedidos;
 use App\Models\PedidosClientes;
-use App\Models\PedidosImagens;
+use App\Models\User;
 use App\src\Pedidos\Status\ConferenciaStatusPedido;
-use App\src\Pedidos\Status\NovoStatusPedido;
-use DateTime;
+use App\src\Pedidos\Status\LancadoStatus;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use DateTime;
 
 class PedidosController extends Controller
 {
     public function index()
     {
-        $pedidosAll = (new Pedidos())->newQuery()->where('users_id', auth()->id())->get();
+        $pedidosAll = (new Pedidos())->newQuery()->get();
         $clientesAll = (new PedidosClientes())->newQuery()->get();
-        $novoStatus = (new NovoStatusPedido())->getStatus();
-        $conferenciaStatus = (new ConferenciaStatusPedido())->getStatus();
+        $usuariosAll = (new User())->newQuery()->get(['id', 'name']);
 
-        $pedidos['novo'] = [];
-        $pedidos['conferencia'] = [];
+        $conferenciaStatus = (new ConferenciaStatusPedido())->getStatus();
+        $lancadoStatus = (new LancadoStatus())->getStatus();
+
+        $usuarios = [];
+        foreach ($usuariosAll as $dados) {
+            $usuarios[$dados->id] = $dados->name;
+        }
         $clientes = [];
+        foreach ($clientesAll as $cliente) {
+            $clientes[$cliente->pedidos_id] = $cliente->nome;
+        }
+
+        $pedidos['conferencia'] = [];
+        $pedidos['lancado'] = [];
+        $pedidos['nota'] = [];
+        $pedidos['pagamento'] = [];
+        $pedidos['faturamento'] = [];
+        $pedidos['entregue'] = [];
 
         foreach ($pedidosAll as $dados) {
             $diferenca = $this->getDiferenca($dados->status_data, $dados->prazo);
 
             switch ($dados->status) {
-                case $novoStatus :
-                    $pedidos['novo'][] = [
+                case $conferenciaStatus :
+                    $pedidos['conferencia'][] = [
                         'id' => $dados->id,
+                        'nome' => $usuarios[$dados->users_id],
+                        'cliente' => $clientes[$dados->id],
                         'data' => date('d/m/y H:i', strtotime($dados->status_data)),
                         'prazo' => date('d/m/y H:i', strtotime("+$dados->prazo days", strtotime($dados->status_data))),
                         'prazo_atrasado' => $diferenca,
@@ -41,9 +56,11 @@ class PedidosController extends Controller
                         'fornecedor' => $dados->fornecedor
                     ];
                     break;
-                case $conferenciaStatus :
-                    $pedidos['conferencia'][] = [
+                case $lancadoStatus :
+                    $pedidos['lancado'][] = [
                         'id' => $dados->id,
+                        'nome' => $usuarios[$dados->users_id],
+                        'cliente' => $clientes[$dados->id],
                         'data' => date('d/m/y H:i', strtotime($dados->status_data)),
                         'prazo' => date('d/m/y H:i', strtotime("+$dados->prazo days", strtotime($dados->status_data))),
                         'prazo_atrasado' => $diferenca,
@@ -56,32 +73,7 @@ class PedidosController extends Controller
             $clientes[$dados->id] = '';
         }
 
-        foreach ($clientesAll as $cliente) {
-            $clientes[$cliente->pedidos_id] = ['nome' => $cliente->nome];
-        }
-
-        return Inertia::render('Consultor/Pedidos/Index',
-            compact('pedidos', 'clientes'));
-    }
-
-    public function create()
-    {
-        return Inertia::render('Consultor/Pedidos/Create');
-    }
-
-    public function store(PedidosRequest $request)
-    {
-        $idPedido = (new Pedidos())->create($request);
-        (new PedidosClientes())->create($idPedido, $request);
-        (new PedidosImagens())->create($idPedido, $request);
-        modalSucesso('Pedido cadastrado com sucesso!');
-        return redirect()->route('consultor.pedidos.index');
-    }
-
-    public function update($id)
-    {
-        (new ConferenciaStatusPedido())->update($id);
-        return redirect()->route('consultor.pedidos.index');
+        return Inertia::render('Admin/Pedidos/Index', compact('pedidos'));
     }
 
     private function getDiferenca(mixed $prazoData, int $prazoLimite): int

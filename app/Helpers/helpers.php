@@ -36,6 +36,13 @@ if (!function_exists('convert_float_money')) {
     }
 }
 
+if (!function_exists('convertFloatToMoney')) {
+    function convertFloatToMoney($valor): string
+    {
+        return number_format($valor, 2, ',', '.');
+    }
+}
+
 if (!function_exists('modalSucesso')) {
     function modalSucesso($mensagem)
     {

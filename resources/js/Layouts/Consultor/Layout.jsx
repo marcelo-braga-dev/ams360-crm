@@ -5,7 +5,7 @@ import {Button} from 'reactstrap';
 
 import ModalsAllerts from "@/Components/Modals/AlertsModals";
 
-export default function Authenticated({button, url, textButton, children, titlePage}) {
+export default function Layout({button, url, textButton, children, titlePage}) {
 
     return (
         <>
@@ -33,6 +33,7 @@ export default function Authenticated({button, url, textButton, children, titleP
                         </Grid>
                     </div>
                 </header>
+
                 <main>{children}</main>
             </div>
         </>

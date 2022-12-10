@@ -61,6 +61,7 @@ class PedidosRequest extends FormRequest
             'file_cartao_cnpj.required' => 'Insira a Foto do Cartão CNPJ.',
             'file_comprovante_residencia.required' => 'Insira o Comprovante de Residência.',
             'preco.required' => 'Insira o Preço.',
+            'preco.max' => 'Preço máximo 99.999.999,00',
             'fornecedor.required' => 'Insira o Fornecedor.',
             'file_imagem_pedido.required' => 'Insira a Foto do Pedido.',
             'file_orcamento.required' => 'Insira a Foto ou PDF do Orçamento.',
