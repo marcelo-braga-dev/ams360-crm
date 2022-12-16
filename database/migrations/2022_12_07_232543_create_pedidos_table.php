@@ -19,10 +19,12 @@ return new class extends Migration
             $table->string('status');
             $table->dateTime('status_data');
             $table->integer('prazo');
-            $table->float('preco_inicial', 10);
-            $table->float('preco_final', 10)->nullable();
+            $table->float('preco_venda', 10);
+            $table->float('preco_custo', 10)->nullable();
+            $table->string('info_pedido', 1024)->nullable();
             $table->string('forma_pagamento');
             $table->string('fornecedor');
+            $table->boolean('situacao')->default(0);
             $table->string('obs')->nullable();
             $table->timestamps();
         });

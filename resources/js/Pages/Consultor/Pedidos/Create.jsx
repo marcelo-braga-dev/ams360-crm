@@ -3,8 +3,6 @@ import IntegradorLayout from '@/Layouts/Consultor/Layout';
 import React, {useState} from 'react';
 import {useForm, usePage} from '@inertiajs/inertia-react';
 import {Container, Row, Col, Form} from 'reactstrap';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 
 import InfoCliente from './Partials/InfoCliente';
 import Anexos from "./Partials/Anexos";
@@ -15,12 +13,15 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 
-//step
+import Modal from '@mui/material/Modal';
+
+//step labels
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import Paper from '@mui/material/Paper';
+import Alert from "@mui/material/Alert";
 
 const steps = [
     {
@@ -36,41 +37,69 @@ const steps = [
         description: `Insira as informações do pedido.`,
     },
 ];
+// step labels - fim
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+};
 
 export default function Create({auth}) {
-    const { errors } = usePage().props;
+    const {errors} = usePage().props;
 
-    const { data, setData, post, progress } = useForm({
-            nome: "",
-            razao_social: "",
-            rg: "",
-            cpf: "",
-            cnpj: "",
-            telefone: "",
-            endereco: "",
-            file_rg: "",
-            file_cpf: "",
-            file_cnh: "",
-            file_cartao_cnpj: "",
-            file_comprovante_residencia: "",
-            preco: "",
-            fornecedor: "",
-            file_imagem_pedido: "",
-            file_orcamento: "",
-            obs: "",
-            forma_pagamento: ""
+    const {data, setData, post, progress} = useForm({
+        pessoa: 'Pessoa Física',
+        nome: null,
+        razao_social: null,
+        nascimento: null,
+        rg: null,
+        cpf: null,
+        cnpj: null,
+        telefone: null,
+        endereco: null,
+        file_rg: null,
+        file_cpf: null,
+        file_cnh: null,
+        file_cartao_cnpj: null,
+        file_comprovante_residencia: null,
+        preco: null,
+        fornecedor: null,
+        file_imagem_pedido: null,
+        file_orcamento: null,
+        obs: null,
+        forma_pagamento: null
     });
+
     function submit(e) {
         e.preventDefault()
-        post(route('consultor.pedidos.store'))
+        if (requiredsOk) {
+            post(route('consultor.pedidos.store'))
+        } else handleOpen()
+
     }
 
-    //step
+    //step controls
     const [activeStep, setActiveStep] = React.useState(0);
 
+    // Verifica Requireds
+    let requiredsOk;
+
+    function requireds(valor) {
+        requiredsOk = valor;
+    }
+
+    // Verifica Requireds -fim
+
     const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (requiredsOk) {
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else handleOpen()
     };
 
     const handleBack = () => {
@@ -81,13 +110,24 @@ export default function Create({auth}) {
         setActiveStep(0);
     };
 
+    //step controls - fim
+
     function inputs(i) {
         switch (i) {
-            case 0: return <InfoCliente setData={setData} data={data}></InfoCliente>;
-            case 1: return <Anexos setData={setData} data={data}></Anexos>;
-            case 2: return <Pedidos setData={setData} data={data}></Pedidos>;
+            case 0:
+                return <InfoCliente setData={setData} data={data} requireds={requireds}></InfoCliente>;
+            case 1:
+                return <Anexos setData={setData} data={data} requireds={requireds}></Anexos>;
+            case 2:
+                return <Pedidos setData={setData} data={data} requireds={requireds}></Pedidos>;
         }
     }
+
+    // MODAL
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    // MODAL - Fim
 
     return (
         <IntegradorLayout
@@ -152,6 +192,25 @@ export default function Create({auth}) {
                     </Form>
                 </Box>
             </Container>
+
+            {/*MODAL*/}
+            <div>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description">
+                    <Alert className="rounded" sx={style} severity="error">
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Atenção!
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{mt: 2}}>
+                            Preencha todos os campos.
+                        </Typography>
+                    </Alert>
+                </Modal>
+            </div>
+            {/*MODAL - fim*/}
         </IntegradorLayout>
     )
 }

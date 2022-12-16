@@ -3,6 +3,7 @@
 namespace App\src\Pedidos\Status;
 
 use App\Models\Pedidos;
+use App\Models\PedidosPrazos;
 
 class ConferenciaStatusPedido implements PedidosStatus
 {
@@ -18,6 +19,11 @@ class ConferenciaStatusPedido implements PedidosStatus
     }
 
     function getPrazo(): int {
-        return 2;
+        return (new PedidosPrazos())->getConferencia();
+    }
+
+    function getNomeStatus(): string
+    {
+        return 'Conferência';
     }
 }

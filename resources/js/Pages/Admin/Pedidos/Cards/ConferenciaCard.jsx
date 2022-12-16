@@ -75,14 +75,9 @@ export default function ConferenciaCard({dados}) {
                             onClose={handleClose}
                             PaperProps={{style: {maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'},}}
                         >
-                            <Link href={'/'} underline="none" color="inherit">
+                            <Link href={route('admin.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Ver Informações
-                                </MenuItem>
-                            </Link>
-                            <Link href={'/'} underline="none" color="inherit">
-                                <MenuItem key={dados.id} onClick={handleClose}>
-                                    Editar
                                 </MenuItem>
                             </Link>
                         </Menu>

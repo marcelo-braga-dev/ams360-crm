@@ -35,4 +35,11 @@ class PedidosClientes extends Model
                 'cnpj' => $request->cnpj
             ]);
     }
+
+    public function dados(int $id)
+    {
+        return $this->newQuery()
+            ->where('pedidos_id', $id)
+            ->first();
+    }
 }

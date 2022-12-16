@@ -2,6 +2,9 @@
 
 namespace App\src\Pedidos\Status;
 
+use App\Models\Pedidos;
+use App\Models\PedidosPrazos;
+
 class LancadoStatus implements PedidosStatus
 {
     private string $status = 'lancado';
@@ -13,6 +16,11 @@ class LancadoStatus implements PedidosStatus
 
     function getPrazo(): int
     {
-        return 5;
+        return (new PedidosPrazos())->getLancamento();
+    }
+
+    function getNomeStatus(): string
+    {
+        return 'Lançado';
     }
 }

@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from "react";
 import Layout from '@/Layouts/Admin/Layout';
 import {Table, Td, Th} from "@/Components/Kanban/styles";
 import Conferencia from "./Cards/ConferenciaCard";
@@ -5,24 +6,31 @@ import LancadoCard from "./Cards/LancadoCard";
 import AguardandoNotaCard from "./Cards/AguardandoNotaCard";
 import AguardandoPagamentoCard from "./Cards/AguardandoPagamentoCard";
 import AguardandoFaturamentoCard from "./Cards/AguardandoFaturamentoCard";
+import Faturado from "./Cards/FaturadoCard"
 import EntregueCard from "./Cards/EntregueCard";
 
-import {Container} from "reactstrap";
+import {Button, Container} from "reactstrap";
 
 export default function Pedidos({pedidos}) {
-    return (
-        <Layout titlePage="Pedidos">
 
+    const submenu = [
+        {'title': 'Histórico', 'url': route('admin.pedidos.historico.index')},
+        {'title': 'Configurações', 'url': route('admin.config.index')}
+    ]
+
+    return (
+        <Layout titlePage="Pedidos" subMenu={submenu}>
             <Container fluid>
                 <div className="overflow-x-auto pb-6">
                     <Table>
                         <thead>
                         <tr className={"text-center text-white"}>
                             <Th color="bg-blue-700">Para Coferência</Th>
-                            <Th color="bg-green-700">Lançado</Th>
+                            <Th color="bg-green-700">Lançamento</Th>
                             <Th color="bg-yellow-600">Aguardando Nota/Boleto</Th>
                             <Th color="bg-orange-600">Aguadando Pagamento</Th>
                             <Th color="bg-purple-700">Aguardando Faturamento</Th>
+                            <Th color="bg-black">Faturado/Aguardando Entrega</Th>
                             <Th color="bg-gray-700">Entregue</Th>
                         </tr>
                         </thead>
@@ -63,8 +71,16 @@ export default function Pedidos({pedidos}) {
                             <Td color="bg-purple-400">
                                 {pedidos.faturamento.map((dados) => {
                                         return (
-                                            <AguardandoFaturamentoCard key={dados.id} dados={dados}>
-                                            </AguardandoFaturamentoCard>
+                                            <AguardandoFaturamentoCard key={dados.id}
+                                                                       dados={dados}></AguardandoFaturamentoCard>
+                                        )
+                                    }
+                                )}
+                            </Td>
+                            <Td color="bg-black">
+                                {pedidos.faturado.map((dados) => {
+                                        return (
+                                            <Faturado key={dados.id} dados={dados}></Faturado>
                                         )
                                     }
                                 )}

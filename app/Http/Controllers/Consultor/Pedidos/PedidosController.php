@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PedidosRequest;
 use App\Models\Pedidos;
 use App\Models\PedidosClientes;
+use App\Models\PedidosHistoricos;
 use App\Models\PedidosImagens;
+use App\Services\Pedidos\Cards\AdminCardsServices;
+use App\Services\Pedidos\PedidosServices;
 use App\src\Pedidos\Status\ConferenciaStatusPedido;
 use App\src\Pedidos\Status\NovoStatusPedido;
+use App\src\Pedidos\StatusPedidos;
 use DateTime;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,51 +21,9 @@ class PedidosController extends Controller
 {
     public function index()
     {
-        $pedidosAll = (new Pedidos())->newQuery()->where('users_id', auth()->id())->get();
-        $clientesAll = (new PedidosClientes())->newQuery()->get();
-        $novoStatus = (new NovoStatusPedido())->getStatus();
-        $conferenciaStatus = (new ConferenciaStatusPedido())->getStatus();
+        $pedidos = (new AdminCardsServices())->pedidos();
 
-        $pedidos['novo'] = [];
-        $pedidos['conferencia'] = [];
-        $clientes = [];
-
-        foreach ($pedidosAll as $dados) {
-            $diferenca = $this->getDiferenca($dados->status_data, $dados->prazo);
-
-            switch ($dados->status) {
-                case $novoStatus :
-                    $pedidos['novo'][] = [
-                        'id' => $dados->id,
-                        'data' => date('d/m/y H:i', strtotime($dados->status_data)),
-                        'prazo' => date('d/m/y H:i', strtotime("+$dados->prazo days", strtotime($dados->status_data))),
-                        'prazo_atrasado' => $diferenca,
-                        'prazoDias' => $dados->prazo,
-                        'preco' => convert_float_money($dados->preco_inicial),
-                        'fornecedor' => $dados->fornecedor
-                    ];
-                    break;
-                case $conferenciaStatus :
-                    $pedidos['conferencia'][] = [
-                        'id' => $dados->id,
-                        'data' => date('d/m/y H:i', strtotime($dados->status_data)),
-                        'prazo' => date('d/m/y H:i', strtotime("+$dados->prazo days", strtotime($dados->status_data))),
-                        'prazo_atrasado' => $diferenca,
-                        'prazoDias' => $dados->prazo,
-                        'preco' => convert_float_money($dados->preco_inicial),
-                        'fornecedor' => $dados->fornecedor
-                    ];
-                    break;
-            }
-            $clientes[$dados->id] = '';
-        }
-
-        foreach ($clientesAll as $cliente) {
-            $clientes[$cliente->pedidos_id] = ['nome' => $cliente->nome];
-        }
-
-        return Inertia::render('Consultor/Pedidos/Index',
-            compact('pedidos', 'clientes'));
+        return Inertia::render('Consultor/Pedidos/Index', compact('pedidos'));
     }
 
     public function create()
@@ -69,11 +31,34 @@ class PedidosController extends Controller
         return Inertia::render('Consultor/Pedidos/Create');
     }
 
-    public function store(PedidosRequest $request)
+    public function show($id)
+    {
+        $dados = (new Pedidos())->newQuery()->find($id);
+        $pedido = (new PedidosServices())->pedido($dados);
+
+        $historico = (new PedidosHistoricos())->newQuery()
+            ->where('pedidos_id', $dados->id)->get();
+
+        $historico = $historico->map(function ($dados) {
+            return [
+                'id' => $dados->id,
+                'data' => date('d/m/y H:i', strtotime($dados->created_at)),
+                'status' => (new StatusPedidos())->getNomeStatus($dados->status),
+                'prazo' => $dados->prazo,
+                'obs' => $dados->obs
+            ];
+        });
+
+        return Inertia::render('Consultor/Pedidos/Show',
+            compact('pedido', 'historico'));
+    }
+
+    public function store(Request $request)//PedidosRequest
     {
         $idPedido = (new Pedidos())->create($request);
         (new PedidosClientes())->create($idPedido, $request);
         (new PedidosImagens())->create($idPedido, $request);
+
         modalSucesso('Pedido cadastrado com sucesso!');
         return redirect()->route('consultor.pedidos.index');
     }

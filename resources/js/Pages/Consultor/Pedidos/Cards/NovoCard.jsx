@@ -14,16 +14,16 @@ import {
     styled
 } from '@mui/material';
 
-import {Row, Col, Form} from 'reactstrap';
+import {Row, Col, Form, Button} from 'reactstrap';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleRight';
 import PersonIcon from '@mui/icons-material/Person';
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
 
 
 const ExpandMore = styled((props) => {
@@ -47,13 +47,12 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    //border: '2px solid #000',
     boxShadow: 24,
     p: 4,
     borderRadius: 2
 };
 
-export default function OrcamentoLine1({nome, dados}) {
+export default function OrcamentoLine1({dados}) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -80,8 +79,23 @@ export default function OrcamentoLine1({nome, dados}) {
         Inertia.put(route('consultor.pedidos.update', dados.id))
     }
 
+    // Mostra Prazo
+    function prazo(valor) {
+        const danger = () => {
+            if (dados.prazo_atrasado) return "text-red-600"
+        }
+
+        if (valor) {
+            return (<Typography variant="caption" component={"p"} className={danger()}>
+                Prazo: {dados.prazo} ({dados.prazoDias} dias) {}
+            </Typography>)
+        }
+    }
+
+    // Mostra Prazo - fim
+
     return (
-        <Card sx={{maxWidth: 280, margin: 2}}>
+        <Card sx={{margin: 1}}>
             <CardHeader
                 action={
                     <div>
@@ -103,29 +117,25 @@ export default function OrcamentoLine1({nome, dados}) {
                             onClose={handleClose}
                             PaperProps={{style: {maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'},}}
                         >
-                            <Link href={'/'} underline="none" color="inherit">
+                            <Link href={route('consultor.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Ver Informações
-                                </MenuItem>
-                            </Link>
-                            <Link href={'/'} underline="none" color="inherit">
-                                <MenuItem key={dados.id} onClick={handleClose}>
-                                    Editar
                                 </MenuItem>
                             </Link>
                         </Menu>
                     </div>
                 }
-                title={<Typography variant="body1"><PersonIcon className="mr-2"></PersonIcon>{nome}</Typography>}
+                title={<Typography variant="body1"><PersonIcon className="mr-2"></PersonIcon>{dados.cliente}
+                </Typography>}
                 subheader={<Row>
                     <Col md="12">
                         <Typography variant="caption" component={"p"}>Data: {dados.data}</Typography>
-                        <Typography variant="caption" component={"p"}
-                                    className={dados.prazo_atrasado ? "" : "text-red-600"}>Prazo: {dados.prazo} ({dados.prazoDias} dias)</Typography>
+                        {prazo(dados.prazoDias)}
                     </Col>
                 </Row>}
             />
             {/*Conteudo Card*/}
+            {dados.situacao === 3 && <Alert severity="error" className="mb-2">Revise os Dados do Pedido!</Alert>}
             <Row className={"mx-0"}>
                 <Col md="9">
                     <Typography variant="subtitle2" color="text.secondary">
@@ -138,9 +148,10 @@ export default function OrcamentoLine1({nome, dados}) {
                 </Col>
                 {/*Abre Modal*/}
                 <Col md="3" className="mt-1">
-                    {/*<Link href={route('consultor.clientes.show', dados.id)}>*/}
-                    <ArrowCircleUpIcon onClick={handleOpenModal} style={{cursor: 'pointer'}}
-                                       fontSize={"large"}></ArrowCircleUpIcon>
+                    {dados.situacao === 0 && <ArrowCircleUpIcon onClick={handleOpenModal} style={{cursor: 'pointer'}}
+                                                                fontSize={"large"}></ArrowCircleUpIcon>}
+                    {dados.situacao === 3 && <Button href={"/"}
+                        color={"danger"} size={"sm"}>Revisar</Button>}
                 </Col>
             </Row>
 

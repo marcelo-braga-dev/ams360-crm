@@ -75,14 +75,9 @@ export default function AguardandoPagamentoCard({dados}) {
                             onClose={handleClose}
                             PaperProps={{style: {maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'},}}
                         >
-                            <Link href={'/'} underline="none" color="inherit">
+                            <Link href={route('admin.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Ver Informações
-                                </MenuItem>
-                            </Link>
-                            <Link href={'/'} underline="none" color="inherit">
-                                <MenuItem key={dados.id} onClick={handleClose}>
-                                    Editar
                                 </MenuItem>
                             </Link>
                         </Menu>
@@ -117,13 +112,6 @@ export default function AguardandoPagamentoCard({dados}) {
                         {dados.obs}
                     </Typography>
 
-                </Col>
-                {/*Abre Modal*/}
-                <Col md="3" className="mt-1">
-                    <Link href={route('admin.conferencia.show', dados.id)}>
-                        <ArrowCircleUpIcon style={{cursor: 'pointer'}}
-                                           fontSize={"large"}></ArrowCircleUpIcon>
-                    </Link>
                 </Col>
             </Row>
 

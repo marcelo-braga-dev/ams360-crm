@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Http\Request;
+
 class PedidosRequest extends FormRequest
 {
     /**
@@ -21,27 +23,26 @@ class PedidosRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            'nome' => ['required', 'max:255'],
-            'razao_social' => ['required', 'max:255'],
-            'rg' => ['required', 'max:255'],
-            'cpf' => ['required', 'max:255'],
-            'cnpj' => ['required', 'max:255'],
-            'telefone' => ['required', 'max:255'],
-            'endereco' => ['required', 'max:255'],
-            'file_rg' => ['required'],
-            'file_cpf' => ['required'],
-            'file_cnh' => ['required'],
-            'file_cartao_cnpj' => ['required'],
-            'file_comprovante_residencia' => ['required'],
-            'preco' => ['required', 'max:10'],
-            'fornecedor' => ['required', 'max:255'],
-            'file_imagem_pedido' => ['required'],
-            'file_orcamento' => ['required'],
-            //'obs' => ['required', 'max:255'],
-            'forma_pagamento' => ['required', 'max:255'],
+            //'nome' => ['required', 'max:255'],
+            //'razao_social' => ['required', 'max:255'],
+            //'rg' => ['required', 'max:255'],
+            //'cpf' => ['required', 'max:255'],
+            //'cnpj' => ['required', 'max:255'],
+            //'telefone' => ['required', 'max:255'],
+            //'endereco' => ['required', 'max:255'],
+            //'file_rg' => ['required'],
+            //'file_cpf' => ['required'],
+            //'file_cnh' => ['required'],
+            //'file_cartao_cnpj' => ['required'],
+            //'file_comprovante_residencia' => ['required'],
+            //'preco' => ['required', 'max:10'],
+            //'fornecedor' => ['required', 'max:255'],
+            //'file_orcamento' => ['required'],
+            ////'obs' => ['required', 'max:255'],
+            //'forma_pagamento' => ['required', 'max:255'],
         ];
     }
 
@@ -63,7 +64,6 @@ class PedidosRequest extends FormRequest
             'preco.required' => 'Insira o Preço.',
             'preco.max' => 'Preço máximo 99.999.999,00',
             'fornecedor.required' => 'Insira o Fornecedor.',
-            'file_imagem_pedido.required' => 'Insira a Foto do Pedido.',
             'file_orcamento.required' => 'Insira a Foto ou PDF do Orçamento.',
             'forma_pagamento.required' => 'Insira a Forma de Pagamento.',
         ];

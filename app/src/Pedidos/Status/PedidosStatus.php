@@ -4,6 +4,7 @@ namespace App\src\Pedidos\Status;
 
 interface PedidosStatus
 {
-    function getStatus();
-    function getPrazo();
+    function getStatus(): string;
+    function getNomeStatus(): string;
+    function getPrazo(): int;
 }

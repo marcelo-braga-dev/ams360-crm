@@ -16,13 +16,14 @@ import {useForm} from '@inertiajs/inertia-react'
 
 const pages = [
     {'title': 'Pedidos', 'url': route('admin.pedidos.index')},
+    {'title': 'Consultores', 'url': route('admin.consultores.index')},
 ];
 
 const logo = "/storage/crm/imagens/logo_ams.png";
 
-const settings = [
-    {'title': 'Perfil', 'url': route('consultor.clientes.index')}
-];
+const settings = []
+//     {'title': 'Perfil', 'url': route('consultor.clientes.index')}
+// ];
 
 function pageCurrent(url) {
     if (url === window.location.href) {
@@ -31,7 +32,7 @@ function pageCurrent(url) {
     return {mx: 1, color: 'white', display: 'block',}
 }
 
-function ResponsiveAppBar({auth, header, children}) {
+export default function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -61,8 +62,8 @@ function ResponsiveAppBar({auth, header, children}) {
         <AppBar position="static" style={{"backgroundColor": "#252525"}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Link href="/" sx={{display: {xs: 'none', md: 'flex'}}}>
-                        <img alt="logo" src={logo} style={{width: 100, margin: 15}}></img>
+                    <Link href="/" sx={{display: {xs: 'none', md: 'flex'}, width: 150}}>
+                        <img alt="logo" src={logo} style={{height: 50, margin: 15}}></img>
                     </Link>
 
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -144,12 +145,12 @@ function ResponsiveAppBar({auth, header, children}) {
                         >
                             {settings.map(({title, url}, i) => (
                                 <Typography key={i} color={"black"} variant={"inherit"} component={"a"} href={url}>
-                                    <MenuItem key={i} onClick={handleCloseUserMenu} style={{minWidth: 150}}>
+                                    <MenuItem key={i} onClick={handleCloseUserMenu}>
                                         {title}
                                     </MenuItem>
                                 </Typography>
                             ))}
-                            <form onSubmit={submit}>
+                            <form onSubmit={submit} style={{minWidth: 150}}>
                                 <Typography style={{ width: '100%'}} color={"black"} variant={"inherit"} type={"submit"} component={"button"}>
                                     <MenuItem key={"Sair"} onClick={handleCloseUserMenu}>
                                         Sair
@@ -163,5 +164,3 @@ function ResponsiveAppBar({auth, header, children}) {
         </AppBar>
     );
 }
-
-export default ResponsiveAppBar;

@@ -16,13 +16,16 @@ return new class extends Migration
         Schema::create('pedidos_imagens', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('pedidos_id');
-            $table->string('url_produtos')->nullable();
             $table->string('url_orcamento')->nullable();
             $table->string('url_rg')->nullable();
             $table->string('url_cpf')->nullable();
             $table->string('url_cnh')->nullable();
             $table->string('url_comprovante_residencia')->nullable();
             $table->string('url_cnpj')->nullable();
+            $table->string('url_cnpj')->nullable();
+            $table->string('url_boleto')->nullable();
+            $table->string('url_recibo')->nullable();
+            $table->string('url_nota_fiscal')->nullable();
         });
     }
 

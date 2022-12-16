@@ -78,12 +78,7 @@ export default function OrcamentoLine1({nome, data, obs, id}) {
                                 },
                             }}
                         >
-                            <Link href={'/'} underline="none" color="inherit">
-                                <MenuItem key={id} onClick={handleClose}>
-                                    Em Atendimento
-                                </MenuItem>
-                            </Link>
-                            <Link href={'/'} underline="none" color="inherit">
+                            <Link href={route('consultor.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={id} onClick={handleClose}>
                                     Ver Informações
                                 </MenuItem>

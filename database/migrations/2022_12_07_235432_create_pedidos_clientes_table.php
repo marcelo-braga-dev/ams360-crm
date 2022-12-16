@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('pedidos_id');
             $table->string('nome')->nullable();
+            $table->date('data_nascimento')->nullable();
             $table->string('razao_social')->nullable();
             $table->string('endereco')->nullable();
             $table->string('telefone')->nullable();

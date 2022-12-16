@@ -2,6 +2,8 @@
 
 namespace App\src\Pedidos\Status;
 
+use App\Models\PedidosPrazos;
+
 class AguardandoPagamentoStatus implements PedidosStatus
 {
     private string $status = 'aguardando_pagamento';
@@ -13,6 +15,11 @@ class AguardandoPagamentoStatus implements PedidosStatus
 
     function getPrazo(): int
     {
-        return 5;
+        return (new PedidosPrazos())->getPagamento();
+    }
+
+    function getNomeStatus(): string
+    {
+        return 'Aguardando Pagamento';
     }
 }

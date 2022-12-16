@@ -80,11 +80,6 @@ export default function EntregueCard({dados}) {
                                     Ver Informações
                                 </MenuItem>
                             </Link>
-                            <Link href={'/'} underline="none" color="inherit">
-                                <MenuItem key={dados.id} onClick={handleClose}>
-                                    Editar
-                                </MenuItem>
-                            </Link>
                         </Menu>
                     </div>
                 }
@@ -108,7 +103,7 @@ export default function EntregueCard({dados}) {
             />
             {/*Conteudo Card*/}
             <Row className={"mx-0"}>
-                <Col md="9">
+                <Col md="12">
                     <Typography variant="subtitle2" color="text.secondary">
                         Preço: R$ {dados.preco} <br/>
                         Fornecedor: {dados.fornecedor}
@@ -117,13 +112,6 @@ export default function EntregueCard({dados}) {
                         {dados.obs}
                     </Typography>
 
-                </Col>
-                {/*Abre Modal*/}
-                <Col md="3" className="mt-1">
-                    <Link href={route('admin.conferencia.show', dados.id)}>
-                        <ArrowCircleUpIcon style={{cursor: 'pointer'}}
-                                           fontSize={"large"}></ArrowCircleUpIcon>
-                    </Link>
                 </Col>
             </Row>
 

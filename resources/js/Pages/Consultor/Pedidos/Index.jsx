@@ -5,6 +5,11 @@ import {Table, Th, Td} from "@/Components/Kanban/styles";
 import {Container, Row} from 'reactstrap';
 import NovoCard from './Cards/NovoCard';
 import Conferencia from './Cards/ConferenciaCard';
+import LancadoCard from "./Cards/LancadoCard";
+import AguardandoNotaCard from "./Cards/AguardandoNotaCard";
+import AguardandoPagamentoCard from "./Cards/AguardandoPagamentoCard";
+import AguardandoFaturamentoCard from "./Cards/AguardandoFaturamentoCard";
+import EntregueCard from "./Cards/EntregueCard";
 
 export default function Dashboard({auth, errors, pedidos, clientes}) {
 
@@ -22,12 +27,13 @@ export default function Dashboard({auth, errors, pedidos, clientes}) {
                         <thead>
                         <tr className={"text-center text-white"}>
                             <Th color="bg-yellow-500">Pedidos em Aberto</Th>
-                            <Th color="bg-blue-700">Coferência</Th>
+                            <Th color="bg-blue-700">Para Coferência</Th>
                             <Th color="bg-green-700">Lançado</Th>
-                            <Th color="bg-gray-500">Aguardando Nota/Boleto</Th>
-                            <Th color="bg-blue-700">Aguadando Pagamento</Th>
-                            <Th color="bg-blue-700">Aguardando Faturamento</Th>
-                            <Th color="bg-blue-700">Entregue</Th>
+                            <Th color="bg-yellow-600">Aguardando Nota/Boleto</Th>
+                            <Th color="bg-orange-600">Aguadando Pagamento</Th>
+                            <Th color="bg-purple-700">Aguardando Faturamento</Th>
+                            <Th color="bg-black">Faturado</Th>
+                            <Th color="bg-gray-700">Entregue</Th>
                         </tr>
                         </thead>
                         <tbody>
@@ -35,7 +41,7 @@ export default function Dashboard({auth, errors, pedidos, clientes}) {
                             <Td color="bg-yellow-300">
                                 {pedidos.novo.map((dados) => {
                                         return (
-                                            <NovoCard nome={clientes[dados.id].nome} dados={dados}></NovoCard>
+                                            <NovoCard key={dados.id} dados={dados}></NovoCard>
                                         )
                                     }
                                 )}
@@ -43,20 +49,60 @@ export default function Dashboard({auth, errors, pedidos, clientes}) {
                             <Td color="bg-blue-400">
                                 {pedidos.conferencia.map((dados) => {
                                         return (
-                                            <Conferencia nome={clientes[dados.id].nome} dados={dados}></Conferencia>
+                                            <Conferencia key={dados.id} dados={dados}></Conferencia>
                                         )
                                     }
                                 )}
                             </Td>
                             <Td color="bg-green-400">
+                                {pedidos.lancado.map((dados) => {
+                                        return (
+                                            <LancadoCard key={dados.id} dados={dados}></LancadoCard>
+                                        )
+                                    }
+                                )}
                             </Td>
-                            <Td color="bg-gray-300">
+                            <Td color="bg-yellow-300">
+                                {pedidos.nota.map((dados) => {
+                                        return (
+                                            <AguardandoNotaCard key={dados.id} dados={dados}></AguardandoNotaCard>
+                                        )
+                                    }
+                                )}
                             </Td>
-                            <Td color="">
+                            <Td color="bg-orange-400">
+                                {pedidos.pagamento.map((dados) => {
+                                        return (
+                                            <AguardandoPagamentoCard key={dados.id} dados={dados}></AguardandoPagamentoCard>
+                                        )
+                                    }
+                                )}
                             </Td>
-                            <Td color="">
+                            <Td color="bg-purple-400">
+                                {pedidos.faturamento.map((dados) => {
+                                        return (
+                                            <AguardandoFaturamentoCard key={dados.id} dados={dados}>
+                                            </AguardandoFaturamentoCard>
+                                        )
+                                    }
+                                )}
                             </Td>
-                            <Td color="">
+                            <Td color="bg-black">
+                                {pedidos.faturado.map((dados) => {
+                                        return (
+                                            <AguardandoFaturamentoCard key={dados.id} dados={dados}>
+                                            </AguardandoFaturamentoCard>
+                                        )
+                                    }
+                                )}
+                            </Td>
+                            <Td color="bg-gray-400">
+                                {pedidos.entregue.map((dados) => {
+                                        return (
+                                            <EntregueCard key={dados.id} dados={dados}></EntregueCard>
+                                        )
+                                    }
+                                )}
                             </Td>
                         </tr>
                         </tbody>
