@@ -80,6 +80,11 @@ export default function AguardandoNotaCard({dados}) {
                                     Ver Informações
                                 </MenuItem>
                             </Link>
+                            <Link href={route('admin.cancelado.show', dados.id)} underline="none" color="inherit">
+                                <MenuItem key={dados.id} onClick={handleClose}>
+                                    Cancelar Pedido
+                                </MenuItem>
+                            </Link>
                         </Menu>
                     </div>
                 }
@@ -136,9 +141,11 @@ export default function AguardandoNotaCard({dados}) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography variant="body2">
-                        Telefone: <br/>
-                        Email:
+                    <Typography variant="body2" component="p">
+                        Telefone: {dados.telefone}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                        Email: {dados.email}
                     </Typography>
                 </CardContent>
             </Collapse>

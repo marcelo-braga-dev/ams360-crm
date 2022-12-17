@@ -1,7 +1,8 @@
 import {InputAdornment, TextField} from "@mui/material";
 
-export default function TextFieldMoney({ label, value, setData, index }) {
+export default function TextFieldMoney({ label, value, setData, index, required }) {
 
+    //if (required) required=true
     function maskMoney(valor) {
         let value = valor.replace('.', '').replace(',', '').replace(/\D/g, '')
         const options = { minimumFractionDigits: 2 }
@@ -13,9 +14,9 @@ export default function TextFieldMoney({ label, value, setData, index }) {
 
     return (
         <TextField
-            label={label} fullWidth
+            label={label} fullWidth required={required}
             InputProps={{startAdornment: <InputAdornment position="start">R$</InputAdornment>}}
-            value={value}
+            value={value ?? ''}
             onChange={e => maskMoney(e.target.value)}/>
     );
 }

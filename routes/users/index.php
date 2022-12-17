@@ -17,3 +17,7 @@ Route::get('/', function () {
         }
     }
 })->middleware(['auth', 'verified'])->name('home');
+
+Route::any('dashboard', function () {
+    return redirect('/');
+});

@@ -32,8 +32,6 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-const ITEM_HEIGHT = 48;
-
 export default function OrcamentoLine1({nome, data, obs, id}) {
     const [expanded, setExpanded] = React.useState(false);
 
@@ -73,7 +71,7 @@ export default function OrcamentoLine1({nome, data, obs, id}) {
                             onClose={handleClose}
                             PaperProps={{
                                 style: {
-                                    maxHeight: ITEM_HEIGHT * 4.5,
+                                    maxHeight: 48 * 4.5,
                                     width: '20ch',
                                 },
                             }}
@@ -115,8 +113,11 @@ export default function OrcamentoLine1({nome, data, obs, id}) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography variant="body2">
-                        Não há mais informações.
+                    <Typography variant="body2" component="p">
+                        Telefone: {dados.telefone}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                        Email: {dados.email}
                     </Typography>
                 </CardContent>
             </Collapse>

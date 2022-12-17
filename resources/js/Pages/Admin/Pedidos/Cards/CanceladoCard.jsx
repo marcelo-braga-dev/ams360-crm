@@ -11,19 +11,16 @@ import {
     Link,
     Menu,
     MenuItem,
-    styled
+    styled, Divider
 } from '@mui/material';
 
-import {Row, Col, Form} from 'reactstrap';
+import {Row, Col} from 'reactstrap';
+import {LegendaNome, Nome} from './styles'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleRight';
 import PersonIcon from '@mui/icons-material/Person';
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 
 
 const ExpandMore = styled((props) => {
@@ -37,20 +34,9 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-//Modal
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-    borderRadius: 2
-};
+const ITEM_HEIGHT = 48;
 
-export default function OrcamentoLine1({dados}) {
+export default function AguardandoFaturamentoCard({dados}) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -66,19 +52,8 @@ export default function OrcamentoLine1({dados}) {
         setAnchorEl(null);
     };
 
-    // Modal
-    const [openModal, setOpen] = React.useState(false);
-    const handleOpenModal = () => setOpen(true);
-    const handleCloseModal = () => setOpen(false);
-
-    function handleSubmit(e) {
-        e.preventDefault()
-        handleCloseModal()
-        Inertia.put(route('consultor.pedidos.update', dados.id))
-    }
-
     return (
-        <Card sx={{margin: 1}}>
+        <Card sx={{ margin: 1}}>
             <CardHeader
                 action={
                     <div>
@@ -98,9 +73,9 @@ export default function OrcamentoLine1({dados}) {
                             anchorEl={anchorEl}
                             open={open}
                             onClose={handleClose}
-                            PaperProps={{style: {maxHeight: 48 * 4.5, width: '20ch'},}}
+                            PaperProps={{style: {maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'},}}
                         >
-                            <Link href={route('consultor.pedidos.show', dados.id)} underline="none" color="inherit">
+                            <Link href={route('admin.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Ver Informações
                                 </MenuItem>
@@ -108,13 +83,19 @@ export default function OrcamentoLine1({dados}) {
                         </Menu>
                     </div>
                 }
-                title={<Typography variant="body1"><PersonIcon className="mr-2"></PersonIcon>{dados.cliente}
-                </Typography>}
+                title={
+                <>
+                    <LegendaNome>Consultor</LegendaNome>
+                    <Nome>{dados.nome}</Nome>
+                    <Divider></Divider>
+                    <LegendaNome>Cliente</LegendaNome>
+                    <Nome>{dados.cliente}</Nome>
+                    <Divider className={"mb-3"}></Divider>
+                </>
+                }
                 subheader={<Row>
                     <Col md="12">
                         <Typography variant="caption" component={"p"}>Data: {dados.data}</Typography>
-                        <Typography variant="caption" component={"p"}
-                                    className={dados.prazo_atrasado ? "" : "text-red-600"}>Prazo: {dados.prazo} ({dados.prazoDias} dias)</Typography>
                     </Col>
                 </Row>}
             />
@@ -128,13 +109,7 @@ export default function OrcamentoLine1({dados}) {
                     <Typography variant="subtitle2" color="text.secondary">
                         {dados.obs}
                     </Typography>
-                </Col>
-                {/*Abre Modal*/}
-                <Col md="3" className="mt-1">
-                    <Link href={route('consultor.aguardando-pagamento.show', dados.id)}>
-                        <ArrowCircleUpIcon onClick={handleOpenModal} style={{cursor: 'pointer'}}
-                                           fontSize={"large"}></ArrowCircleUpIcon>
-                    </Link>
+
                 </Col>
             </Row>
 

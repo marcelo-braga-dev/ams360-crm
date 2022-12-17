@@ -24,7 +24,9 @@ class PedidosServices
         }
 
         foreach ($clientesAll as $cliente) {
-            $this->clientes[$cliente->pedidos_id] = $cliente->nome;
+            $this->clientes[$cliente->pedidos_id]['nome'] = $cliente->nome ?? $cliente->razao_social;
+            $this->clientes[$cliente->pedidos_id]['telefone'] = $cliente->telefone;
+            $this->clientes[$cliente->pedidos_id]['email'] = $cliente->email;
         }
     }
 
@@ -33,7 +35,7 @@ class PedidosServices
         return [
             'id' => $dados->id,
             'nome' => $this->usuarios[$dados->users_id],
-            'cliente' => $this->clientes[$dados->id],
+            'cliente' => $this->clientes[$dados->id]['nome'],
             'data' => date('d/m/y H:i', strtotime($dados->status_data)),
             'prazo' => date('d/m/y H:i', strtotime("+$dados->prazo days", strtotime($dados->status_data))),
             'prazo_atrasado' => $this->getDiferenca($dados->status_data, $dados->prazo),
@@ -43,7 +45,9 @@ class PedidosServices
             'preco_float' => $dados->preco_venda,
             'fornecedor' => $dados->fornecedor,
             'obs' => $dados->obs,
-            'situacao' => $dados->situacao
+            'situacao' => $dados->situacao,
+            'email' => $this->clientes[$dados->id]['email'],
+            'telefone' => $this->clientes[$dados->id]['telefone'],
         ];
     }
 

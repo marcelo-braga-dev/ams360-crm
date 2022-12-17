@@ -16,6 +16,7 @@ class PedidosClientes extends Model
         'razao_social',
         'endereco',
         'telefone',
+        'email',
         'cpf',
         'rg',
         'cnpj'
@@ -30,6 +31,7 @@ class PedidosClientes extends Model
                 'razao_social' => $request->razao_social,
                 'endereco' => $request->endereco,
                 'telefone' => $request->telefone,
+                'email' => $request->email,
                 'cpf' => $request->cpf,
                 'rg' => $request->rg,
                 'cnpj' => $request->cnpj

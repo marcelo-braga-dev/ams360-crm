@@ -20,7 +20,6 @@ import {LegendaNome, Nome} from './styles'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleRight';
-import PersonIcon from '@mui/icons-material/Person';
 
 
 const ExpandMore = styled((props) => {
@@ -80,6 +79,11 @@ export default function ConferenciaCard({dados}) {
                                     Ver Informações
                                 </MenuItem>
                             </Link>
+                            <Link href={route('admin.cancelado.show', dados.id)} underline="none" color="inherit">
+                                <MenuItem key={dados.id} onClick={handleClose}>
+                                    Cancelar Pedido
+                                </MenuItem>
+                            </Link>
                         </Menu>
                     </div>
                 }
@@ -136,9 +140,11 @@ export default function ConferenciaCard({dados}) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography variant="body2">
-                        Telefone: <br/>
-                        Email:
+                    <Typography variant="body2" component="p">
+                        Telefone: {dados.telefone}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                        Email: {dados.email}
                     </Typography>
                 </CardContent>
             </Collapse>

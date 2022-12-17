@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Consultor\ConsultoresController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoFaturamentoController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoNotaController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoPagamentoController;
+use App\Http\Controllers\Admin\Pedidos\CanceladoController;
 use App\Http\Controllers\Admin\Pedidos\ConferenciaController;
 use App\Http\Controllers\Admin\Pedidos\ConfigController;
 use App\Http\Controllers\Admin\Pedidos\EntregueController;
@@ -24,6 +25,7 @@ Route::middleware(['auth', 'auth.admins'])
         Route::resource('aguardando-faturamento', AguardandoFaturamentoController::class);
         Route::resource('faturado', FaturadoController::class);
         Route::resource('entregue', EntregueController::class);
+        Route::resource('cancelado', CanceladoController::class);
         Route::resource('config', ConfigController::class);
 
         Route::get('historicos', [PedidosController::class, 'historico'])

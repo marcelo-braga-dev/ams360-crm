@@ -1,21 +1,10 @@
 import Layout from '@/Layouts/Consultor/Layout';
 import {Button, Card, Col, Container, Row, Table} from "reactstrap";
 import Typography from "@mui/material/Typography";
-import ConvertMoney from "@/Components/ConvertMoney";
-import Paper from "@mui/material/Paper";
-
-import {useForm} from '@inertiajs/inertia-react'
-
 
 export default function Pedidos({pedido, historico}) {
-    const {put} = useForm()
 
-    function submit(e) {
-        e.preventDefault()
-        put(route('admin.entregue.update', pedido.id))
-    }
-
-    return (<Layout titlePage="Pedidos" button={true} url={route('admin.pedidos.index')} textButton={'Voltar'}>
+    return (<Layout titlePage="Pedidos" button={true} url={route('consultor.pedidos.index')} textButton={'Voltar'}>
 
         <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 rounded mb-4">
             <Typography>Consultor: {pedido.nome}</Typography>
@@ -52,10 +41,6 @@ export default function Pedidos({pedido, historico}) {
                             <td>
                                 {dado.obs}
                             </td>
-                            {/*<td>*/}
-                            {/*    <Button color={"primary"} href={route('admin.consultores.show', dado.id)}*/}
-                            {/*            size="sm">Ver</Button>*/}
-                            {/*</td>*/}
                         </tr>)
                 })}
                 </tbody>

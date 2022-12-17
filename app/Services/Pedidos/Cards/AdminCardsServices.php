@@ -7,6 +7,7 @@ use App\Services\Pedidos\PedidosServices;
 use App\src\Pedidos\Status\AguardandoFaturamentoStatus;
 use App\src\Pedidos\Status\AguardandoNotaStatus;
 use App\src\Pedidos\Status\AguardandoPagamentoStatus;
+use App\src\Pedidos\Status\CanceladoStatus;
 use App\src\Pedidos\Status\ConferenciaStatusPedido;
 use App\src\Pedidos\Status\EntregueStatus;
 use App\src\Pedidos\Status\FaturadoStatus;
@@ -28,6 +29,7 @@ class AdminCardsServices
         $faturamentoStatus = (new AguardandoFaturamentoStatus())->getStatus();
         $faturadoStatus = (new FaturadoStatus())->getStatus();
         $entregueStatus = (new EntregueStatus())->getStatus();
+        $canceladoStatus = (new CanceladoStatus())->getStatus();
 
         $pedidos['novo'] = [];
         $pedidos['conferencia'] = [];
@@ -37,6 +39,7 @@ class AdminCardsServices
         $pedidos['faturamento'] = [];
         $pedidos['faturado'] = [];
         $pedidos['entregue'] = [];
+        $pedidos['cancelado'] = [];
 
 
         foreach ($pedidosAll as $dados) {
@@ -66,6 +69,9 @@ class AdminCardsServices
                     break;
                 case $entregueStatus :
                     $pedidos['entregue'][] = $adminCardsServices->pedido($dados);
+                    break;
+                    case $canceladoStatus :
+                    $pedidos['cancelado'][] = $adminCardsServices->pedido($dados);
                     break;
             }
             $clientes[$dados->id] = '';

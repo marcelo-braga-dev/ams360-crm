@@ -62,6 +62,7 @@ export default function Create({auth}) {
         cpf: null,
         cnpj: null,
         telefone: null,
+        email: null,
         endereco: null,
         file_rg: null,
         file_cpf: null,

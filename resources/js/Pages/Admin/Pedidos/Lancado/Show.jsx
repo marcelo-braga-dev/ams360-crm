@@ -2,25 +2,21 @@ import Layout from '@/Layouts/Admin/Layout';
 import {Button, Card, Col, Container, Row, Table} from "reactstrap";
 import * as React from 'react';
 import Typography from "@mui/material/Typography";
-import ConvertMoney from "@/Components/ConvertMoney";
 import Paper from "@mui/material/Paper";
 
 import {useForm} from '@inertiajs/inertia-react'
-import {FormControl, InputAdornment, InputLabel, OutlinedInput, TextField} from "@mui/material";
+import {InputAdornment, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 import PropTypes from "prop-types";
+import TextFieldMoney from "@/Components/Inputs/TextFieldMoney";
 
 export default function Pedidos({pedido, cliente, img}) {
     const {data, put, setData} = useForm({
         'preco_custo': null
     })
-
-    const preco_bruto = () => {
-        return data.preco_venda - data.preco_custo;
-    }
 
     function submit(e) {
         e.preventDefault()
@@ -66,7 +62,20 @@ export default function Pedidos({pedido, cliente, img}) {
             'aria-controls': `simple-tabpanel-${index}`,
         };
     }
+
     // TAB - fim
+
+    // ConvertMoney
+    let valor = 0
+    if (data.preco_custo) {
+        valor = data.preco_custo.replace('.', '').replace(',', '').replace(/\D/g, '');
+        valor /= 100
+    }
+
+    function precoBruto(venda) {
+        return new Intl.NumberFormat('pt-BR', {minimumFractionDigits: 2}).format(
+            parseFloat(venda - valor))
+    }// ConvertMoney - fim
 
     return (<Layout titlePage="Pedidos" button={true} url={route('admin.pedidos.index')} textButton={'Voltar'}>
 
@@ -182,19 +191,14 @@ export default function Pedidos({pedido, cliente, img}) {
                 </Row>
                 <Row>
                     <Col className={"mb-4"} lg={"4"}>
-                        <TextField
-                            fullWidth required
-                            label="Preço de Custo"
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">R$</InputAdornment>
-                            }}
-                            onChange={e => setData('preco_custo', e.target.value)}
-                        />
+                        <TextFieldMoney required
+                                        label="Preço Custo" value={data.preco_custo}
+                                        setData={setData} index="preco_custo"></TextFieldMoney>
                     </Col>
                 </Row>
                 <Row>
                     <Col className={"mb-3"} lg={"4"}>
-                        <Typography>Preço Bruto: R$ {pedido.preco_float - data.preco_custo},00</Typography>
+                        <Typography>Preço Bruto: R$ {precoBruto(pedido.preco_float)}</Typography>
                     </Col>
                 </Row>
                 <Button className={"mt-3"} color={"primary"}>Aprovar Pedido</Button>

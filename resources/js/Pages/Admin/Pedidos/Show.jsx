@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import ImagePdf from "@/Components/Inputs/ImagePdf";
 
-import {useForm} from '@inertiajs/inertia-react'
 import Paper from "@mui/material/Paper";
 
 function TabPanel(props) {
@@ -75,7 +75,7 @@ export default function Pedidos({pedido, cliente, img, historico}) {
                         <Col>
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>Orçamento:</Typography>
-                                {img.url_orcamento && (<img alt="" src={"/storage/" + img.url_orcamento}/>)}
+                                <ImagePdf url={img.url_orcamento}></ImagePdf>
                             </Paper>
                         </Col>
                     </Row>
@@ -96,19 +96,19 @@ export default function Pedidos({pedido, cliente, img, historico}) {
                         <Col lg={4} className={"mb-3"}>
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>RG</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_rg}/>)}
+                                <ImagePdf url={img.url_rg}></ImagePdf>
                             </Paper>
                         </Col>
                         <Col lg={4} className={"mb-3"}>
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>CPF</Typography>
-                                {(img && (<img alt="" src={"/storage/" + img.url_cpf}/>))}
+                                <ImagePdf url={img.url_cpf}></ImagePdf>
                             </Paper>
                         </Col>
                         <Col lg={4} className={"mb-3"}>
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>CNH</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_cnh}/>)}
+                                <ImagePdf url={img.url_cnh}></ImagePdf>
                             </Paper>
                         </Col>
                     </Row>
@@ -116,13 +116,13 @@ export default function Pedidos({pedido, cliente, img, historico}) {
                         <Col lg={4} className={"mb-3"}>
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>Cartão CNPJ</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_cnpj}/>)}
+                                <ImagePdf url={img.url_cnpj}></ImagePdf>
                             </Paper>
                         </Col>
                         <Col lg={4} className={"mb-3"}>
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>Comprovante de Residência</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_comprovante_residencia}/>)}
+                                <ImagePdf url={img.url_comprovante_residencia}></ImagePdf>
                             </Paper>
                         </Col>
                     </Row>
@@ -137,19 +137,19 @@ export default function Pedidos({pedido, cliente, img, historico}) {
                         <Col lg={4} className={"mb-3"}>
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>Nota/Boleto</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_boleto}/>)}
+                                <ImagePdf url={img.url_boleto}></ImagePdf>
                             </Paper>
                         </Col>
                         <Col lg={4} className={"mb-3"}>
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>Comprovante de Pagamento</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_recibo}/>)}
+                                <ImagePdf url={img.url_recibo}></ImagePdf>
                             </Paper>
                         </Col>
                         <Col lg={4} className={"mb-3"}>
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>Nota Fiscal</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_nota_fiscal}/>)}
+                                <ImagePdf url={img.url_nota_fiscal}></ImagePdf>
                             </Paper>
                         </Col>
                     </Row>
@@ -163,7 +163,6 @@ export default function Pedidos({pedido, cliente, img, historico}) {
                             <th>Prazo</th>
                             <th>Status</th>
                             <th>Anotações</th>
-                            {/*<th>Ação</th>*/}
                         </tr>
                         </thead>
                         <tbody>
@@ -182,10 +181,6 @@ export default function Pedidos({pedido, cliente, img, historico}) {
                                     <td>
                                         {dado.obs}
                                     </td>
-                                    {/*<td>*/}
-                                    {/*    <Button color={"primary"} href={route('admin.consultores.show', dado.id)}*/}
-                                    {/*            size="sm">Ver</Button>*/}
-                                    {/*</td>*/}
                                 </tr>)
                         })}
                         </tbody>

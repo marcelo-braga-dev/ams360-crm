@@ -37,8 +37,6 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-const ITEM_HEIGHT = 48;
-
 //Modal
 const style = {
     position: 'absolute',
@@ -115,7 +113,7 @@ export default function OrcamentoLine1({dados}) {
                             anchorEl={anchorEl}
                             open={open}
                             onClose={handleClose}
-                            PaperProps={{style: {maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'},}}
+                            PaperProps={{style: {maxHeight: 48 * 4.5, width: '20ch'},}}
                         >
                             <Link href={route('consultor.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
@@ -138,8 +136,10 @@ export default function OrcamentoLine1({dados}) {
             {dados.situacao === 3 && <Alert severity="error" className="mb-2">Revise os Dados do Pedido!</Alert>}
             <Row className={"mx-0"}>
                 <Col md="9">
-                    <Typography variant="subtitle2" color="text.secondary">
-                        Preço: R$ {dados.preco} <br/>
+                    <Typography variant="subtitle2" color="text.secondary" component="p">
+                        Preço: R$ {dados.preco}
+                    </Typography>
+                    <Typography variant="subtitle2" color="text.secondary" component="p">
                         Fornecedor: {dados.fornecedor}
                     </Typography>
                     <Typography variant="subtitle2" color="text.secondary">
@@ -151,7 +151,7 @@ export default function OrcamentoLine1({dados}) {
                     {dados.situacao === 0 && <ArrowCircleUpIcon onClick={handleOpenModal} style={{cursor: 'pointer'}}
                                                                 fontSize={"large"}></ArrowCircleUpIcon>}
                     {dados.situacao === 3 && <Button href={"/"}
-                        color={"danger"} size={"sm"}>Revisar</Button>}
+                                                     color={"danger"} size={"sm"}>Revisar</Button>}
                 </Col>
             </Row>
 
@@ -162,16 +162,17 @@ export default function OrcamentoLine1({dados}) {
                     expand={expanded}
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
-                    aria-label="show more"
-                >
+                    aria-label="show more">
                     <ExpandMoreIcon/>
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography variant="body2">
-                        Telefone: <br/>
-                        Email:
+                    <Typography variant="body2" component="p">
+                        Telefone: {dados.telefone}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                        Email: {dados.email}
                     </Typography>
                 </CardContent>
             </Collapse>
@@ -182,8 +183,7 @@ export default function OrcamentoLine1({dados}) {
                     open={openModal}
                     onClose={handleCloseModal}
                     aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
+                    aria-describedby="modal-modal-description">
                     <Box sx={style}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             Enviar Pedido para Conferência
@@ -192,7 +192,7 @@ export default function OrcamentoLine1({dados}) {
                             <Form onSubmit={handleSubmit}>
                                 <Col className={"text-right"}>
                                     <Button onClick={handleCloseModal} type={"button"}>Cancelar</Button>
-                                    <Button variant="contained" type={"submit"}>Confirmar</Button>
+                                    <Button variant="contained" color="primary" type={"submit"}>Confirmar</Button>
                                 </Col>
                             </Form>
                         </Row>

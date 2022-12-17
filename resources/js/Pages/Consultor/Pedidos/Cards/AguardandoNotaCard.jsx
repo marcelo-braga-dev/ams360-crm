@@ -37,8 +37,6 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-const ITEM_HEIGHT = 48;
-
 //Modal
 const style = {
     position: 'absolute',
@@ -101,7 +99,7 @@ export default function OrcamentoLine1({dados}) {
                             anchorEl={anchorEl}
                             open={open}
                             onClose={handleClose}
-                            PaperProps={{style: {maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'},}}
+                            PaperProps={{style: {maxHeight: 48 * 4.5, width: '20ch'},}}
                         >
                             <Link href={route('consultor.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
@@ -148,9 +146,11 @@ export default function OrcamentoLine1({dados}) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography variant="body2">
-                        Telefone: <br/>
-                        Email:
+                    <Typography variant="body2" component="p">
+                        Telefone: {dados.telefone}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                        Email: {dados.email}
                     </Typography>
                 </CardContent>
             </Collapse>

@@ -81,6 +81,11 @@ export default function InfoCliente({setData, data, requireds}) {
                     {() => <TextField label={'Telefone'} fullWidth/>}
                 </InputMask>
             </Col>
+            <Col>
+                <TextField label="Email" value={data.email} type="email"
+                           onChange={e => setData('email', e.target.value)} fullWidth>
+                </TextField>
+            </Col>
         </Row>
         <Row>
             <Col>

@@ -30,7 +30,7 @@ class LancadoController extends Controller
 
     public function update($id, Request $request)
     {
-        (new AguardandoNotaStatus())->update($id, $request->preco_custo);
+        (new AguardandoNotaStatus())->update($id, convert_money_float($request->preco_custo));
 
         modalSucesso('Atualizado com sucesso!');
         return redirect()->route('admin.pedidos.index');

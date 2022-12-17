@@ -8,6 +8,9 @@ import AguardandoPagamentoCard from "./Cards/AguardandoPagamentoCard";
 import AguardandoFaturamentoCard from "./Cards/AguardandoFaturamentoCard";
 import Faturado from "./Cards/FaturadoCard"
 import EntregueCard from "./Cards/EntregueCard";
+import CanceladoCard from "./Cards/CanceladoCard";
+
+import DoubleScrollbar from 'react-double-scrollbar/dist/DoubleScrollbar';
 
 import {Button, Container} from "reactstrap";
 
@@ -21,8 +24,8 @@ export default function Pedidos({pedidos}) {
     return (
         <Layout titlePage="Pedidos" subMenu={submenu}>
             <Container fluid>
-                <div className="overflow-x-auto pb-6">
-                    <Table>
+                <DoubleScrollbar>
+                    <Table className={"mt-2"}>
                         <thead>
                         <tr className={"text-center text-white"}>
                             <Th color="bg-blue-700">Para Coferência</Th>
@@ -30,8 +33,9 @@ export default function Pedidos({pedidos}) {
                             <Th color="bg-yellow-600">Aguardando Nota/Boleto</Th>
                             <Th color="bg-orange-600">Aguadando Pagamento</Th>
                             <Th color="bg-purple-700">Aguardando Faturamento</Th>
-                            <Th color="bg-black">Faturado/Aguardando Entrega</Th>
-                            <Th color="bg-gray-700">Entregue</Th>
+                            <Th color="bg-pink-700">Faturado/Aguardando Entrega</Th>
+                            <Th color="bg-gray-500">Entregue</Th>
+                            <Th color="bg-black">Cancelados</Th>
                         </tr>
                         </thead>
                         <tbody>
@@ -63,7 +67,8 @@ export default function Pedidos({pedidos}) {
                             <Td color="bg-orange-400">
                                 {pedidos.pagamento.map((dados) => {
                                         return (
-                                            <AguardandoPagamentoCard key={dados.id} dados={dados}></AguardandoPagamentoCard>
+                                            <AguardandoPagamentoCard key={dados.id}
+                                                                     dados={dados}></AguardandoPagamentoCard>
                                         )
                                     }
                                 )}
@@ -77,7 +82,7 @@ export default function Pedidos({pedidos}) {
                                     }
                                 )}
                             </Td>
-                            <Td color="bg-black">
+                            <Td color="bg-pink-500">
                                 {pedidos.faturado.map((dados) => {
                                         return (
                                             <Faturado key={dados.id} dados={dados}></Faturado>
@@ -93,10 +98,18 @@ export default function Pedidos({pedidos}) {
                                     }
                                 )}
                             </Td>
+                            <Td color="bg-black">
+                                {pedidos.cancelado.map((dados) => {
+                                        return (
+                                            <CanceladoCard key={dados.id} dados={dados}></CanceladoCard>
+                                        )
+                                    }
+                                )}
+                            </Td>
                         </tr>
                         </tbody>
                     </Table>
-                </div>
+                </DoubleScrollbar>
             </Container>
 
         </Layout>
