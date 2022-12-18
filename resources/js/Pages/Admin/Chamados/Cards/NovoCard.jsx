@@ -20,7 +20,6 @@ import {LegendaNome, Nome} from './styles'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleRight';
-import PersonIcon from '@mui/icons-material/Person';
 
 
 const ExpandMore = styled((props) => {
@@ -36,7 +35,7 @@ const ExpandMore = styled((props) => {
 
 const ITEM_HEIGHT = 48;
 
-export default function LancadoCard({dados}) {
+export default function ConferenciaCard({dados}) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -53,7 +52,7 @@ export default function LancadoCard({dados}) {
     };
 
     return (
-        <Card sx={{margin: 1}}>
+        <Card sx={{ margin: 1}}>
             <CardHeader
                 action={
                     <div>
@@ -78,11 +77,6 @@ export default function LancadoCard({dados}) {
                             <Link href={route('admin.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Ver Informações
-                                </MenuItem>
-                            </Link>
-                            <Link href={route('admin.conferencia.show', dados.id)} underline="none" color="inherit">
-                                <MenuItem key={dados.id} onClick={handleClose}>
-                                    Reprovar Pedido
                                 </MenuItem>
                             </Link>
                             <Link href={route('admin.cancelado.show', dados.id)} underline="none" color="inherit">
@@ -125,7 +119,7 @@ export default function LancadoCard({dados}) {
                 </Col>
                 {/*Abre Modal*/}
                 <Col md="3" className="mt-1">
-                    <Link href={route('admin.lancado.show', dados.id)}>
+                    <Link href={route('admin.conferencia.show', dados.id)}>
                         <ArrowCircleUpIcon style={{cursor: 'pointer'}}
                                            fontSize={"large"}></ArrowCircleUpIcon>
                     </Link>

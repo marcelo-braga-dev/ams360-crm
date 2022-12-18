@@ -1,10 +1,15 @@
-export default function ImagePdf({ url }) {
+import {Button} from "reactstrap";
 
-    if (url && url.split('.').pop() === 'pdf' ) {
-        return <a href={"/storage/" + url}>Ver PDF</a>
+export default function ImagePdf({url}) {
+
+    if (url && url.split('.').pop() === 'pdf') {
+        return (
+            <Button className="mt-2" color="danger" size="sm" href={"/storage/" + url}>
+                <i className="fas fa-file-pdf"></i> Abrir PDF
+            </Button>)
     }
 
-    if (url){
+    if (url) {
         return (<img className={"mb-3 img-thumbnail"} alt="" src={"/storage/" + url} style={{maxHeight: 200}}/>)
     }
 }

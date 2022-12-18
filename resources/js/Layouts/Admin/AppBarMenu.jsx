@@ -17,6 +17,7 @@ import {useForm} from '@inertiajs/inertia-react'
 const pages = [
     {'title': 'Pedidos', 'url': route('admin.pedidos.index')},
     {'title': 'Consultores', 'url': route('admin.consultores.index')},
+    {'title': 'SAC', 'url': route('admin.chamados.index')},
 ];
 
 const logo = "/storage/crm/imagens/logo_ams.png";

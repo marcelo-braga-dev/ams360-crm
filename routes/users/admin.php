@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Chamados\ChamadosController;
 use App\Http\Controllers\Admin\Consultor\ConsultoresController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoFaturamentoController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoNotaController;
@@ -32,4 +33,6 @@ Route::middleware(['auth', 'auth.admins'])
             ->name('pedidos.historico.index');
 
         Route::resource('consultores', ConsultoresController::class);
+
+        Route::resource('chamados', ChamadosController::class);
     });
