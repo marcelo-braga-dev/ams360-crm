@@ -16,7 +16,7 @@ class Consultores
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->tipo === 'consultor') {
+        if (auth()->user()->tipo === (new \App\src\Usuarios\Consultores())->getTipo()) {
             return $next($request);
         }
         return redirect()->route('home');

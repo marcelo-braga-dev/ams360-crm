@@ -6,9 +6,9 @@ use Inertia\Inertia;
 Route::get('/', function () {
     $auth = auth()->user()->tipo;
     switch ($auth) {
-        case 'admin' :
+        case (new \App\src\Usuarios\Admins())->getTipo() :
             return Inertia::render('Admin/Home');
-        case 'consultor' :
+        case (new \App\src\Usuarios\Consultores())->getTipo() :
             return Inertia::render('Consultor/Home');
         default :
         {

@@ -16,7 +16,7 @@ class Admins
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->tipo === 'admin') {
+        if (auth()->user()->tipo === (new \App\src\Usuarios\Admins())->getTipo()) {
             return $next($request);
         }
         return redirect()->route('home');
