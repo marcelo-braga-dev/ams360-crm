@@ -5,6 +5,6 @@ export default function ImagePdf({ url }) {
     }
 
     if (url){
-        return <img alt="" src={"/storage/" + url}/>
+        return (<img className={"mb-3 img-thumbnail"} alt="" src={"/storage/" + url} style={{maxHeight: 200}}/>)
     }
 }

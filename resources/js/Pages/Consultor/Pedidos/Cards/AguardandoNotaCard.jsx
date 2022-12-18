@@ -18,12 +18,7 @@ import {Row, Col, Form} from 'reactstrap';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleRight';
 import PersonIcon from '@mui/icons-material/Person';
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 
 
 const ExpandMore = styled((props) => {
@@ -66,17 +61,6 @@ export default function OrcamentoLine1({dados}) {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
-    // Modal
-    const [openModal, setOpen] = React.useState(false);
-    const handleOpenModal = () => setOpen(true);
-    const handleCloseModal = () => setOpen(false);
-
-    function handleSubmit(e) {
-        e.preventDefault()
-        handleCloseModal()
-        Inertia.put(route('consultor.pedidos.update', dados.id))
-    }
 
     return (
         <Card sx={{margin: 1}}>
@@ -154,30 +138,6 @@ export default function OrcamentoLine1({dados}) {
                     </Typography>
                 </CardContent>
             </Collapse>
-
-            {/*Modal*/}
-            <div>
-                <Modal
-                    open={openModal}
-                    onClose={handleCloseModal}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Enviar Pedido para Conferência
-                        </Typography>
-                        <Row className={"mt-4"}>
-                            <Form onSubmit={handleSubmit}>
-                                <Col className={"text-right"}>
-                                    <Button onClick={handleCloseModal} type={"button"}>Cancelar</Button>
-                                    <Button variant="contained" type={"submit"}>Confirmar</Button>
-                                </Col>
-                            </Form>
-                        </Row>
-                    </Box>
-                </Modal>
-            </div>
         </Card>
     )
 }

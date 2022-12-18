@@ -84,8 +84,6 @@ export default function OrcamentoLine1({dados}) {
                 subheader={<Row>
                     <Col md="12">
                         <Typography variant="caption" component={"p"}>Data: {dados.data}</Typography>
-                        <Typography variant="caption" component={"p"}
-                                    className={dados.prazo_atrasado ? "" : "text-red-600"}>Prazo: {dados.prazo} ({dados.prazoDias} dias)</Typography>
                     </Col>
                 </Row>}
             />

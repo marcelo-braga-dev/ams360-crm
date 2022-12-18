@@ -70,6 +70,19 @@ class Pedidos extends Model
         (new PedidosHistoricos())->create($id, $status, $prazo, $obs);
     }
 
+    public function updateDados(int $id, $dados, $prazo)
+    {
+        $this->newQuery()
+            ->find($id)
+            ->update([
+                'prazo' => $prazo,
+                'preco_venda' => convert_money_float($dados->preco),
+                'forma_pagamento' => $dados->forma_pagamento,
+                'fornecedor' => $dados->fornecedor,
+                'info_pedido' => $dados->obs
+            ]);
+    }
+
     function cliente() {
         return $this->hasOne(PedidosClientes::class);
     }

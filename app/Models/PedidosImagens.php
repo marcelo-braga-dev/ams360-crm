@@ -51,6 +51,27 @@ class PedidosImagens extends Model
             ->where('pedidos_id', $id)->first();
     }
 
+    public function updateDados(int $id, $dados)
+    {
+        $urlOrcamento = (new Images())->armazenar($dados, 'file_orcamento', 'pedidos/' . $id);
+        $urlRg = (new Images())->armazenar($dados, 'file_rg', 'pedidos/' . $id);
+        $urlCpf = (new Images())->armazenar($dados, 'file_cpf', 'pedidos/' . $id);
+        $urlCnh = (new Images())->armazenar($dados, 'file_cnh', 'pedidos/' . $id);
+        $urlCnpj = (new Images())->armazenar($dados, 'file_cartao_cnpj', 'pedidos/' . $id);
+        $urlComprovante = (new Images())->armazenar($dados, 'file_comprovante_residencia', 'pedidos/' . $id);
+
+        $this->newQuery()
+            ->where('pedidos_id', $id)
+            ->update([
+                'url_orcamento' => $urlOrcamento,
+                'url_rg' => $urlRg,
+                'url_cpf' => $urlCpf,
+                'url_cnh' => $urlCnh,
+                'url_comprovante_residencia' => $urlComprovante,
+                'url_cnpj' => $urlCnpj,
+            ]);
+    }
+
     function updateBoleto($id, $dados)
     {
         $url = (new Images())->armazenar($dados, 'file_nota', 'pedidos/' . $id);

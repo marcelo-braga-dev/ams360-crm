@@ -14,6 +14,26 @@ import DoubleScrollbar from 'react-double-scrollbar/dist/DoubleScrollbar';
 
 import {Button, Container} from "reactstrap";
 
+const x = {
+    backgroundColor: 'red',
+    /* width */
+    '::-webkit-scrollbar': {
+        width: 20
+    },
+
+    /* Track */
+    '::-webkit-scrollbar-track': {
+        'box-shadow': 'inset 0 0 5 grey',
+        'border-radius': 10
+    },
+
+    /* Handle */
+    '::-webkit-scrollbar-thumb': {
+        'background': 'red',
+        'border-radius': 10
+    }
+}
+
 export default function Pedidos({pedidos}) {
 
     const submenu = [

@@ -12,7 +12,6 @@ import Paper from "@mui/material/Paper";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
-
     return (
         <div
             role="tabpanel"
@@ -69,7 +68,7 @@ export default function Pedidos({pedido, cliente, img, historico}) {
                             <Typography><b>Consultor:</b> {pedido.nome}</Typography>
                             <Typography><b>Cliente:</b> {pedido.cliente}</Typography>
                             <Typography><b>Fornecedor:</b> {pedido.fornecedor}</Typography>
-                            <Typography><b>Valor:</b> {pedido.preco}</Typography>
+                            <Typography><b>Valor:</b> R$ {pedido.preco}</Typography>
                             <Typography className="mt-3"><b>Anotações:</b> {pedido.obs}</Typography>
                         </Col>
                         <Col>
@@ -84,7 +83,7 @@ export default function Pedidos({pedido, cliente, img, historico}) {
                     <Row className={"mb-4"}>
                         <Col>
                             <Typography><b>Nome:</b> {cliente.nome}</Typography>
-                            <Typography><b>Data Nascimento:</b> {cliente.data_nascimento}</Typography>
+                            <Typography><b>Data Nascimento:</b> {new Date('1994-12-25').toLocaleDateString()}</Typography>
                             <Typography><b>Razão Social:</b> {cliente.razao_social}</Typography>
                             <Typography><b>RG:</b> {cliente.rg}</Typography>
                             <Typography><b>CPF:</b> {cliente.cpf}</Typography>

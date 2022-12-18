@@ -19,7 +19,7 @@ class AdminCardsServices
 {
     public function pedidos()
     {
-        $pedidosAll = (new Pedidos())->newQuery()->get();
+        $pedidosAll = (new Pedidos())->newQuery()->orderByDesc('situacao')->get();
 
         $novoStatus = (new NovoStatusPedido())->getStatus();
         $conferenciaStatus = (new ConferenciaStatusPedido())->getStatus();

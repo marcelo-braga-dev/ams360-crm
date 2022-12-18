@@ -34,8 +34,9 @@ export default function Dashboard({auth, errors, pedidos, clientes}) {
                                     <Th color="bg-yellow-600">Aguardando Nota/Boleto</Th>
                                     <Th color="bg-orange-600">Aguadando Pagamento</Th>
                                     <Th color="bg-purple-700">Aguardando Faturamento</Th>
-                                    <Th color="bg-black">Faturado</Th>
+                                    <Th color="bg-pink-700">Faturado</Th>
                                     <Th color="bg-gray-700">Entregue</Th>
+                                    <Th color="bg-black">Cancelados</Th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -90,7 +91,7 @@ export default function Dashboard({auth, errors, pedidos, clientes}) {
                                             }
                                         )}
                                     </Td>
-                                    <Td color="bg-black">
+                                    <Td color="bg-pink-500">
                                         {pedidos.faturado.map((dados) => {
                                                 return (
                                                     <AguardandoFaturamentoCard key={dados.id} dados={dados}>
@@ -101,6 +102,14 @@ export default function Dashboard({auth, errors, pedidos, clientes}) {
                                     </Td>
                                     <Td color="bg-gray-400">
                                         {pedidos.entregue.map((dados) => {
+                                                return (
+                                                    <EntregueCard key={dados.id} dados={dados}></EntregueCard>
+                                                )
+                                            }
+                                        )}
+                                    </Td>
+                                    <Td color="bg-black">
+                                        {pedidos.cancelado.map((dados) => {
                                                 return (
                                                     <EntregueCard key={dados.id} dados={dados}></EntregueCard>
                                                 )

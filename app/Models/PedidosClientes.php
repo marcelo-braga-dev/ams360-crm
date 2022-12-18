@@ -19,22 +19,24 @@ class PedidosClientes extends Model
         'email',
         'cpf',
         'rg',
-        'cnpj'
+        'cnpj',
+        'data_nascimento',
     ];
 
-    public function create($id, $request)
+    public function create($id, $dados)
     {
         $this->newQuery()
             ->create([
                 'pedidos_id' => $id,
-                'nome' => $request->nome,
-                'razao_social' => $request->razao_social,
-                'endereco' => $request->endereco,
-                'telefone' => $request->telefone,
-                'email' => $request->email,
-                'cpf' => $request->cpf,
-                'rg' => $request->rg,
-                'cnpj' => $request->cnpj
+                'nome' => $dados->nome,
+                'razao_social' => $dados->razao_social,
+                'endereco' => $dados->endereco,
+                'telefone' => $dados->telefone,
+                'email' => $dados->email,
+                'cpf' => $dados->cpf,
+                'rg' => $dados->rg,
+                'cnpj' => $dados->cnpj,
+                'data_nascimento' => $dados->nascimento,
             ]);
     }
 
@@ -43,5 +45,22 @@ class PedidosClientes extends Model
         return $this->newQuery()
             ->where('pedidos_id', $id)
             ->first();
+    }
+
+    public function updateDados(int $id, $dados)
+    {
+        $this->newQuery()
+            ->where('pedidos_id', $id)
+            ->update([
+                'nome' => $dados->nome,
+                'razao_social' => $dados->razao_social,
+                'endereco' => $dados->endereco,
+                'telefone' => $dados->telefone,
+                'email' => $dados->email,
+                'cpf' => $dados->cpf,
+                'rg' => $dados->rg,
+                'cnpj' => $dados->cnpj,
+                'data_nascimento' => $dados->nascimento,
+            ]);
     }
 }

@@ -27,6 +27,7 @@ class PedidosServices
             $this->clientes[$cliente->pedidos_id]['nome'] = $cliente->nome ?? $cliente->razao_social;
             $this->clientes[$cliente->pedidos_id]['telefone'] = $cliente->telefone;
             $this->clientes[$cliente->pedidos_id]['email'] = $cliente->email;
+            $this->clientes[$cliente->pedidos_id]['nascimento'] = date('d/m/Y', strtotime($cliente->data_nascimento));
         }
     }
 
@@ -48,6 +49,7 @@ class PedidosServices
             'situacao' => $dados->situacao,
             'email' => $this->clientes[$dados->id]['email'],
             'telefone' => $this->clientes[$dados->id]['telefone'],
+            'nascimento' => $this->clientes[$dados->id]['nascimento']
         ];
     }
 

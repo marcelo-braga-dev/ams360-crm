@@ -150,7 +150,7 @@ export default function OrcamentoLine1({dados}) {
                 <Col md="3" className="mt-1">
                     {dados.situacao === 0 && <ArrowCircleUpIcon onClick={handleOpenModal} style={{cursor: 'pointer'}}
                                                                 fontSize={"large"}></ArrowCircleUpIcon>}
-                    {dados.situacao === 3 && <Button href={"/"}
+                    {dados.situacao === 3 && <Button href={route('consultor.novo.edit', dados.id)}
                                                      color={"danger"} size={"sm"}>Revisar</Button>}
                 </Col>
             </Row>
