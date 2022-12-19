@@ -42,4 +42,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getNomes(): array
+    {
+        $items = (new User())->newQuery()->get(['id', 'name']);
+
+        $dados = [];
+        foreach ($items as $dado) {
+            $dados[$dado->id] = $dado->name;
+        }
+
+        return $dados;
+    }
 }

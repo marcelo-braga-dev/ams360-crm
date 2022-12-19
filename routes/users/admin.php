@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Chamados\ChamadosController;
+use App\Http\Controllers\Admin\Chamados\RespostasController;
 use App\Http\Controllers\Admin\Consultor\ConsultoresController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoFaturamentoController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoNotaController;
@@ -36,3 +37,14 @@ Route::middleware(['auth', 'auth.admins'])
 
         Route::resource('chamados', ChamadosController::class);
     });
+
+// Chamado Status
+Route::middleware(['auth', 'auth.admins'])
+    ->name('admin.chamado.')
+    ->prefix('admin/chamado')
+    ->group(function () {
+        Route::resource('responder', RespostasController::class);
+    });
+
+
+

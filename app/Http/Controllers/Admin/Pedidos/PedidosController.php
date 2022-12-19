@@ -24,7 +24,7 @@ class PedidosController extends Controller
     {
         $dados = (new Pedidos())->newQuery()->find($id);
 
-        $cliente = (new PedidosClientes())->dados($id);
+        $cliente = (new PedidosClientes())->getCliente($id);
         $pedido = (new PedidosServices())->pedido($dados);
         $img = (new PedidosImagens())->imagens($id);
         $historico = (new PedidosHistoricos())->historico($id);

@@ -20,7 +20,7 @@ class LancadoController extends Controller
     {
         $dados = (new Pedidos())->newQuery()->findOrFail($id);
 
-        $cliente = (new PedidosClientes())->dados($id);
+        $cliente = (new PedidosClientes())->getCliente($id);
         $pedido = (new PedidosServices())->pedido($dados);
         $img = (new PedidosImagens())->imagens($id);
 

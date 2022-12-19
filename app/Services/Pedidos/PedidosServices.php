@@ -10,25 +10,13 @@ use DateTime;
 
 class PedidosServices
 {
-    public $usuarios = [];
-    public $clientes = [];
+    public array $usuarios = [];
+    public array $clientes = [];
 
     public function __construct()
     {
-        $usuariosAll = (new User())->newQuery()->get(['id', 'name']);
-        $clientesAll = (new PedidosClientes())->newQuery()->get();
-
-
-        foreach ($usuariosAll as $dados) {
-            $this->usuarios[$dados->id] = $dados->name;
-        }
-
-        foreach ($clientesAll as $cliente) {
-            $this->clientes[$cliente->pedidos_id]['nome'] = $cliente->nome ?? $cliente->razao_social;
-            $this->clientes[$cliente->pedidos_id]['telefone'] = $cliente->telefone;
-            $this->clientes[$cliente->pedidos_id]['email'] = $cliente->email;
-            $this->clientes[$cliente->pedidos_id]['nascimento'] = date('d/m/Y', strtotime($cliente->data_nascimento));
-        }
+        $this->clientes = (new PedidosClientes())->dados();
+        $this->usuarios = (new User())->getNomes();
     }
 
     public function pedido($dados): array

@@ -1,11 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Layout from '@/Layouts/Admin/Layout';
 import {Table, Td, Th} from "@/Components/Kanban/styles";
+
+// CARDS
 import NovoCard from "./Cards/NovoCard";
+import AnaliseCard from "./Cards/AnaliseCard";
+import FinalizadosCard from "./Cards/FinalizadosCard";
+import RespondidosCard from "./Cards/RespondidosCard";
+// CARDS - fim
 
 import DoubleScrollbar from 'react-double-scrollbar/dist/DoubleScrollbar';
 
-import {Button, Container} from "reactstrap";
+import {Container} from "reactstrap";
 
 export default function Pedidos({chamados}) {
 
@@ -15,24 +21,39 @@ export default function Pedidos({chamados}) {
     ]
 
     return (
-        <Layout titlePage="Pedidos" subMenu={submenu}>
+        <Layout titlePage="SAC" subMenu={submenu}>
             <Container fluid>
                 <DoubleScrollbar>
-                    <Table className={"mt-2"}>
+                    <Table className={"my-2"}>
                         <thead>
                         <tr className={"text-center text-white"}>
-                            <Th color="bg-blue-700">Para Coferência</Th>
+                            <Th color="bg-green-700">Em Aberto</Th>
+                            {/*<Th color="bg-blue-700">Em Análise</Th>*/}
+                            <Th color="bg-orange-700">Respondidos</Th>
+                            <Th color="bg-black">Finalizados</Th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr className="align-top">
-                            <Td color="bg-blue-400">
-                                {/*{pedidos.conferencia.map((dados) => {*/}
-                                {/*        return (*/}
-                                {/*            <Conferencia key={dados.id} dados={dados}></Conferencia>*/}
-                                {/*        )*/}
-                                {/*    }*/}
-                                {/*)}*/}
+                            <Td color="bg-green-400">
+                                {chamados.novo.map((dados) => {
+                                    return <NovoCard key={dados.id} dados={dados}></NovoCard>
+                                })}
+                            </Td>
+                            {/*<Td color="bg-blue-400">*/}
+                            {/*    {chamados.analise.map((dados) => {*/}
+                            {/*        return <AnaliseCard key={dados.id} dados={dados}></AnaliseCard>*/}
+                            {/*    })}*/}
+                            {/*</Td>*/}
+                            <Td color="bg-orange-400">
+                                {chamados.respondido.map((dados) => {
+                                    return <RespondidosCard key={dados.id} dados={dados}></RespondidosCard>
+                                })}
+                            </Td>
+                            <Td color="bg-black">
+                                {chamados.finalizado.map((dados) => {
+                                    return <FinalizadosCard key={dados.id} dados={dados}></FinalizadosCard>
+                                })}
                             </Td>
                         </tr>
                         </tbody>

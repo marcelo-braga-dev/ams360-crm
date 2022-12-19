@@ -59,8 +59,7 @@ export default function OrcamentoLine1({dados}) {
                             aria-controls={open ? 'long-menu' : undefined}
                             aria-expanded={open ? 'true' : undefined}
                             aria-haspopup="true"
-                            onClick={handleClick}
-                        >
+                            onClick={handleClick}>
                             <MoreVertIcon/>
                         </IconButton>
                         <Menu
@@ -69,13 +68,17 @@ export default function OrcamentoLine1({dados}) {
                             anchorEl={anchorEl}
                             open={open}
                             onClose={handleClose}
-                            PaperProps={{style: {maxHeight: 48 * 4.5, width: '20ch'},}}
-                        >
+                            PaperProps={{style: {maxHeight: 48 * 4.5, width: '20ch'},}}>
                             <Link href={route('consultor.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Ver Informações
                                 </MenuItem>
                             </Link>
+                            <Link href={route('consultor.chamado.novo.create', {'id' : dados.id})} underline="none" color="inherit">
+                            <MenuItem key={dados.id} onClick={handleClose}>
+                                Abrir SAQ
+                            </MenuItem>
+                        </Link>
                         </Menu>
                     </div>
                 }

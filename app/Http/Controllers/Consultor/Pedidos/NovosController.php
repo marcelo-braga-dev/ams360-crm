@@ -15,7 +15,7 @@ class NovosController extends Controller
     public function edit($id)
     {
         $pedido = (new Pedidos())->newQuery()->findOrFail($id);
-        $cliente = (new PedidosClientes())->dados($pedido->id);
+        $cliente = (new PedidosClientes())->getCliente($pedido->id);
         $img = (new PedidosImagens())->imagens($pedido->id);
 
         return Inertia::render('Consultor/Pedidos/Novo/Edit',

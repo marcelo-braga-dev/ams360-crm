@@ -19,7 +19,7 @@ class ConferenciaController extends Controller
     {
         $pedidoDados = (new Pedidos)->newQuery()->findOrFail($id);
         $pedido = (new PedidosServices())->pedido($pedidoDados);
-        $cliente = (new PedidosClientes())->dados($pedidoDados->id);
+        $cliente = (new PedidosClientes())->getCliente($pedidoDados->id);
         $img = (new PedidosImagens())->imagens($pedidoDados->id);
 
         return Inertia::render('Admin/Pedidos/Conferencia/Show',

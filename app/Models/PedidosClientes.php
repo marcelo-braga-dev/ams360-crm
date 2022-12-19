@@ -40,11 +40,26 @@ class PedidosClientes extends Model
             ]);
     }
 
-    public function dados(int $id)
+    public function getCliente(int $id)
     {
         return $this->newQuery()
             ->where('pedidos_id', $id)
             ->first();
+    }
+
+    public function dados(): array
+    {
+        $items = $this->newQuery()->get();
+
+        $dados = [];
+        foreach ($items as $cliente) {
+            $dados[$cliente->pedidos_id]['nome'] = $cliente->nome ?? $cliente->razao_social;
+            $dados[$cliente->pedidos_id]['telefone'] = $cliente->telefone;
+            $dados[$cliente->pedidos_id]['email'] = $cliente->email;
+            $dados[$cliente->pedidos_id]['nascimento'] = date('d/m/Y', strtotime($cliente->data_nascimento));
+        }
+
+        return $dados;
     }
 
     public function updateDados(int $id, $dados)
@@ -62,5 +77,11 @@ class PedidosClientes extends Model
                 'cnpj' => $dados->cnpj,
                 'data_nascimento' => $dados->nascimento,
             ]);
+    }
+
+    public function getNomeCliente($id)
+    {
+        $cliente = $this->newQuery()->where('pedidos_id', $id)->first();
+        return $cliente->nome ?? $cliente->razao_social;
     }
 }

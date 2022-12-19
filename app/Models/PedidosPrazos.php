@@ -27,92 +27,106 @@ class PedidosPrazos extends Model
     public function getNovo()
     {
         return $this->newQuery()
-            ->where('prazo', 'novo')->first('valor')->valor;
+            ->where('prazo', 'novo')->first('valor')->valor ?? 0;
     }
 
     public function getConferencia()
     {
         return $this->newQuery()
-            ->where('prazo', 'conferencia')->first('valor')->valor;
+            ->where('prazo', 'conferencia')->first('valor')->valor ?? 0;
     }
 
     public function getLancamento()
     {
         return $this->newQuery()
-            ->where('prazo', 'lancamento')->first('valor')->valor;
+            ->where('prazo', 'lancamento')->first('valor')->valor ?? 0;
     }
 
     public function getBoleto()
     {
         return $this->newQuery()
-            ->where('prazo', 'boleto')->first('valor')->valor;
+            ->where('prazo', 'boleto')->first('valor')->valor ?? 0;
     }
 
     public function getPagamento()
     {
         return $this->newQuery()
-            ->where('prazo', 'pagamento')->first('valor')->valor;
+            ->where('prazo', 'pagamento')->first('valor')->valor ?? 0;
     }
 
     public function getFaturando()
     {
         return $this->newQuery()
-            ->where('prazo', 'faturando')->first('valor')->valor;
+            ->where('prazo', 'faturando')->first('valor')->valor ?? 0;
     }
 
     public function getFaturado()
     {
         return $this->newQuery()
-            ->where('prazo', 'faturado')->first('valor')->valor;
+            ->where('prazo', 'faturado')->first('valor')->valor ?? 0;
     }
 
 
     public function setNovo(int $valor)
     {
         $this->newQuery()
-            ->where('prazo', 'novo')
-            ->update(['valor' => $valor]);
+            ->updateOrCreate(
+                ['prazo' => 'novo'],
+                ['valor' => $valor]
+            );
     }
 
     public function setConferencia(int $valor)
     {
         $this->newQuery()
-            ->where('prazo', 'conferencia')
-            ->update(['valor' => $valor]);
+            ->updateOrCreate(
+                ['prazo' => 'conferencia'],
+                ['valor' => $valor]
+            );
     }
 
     public function setLancamento(int $valor)
     {
         $this->newQuery()
-            ->where('prazo', 'lancamento')
-            ->update(['valor' => $valor]);
+            ->updateOrCreate(
+                ['prazo' => 'lancamento'],
+                ['valor' => $valor]
+            );
     }
 
     public function setBoleto(int $valor)
     {
         $this->newQuery()
-            ->where('prazo', 'boleto')
-            ->update(['valor' => $valor]);
+            ->updateOrCreate(
+                ['prazo' => 'boleto'],
+                ['valor' => $valor]
+            );
     }
 
     public function setPagamento(int $valor)
     {
         $this->newQuery()
-            ->where('prazo', 'pagamento')
-            ->update(['valor' => $valor]);
+            ->updateOrCreate(
+                ['prazo' => 'pagamento'],
+                ['valor' => $valor]
+            );
     }
 
     public function setFaturando(int $valor)
     {
         $this->newQuery()
-            ->where('prazo', 'faturando')
-            ->update(['valor' => $valor]);
+            ->updateOrCreate(
+                ['prazo' => 'faturando'],
+                ['valor' => $valor]
+            );
     }
 
     public function setFaturado(int $valor)
     {
         $this->newQuery()
-            ->where('prazo', 'faturado')
-            ->update(['valor' => $valor]);
+            ->updateOrCreate(
+                ['prazo' => 'faturado'],
+                ['valor' => $valor]
+            );
     }
 }

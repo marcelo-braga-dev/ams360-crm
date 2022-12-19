@@ -24,7 +24,7 @@ export default function Layout({button, url, textButton, children, titlePage}) {
                                     {titlePage}
                                 </span>
                             </Grid>
-                            {button && (
+                            {url && (
                                 <Grid>
                                     <Button color="warning" href={url}>
                                         {textButton}

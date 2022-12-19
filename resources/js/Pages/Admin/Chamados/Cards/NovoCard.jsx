@@ -52,7 +52,7 @@ export default function ConferenciaCard({dados}) {
     };
 
     return (
-        <Card sx={{ margin: 1}}>
+        <Card sx={{margin: 1}} className="mb-3">
             <CardHeader
                 action={
                     <div>
@@ -72,26 +72,22 @@ export default function ConferenciaCard({dados}) {
                             anchorEl={anchorEl}
                             open={open}
                             onClose={handleClose}
-                            PaperProps={{style: {maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'},}}
-                        >
-                            <Link href={route('admin.pedidos.show', dados.id)} underline="none" color="inherit">
+                            PaperProps={{style: {maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'},}}>
+                            <Link href={route('admin.chamados.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Ver Informações
                                 </MenuItem>
                             </Link>
-                            <Link href={route('admin.cancelado.show', dados.id)} underline="none" color="inherit">
-                                <MenuItem key={dados.id} onClick={handleClose}>
-                                    Cancelar Pedido
-                                </MenuItem>
-                            </Link>
+                            {/*<Link href={route('admin.cancelado.show', dados.id)} underline="none" color="inherit">*/}
+                            {/*    <MenuItem key={dados.id} onClick={handleClose}>*/}
+                            {/*        Cancelar Pedido*/}
+                            {/*    </MenuItem>*/}
+                            {/*</Link>*/}
                         </Menu>
                     </div>
                 }
                 title={
                     <>
-                        <LegendaNome>Consultor</LegendaNome>
-                        <Nome>{dados.nome}</Nome>
-                        <Divider></Divider>
                         <LegendaNome>Cliente</LegendaNome>
                         <Nome>{dados.cliente}</Nome>
                         <Divider className={"mb-3"}></Divider>
@@ -101,27 +97,24 @@ export default function ConferenciaCard({dados}) {
                     <Col md="12">
                         <Typography variant="caption" component={"p"}>Data: {dados.data}</Typography>
                         <Typography variant="caption" component={"p"}
-                                    className={dados.prazo_atrasado ? "" : "text-red-600"}>Prazo: {dados.prazo} ({dados.prazoDias} dias)</Typography>
+                                    className={dados.prazo_atrasado ? "" : "text-red-600"}>Prazo: {dados.prazo} ({dados.prazo_dias} dias)</Typography>
                     </Col>
                 </Row>}
             />
             {/*Conteudo Card*/}
             <Row className={"mx-0"}>
                 <Col md="9">
-                    <Typography variant="subtitle2" color="text.secondary">
-                        Preço: R$ {dados.preco} <br/>
-                        Fornecedor: {dados.fornecedor}
+                    <Typography variant="caption" component="p" color="text.secondary">
+                        Título: {dados.titulo}
                     </Typography>
-                    <Typography variant="subtitle2" color="text.secondary">
-                        {dados.obs}
+                    <Typography variant="subtitle2" component="p" color="text.secondary">
+                        {dados.msg}
                     </Typography>
-
                 </Col>
-                {/*Abre Modal*/}
+                {/*SHOW*/}
                 <Col md="3" className="mt-1">
-                    <Link href={route('admin.conferencia.show', dados.id)}>
-                        <ArrowCircleUpIcon style={{cursor: 'pointer'}}
-                                           fontSize={"large"}></ArrowCircleUpIcon>
+                    <Link href={route('admin.chamado.responder.show', dados.id)}>
+                        <ArrowCircleUpIcon style={{cursor: 'pointer'}} fontSize={"large"}/>
                     </Link>
                 </Col>
             </Row>
