@@ -80,6 +80,12 @@ export default function AguardandoPagamentoCard({dados}) {
                                     Ver Informações
                                 </MenuItem>
                             </Link>
+                            <Link href={route('admin.chamados.novo.create', {'id': dados.id})} underline="none"
+                                  color="inherit">
+                                <MenuItem key={dados.id} onClick={handleClose}>
+                                    Abrir SAC
+                                </MenuItem>
+                            </Link>
                             <Link href={route('admin.cancelado.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Cancelar Pedido

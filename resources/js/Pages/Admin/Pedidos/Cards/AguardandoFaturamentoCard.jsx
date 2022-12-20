@@ -14,7 +14,7 @@ import {
     styled, Divider
 } from '@mui/material';
 
-import {Row, Col} from 'reactstrap';
+import {Row, Col, Button} from 'reactstrap';
 import {LegendaNome, Nome} from './styles'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -53,7 +53,7 @@ export default function AguardandoFaturamentoCard({dados}) {
     };
 
     return (
-        <Card sx={{ margin: 1}}>
+        <Card sx={{margin: 1}}>
             <CardHeader
                 action={
                     <div>
@@ -80,6 +80,12 @@ export default function AguardandoFaturamentoCard({dados}) {
                                     Ver Informações
                                 </MenuItem>
                             </Link>
+                            <Link href={route('admin.chamados.novo.create', {'id': dados.id})} underline="none"
+                                  color="inherit">
+                                <MenuItem key={dados.id} onClick={handleClose}>
+                                    Abrir SAC
+                                </MenuItem>
+                            </Link>
                             <Link href={route('admin.cancelado.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Cancelar Pedido
@@ -89,26 +95,42 @@ export default function AguardandoFaturamentoCard({dados}) {
                     </div>
                 }
                 title={
-                <>
-                    <LegendaNome>Consultor</LegendaNome>
-                    <Nome>{dados.nome}</Nome>
-                    <Divider></Divider>
-                    <LegendaNome>Cliente</LegendaNome>
-                    <Nome>{dados.cliente}</Nome>
-                    <Divider className={"mb-3"}></Divider>
-                </>
+                    <>
+                        <LegendaNome>Consultor</LegendaNome>
+                        <Nome>{dados.nome}</Nome>
+                        <Divider></Divider>
+                        <LegendaNome>Cliente</LegendaNome>
+                        <Nome>{dados.cliente}</Nome>
+                        <Divider className={"mb-3"}></Divider>
+                    </>
                 }
-                subheader={<Row>
-                    <Col md="12">
+                subheader={<Row className="justify-content-between">
+                    <Col className="col-auto">
                         <Typography variant="caption" component={"p"}>Data: {dados.data}</Typography>
                         <Typography variant="caption" component={"p"}
-                                    className={dados.prazo_atrasado ? "" : "text-red-600"}>Prazo: {dados.prazo} ({dados.prazoDias} dias)</Typography>
+                                    className={dados.prazo_atrasado ? "" : "text-red-600"}>
+                            Prazo: {dados.prazo} ({dados.prazoDias} dias)
+                        </Typography>
+                    </Col>
+                    {/*Abre Modal*/}
+                    <Col className="col-aut o text-right">
+                        <Link href={route('admin.aguardando-faturamento.show', dados.id)}>
+                            {dados.situacao === 0 &&
+                                <Button size="sm" color="danger">
+                                    <i className="fas fa-file-pdf mr-1"></i>
+                                    Boleto/Nota
+                                </Button>
+                            }
+                            {dados.situacao === 1 &&
+                                <ArrowCircleUpIcon style={{cursor: 'pointer'}} fontSize={"large"}/>
+                            }
+                        </Link>
                     </Col>
                 </Row>}
             />
             {/*Conteudo Card*/}
-            <Row className={"mx-0"}>
-                <Col md="9">
+            <Row className="mx-0">
+                <Col>
                     <Typography variant="subtitle2" color="text.secondary">
                         Preço: R$ {dados.preco} <br/>
                         Fornecedor: {dados.fornecedor}
@@ -116,14 +138,6 @@ export default function AguardandoFaturamentoCard({dados}) {
                     <Typography variant="subtitle2" color="text.secondary">
                         {dados.obs}
                     </Typography>
-
-                </Col>
-                {/*Abre Modal*/}
-                <Col md="3" className="mt-1">
-                    <Link href={route('admin.aguardando-faturamento.show', dados.id)}>
-                        <ArrowCircleUpIcon style={{cursor: 'pointer'}}
-                                           fontSize={"large"}></ArrowCircleUpIcon>
-                    </Link>
                 </Col>
             </Row>
 

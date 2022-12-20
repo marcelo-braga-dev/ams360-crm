@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin\Chamados;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pedidos;
 use App\Models\PedidosChamados;
 use App\Models\PedidosChamadosHistoricos;
 use App\Services\Chamados\ChamadosService;
+use App\Services\Pedidos\PedidosServices;
 use App\src\Chamados\Status\AnaliseChamadosStatus;
 use App\src\Chamados\Status\FinalizadosChamadoStatus;
 use App\src\Chamados\Status\NovoChamadoStatus;
@@ -57,5 +59,21 @@ class ChamadosController extends Controller
 
         return Inertia::render('Admin/Chamados/Show',
             compact('chamado', 'mensagens'));
+    }
+
+    public function create(Request $request)
+    {
+        $pedidoDados = (new Pedidos())->newQuery()->findOrFail($request->id);
+        $pedido = (new PedidosServices())->pedido($pedidoDados);
+
+        return Inertia::render('Admin/Chamados/Novo/Create', compact('pedido'));
+    }
+
+    public function store(Request $request)
+    {
+        (new NovoChamadoStatus())->create($request->id, $request->titulo, $request->mensagem);
+
+        modalSucesso('Chamado criado com sucesso!');
+        return redirect()->route('admin.chamados.novo.index');
     }
 }

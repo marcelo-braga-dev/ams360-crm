@@ -22,7 +22,7 @@ class LancadoController extends Controller
 
         $cliente = (new PedidosClientes())->getCliente($id);
         $pedido = (new PedidosServices())->pedido($dados);
-        $img = (new PedidosImagens())->imagens($id);
+        $img = (new PedidosImagens())->getImagens($id);
 
         return Inertia::render('Admin/Pedidos/Lancado/Show',
             compact('pedido', 'cliente', 'img'));

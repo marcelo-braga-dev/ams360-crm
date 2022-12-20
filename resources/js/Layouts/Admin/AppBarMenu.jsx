@@ -16,15 +16,14 @@ import {useForm} from '@inertiajs/inertia-react'
 
 const pages = [
     {'title': 'Pedidos', 'url': route('admin.pedidos.index')},
-    {'title': 'Consultores', 'url': route('admin.consultores.index')},
+    {'title': 'Usuários', 'url': route('admin.usuarios.usuario.index')},
     {'title': 'SAC', 'url': route('admin.chamados.index')},
+    {'title': 'Forncecedores', 'url': route('admin.fornecedores.index')},
 ];
 
 const logo = "/storage/crm/imagens/logo_ams.png";
 
 const settings = []
-//     {'title': 'Perfil', 'url': route('consultor.clientes.index')}
-// ];
 
 function pageCurrent(url) {
     if (url === window.location.href) {

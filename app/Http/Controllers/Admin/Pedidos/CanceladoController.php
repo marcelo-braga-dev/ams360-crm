@@ -7,7 +7,7 @@ use App\Models\Pedidos;
 use App\src\Pedidos\Pedido;
 use App\src\Pedidos\Status\CanceladoStatus;
 use App\src\Pedidos\Status\LancadoStatus;
-use App\src\Pedidos\Status\NovoStatusPedido;
+use App\src\Pedidos\Status\RevisarStatusPedido;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

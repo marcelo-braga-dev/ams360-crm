@@ -9,6 +9,7 @@ import Layout from "@/Layouts/Admin/Layout";
 import {Button, Col, Container, Row, Table} from "reactstrap";
 import {TextField} from "@mui/material";
 import Alert from "@mui/material/Alert";
+import Typography from "@mui/material/Typography";
 
 export default function Register() {
     const { data, setData, post, processing, errors} = useForm({
@@ -16,22 +17,23 @@ export default function Register() {
         email: '',
         senha: '',
         senha_confirmar: '',
-    });console.log(errors);
+    });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('admin.consultores.store'));
+        post(route('admin.usuarios.consultores.store'));
     };
 
-    return  (<Layout titlePage="Consultores" button={true} url={route('admin.consultores.index')} textButton={'Voltar'}>
+    return  (<Layout titlePage="Cadastrar Consultor" button={true} url={route('admin.usuarios.usuario.index')} textButton={'Voltar'}>
 
         <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 rounded">
             {errors.nome && <Alert severity="error" className={"mb-3"}>{errors.nome}</Alert>}
             {errors.senha && <Alert severity="error" className={"mb-3"}>{errors.senha}</Alert>}
             {errors.email && <Alert severity="error" className={"mb-3"}>{errors.email}</Alert>}
             <form onSubmit={submit}>
-            <Row className={"mb-3 text-right"}>
+                <Typography component="h5">Cadastro de Consultor</Typography>
+                <Row className={"mb-3 mt-3 text-right"}>
                 <Col md={"6"}>
                     <TextField label="Nome" id="nome" value={data.nome} required
                                onChange={e => setData('nome', e.target.value)} fullWidth>
@@ -45,13 +47,13 @@ export default function Register() {
             </Row>
             <Row className={"mb-3 text-right"}>
                 <Col md={"6"}>
-                    <TextField label="Senha" id="senha" value={data.senha} required
+                    <TextField label="Senha" id="senha" type="password"  value={data.senha} required
                                onChange={e => setData('senha', e.target.value)} fullWidth>
                     </TextField>
                 </Col>
                 <Col md={"6"}>
-                    <TextField label="Confirmar Senha" id="senha_confirmar" value={data.senha_confirmar} required
-                               onChange={e => setData('senha_confirmar', e.target.value)} fullWidth>
+                    <TextField label="Confirmar Senha" id="senha_confirmar" type="password" value={data.senha_confirmar}
+                               onChange={e => setData('senha_confirmar', e.target.value)} required fullWidth>
                     </TextField>
                 </Col>
             </Row>

@@ -13,7 +13,7 @@ class ConfigController extends Controller
     {
         $cls = (new PedidosPrazos());
 
-        $prazos['novo'] = $cls->getNovo();
+        $prazos['novo'] = $cls->getRevisar();
         $prazos['conferencia'] = $cls->getConferencia();
         $prazos['lancado'] = $cls->getLancamento();
         $prazos['boleto'] = $cls->getBoleto();
@@ -27,7 +27,7 @@ class ConfigController extends Controller
     public function store(Request $request)
     {
         $prazos = (new PedidosPrazos());
-        $prazos->setNovo($request->novo);
+        $prazos->setRevisar($request->novo);
         $prazos->setConferencia($request->conferencia);
         $prazos->setLancamento($request->lancado);
         $prazos->setBoleto($request->boleto);

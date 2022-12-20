@@ -16,7 +16,7 @@ class NovosController extends Controller
     {
         $pedido = (new Pedidos())->newQuery()->findOrFail($id);
         $cliente = (new PedidosClientes())->getCliente($pedido->id);
-        $img = (new PedidosImagens())->imagens($pedido->id);
+        $img = (new PedidosImagens())->getImagens($pedido->id);
 
         return Inertia::render('Consultor/Pedidos/Novo/Edit',
             compact('pedido', 'cliente', 'img'));

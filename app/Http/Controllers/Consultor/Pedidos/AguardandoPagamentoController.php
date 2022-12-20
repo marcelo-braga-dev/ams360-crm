@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Consultor\Pedidos;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pedidos;
 use App\Models\PedidosImagens;
 use App\src\Pedidos\Pedido;
 use App\src\Pedidos\Status\AguardandoFaturamentoStatus;
-use App\src\Pedidos\Status\AguardandoPagamentoStatus;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,7 +14,12 @@ class AguardandoPagamentoController extends Controller
 {
     public function show($id)
     {
-        return Inertia::render('Consultor/Pedidos/AguardandoPagamento/Show', compact('id'));
+        (new Pedidos())->updateSituacao($id, 1);
+
+        $files = (new PedidosImagens())->getImagens($id);
+
+        return Inertia::render('Consultor/Pedidos/AguardandoPagamento/Show',
+            compact('id', 'files'));
     }
 
     public function update($id, Request $request)

@@ -9,7 +9,7 @@ use App\Models\PedidosImagens;
 use App\Services\Pedidos\PedidosServices;
 use App\src\Pedidos\Pedido;
 use App\src\Pedidos\Status\LancadoStatus;
-use App\src\Pedidos\Status\NovoStatusPedido;
+use App\src\Pedidos\Status\RevisarStatusPedido;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -20,7 +20,7 @@ class ConferenciaController extends Controller
         $pedidoDados = (new Pedidos)->newQuery()->findOrFail($id);
         $pedido = (new PedidosServices())->pedido($pedidoDados);
         $cliente = (new PedidosClientes())->getCliente($pedidoDados->id);
-        $img = (new PedidosImagens())->imagens($pedidoDados->id);
+        $img = (new PedidosImagens())->getImagens($pedidoDados->id);
 
         return Inertia::render('Admin/Pedidos/Conferencia/Show',
             compact('pedido', 'cliente', 'img', 'pedidoDados'));
@@ -29,7 +29,7 @@ class ConferenciaController extends Controller
     public function update($id, Request $request)
     {
         if ($request->reprovado) {
-            (new NovoStatusPedido())->reprovado($id, $request->reprovado);
+            (new RevisarStatusPedido())->reprovado($id, $request->reprovado);
         } else
         (new Pedido())->updateStatus($id, new LancadoStatus());
 

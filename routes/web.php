@@ -17,3 +17,4 @@ require __DIR__ . '/users/auth.php';
 require __DIR__ . '/users/index.php';
 require __DIR__ . '/users/admin.php';
 require __DIR__ . '/users/consultor.php';
+require __DIR__ . '/users/supervisor.php';

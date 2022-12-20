@@ -3,15 +3,11 @@ import Layout from "@/Layouts/Admin/Layout";
 
 import React, {useState} from 'react';
 import {useForm, usePage} from '@inertiajs/inertia-react';
-import {Container, Row, Col, Form} from 'reactstrap';
-
-import Button from "@mui/material/Button";
-import {FormControl, InputAdornment, InputLabel, OutlinedInput, TextField, Typography} from "@mui/material";
+import {Container, Row, Col, Form, Button} from 'reactstrap';
+import {Typography} from "@mui/material";
 
 
 export default function Create({auth, pedido}) {
-    const {errors} = usePage().props;
-
     const {data, setData, progress} = useForm({
         prazo : ''
     });
@@ -30,7 +26,7 @@ export default function Create({auth, pedido}) {
                 <Form onSubmit={submit}>
                     <Typography variant={"h6"}>Pedido n. {pedido.id}</Typography>
 
-                    <Button variant="contained" type='submit'>
+                    <Button variant="contained" type='submit' color="primary">
                         Atualizar Status
                     </Button>
                 </Form>

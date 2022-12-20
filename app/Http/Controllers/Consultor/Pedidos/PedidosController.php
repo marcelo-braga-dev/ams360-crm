@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Consultor\Pedidos;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PedidosRequest;
+use App\Models\Enderecos;
+use App\Models\Fornecedores;
 use App\Models\Pedidos;
 use App\Models\PedidosClientes;
 use App\Models\PedidosHistoricos;
@@ -11,7 +13,7 @@ use App\Models\PedidosImagens;
 use App\Services\Pedidos\Cards\AdminCardsServices;
 use App\Services\Pedidos\PedidosServices;
 use App\src\Pedidos\Status\ConferenciaStatusPedido;
-use App\src\Pedidos\Status\NovoStatusPedido;
+use App\src\Pedidos\Status\RevisarStatusPedido;
 use App\src\Pedidos\StatusPedidos;
 use DateTime;
 use Illuminate\Http\Request;
@@ -28,7 +30,9 @@ class PedidosController extends Controller
 
     public function create()
     {
-        return Inertia::render('Consultor/Pedidos/Create');
+        $fornecedores = (new Fornecedores())->newQuery()->get();
+
+        return Inertia::render('Consultor/Pedidos/Create', compact('fornecedores'));
     }
 
     public function show($id)
@@ -58,6 +62,7 @@ class PedidosController extends Controller
         $idPedido = (new Pedidos())->create($request);
         (new PedidosClientes())->create($idPedido, $request);
         (new PedidosImagens())->create($idPedido, $request);
+        (new Enderecos())->create($request);
 
         modalSucesso('Pedido cadastrado com sucesso!');
         return redirect()->route('consultor.pedidos.index');
@@ -67,12 +72,5 @@ class PedidosController extends Controller
     {
         (new ConferenciaStatusPedido())->update($id);
         return redirect()->route('consultor.pedidos.index');
-    }
-
-    private function getDiferenca(mixed $prazoData, int $prazoLimite): int
-    {
-        $entrada = new DateTime(now());
-        $saida = new DateTime(date('Y-m-d H:i:s', strtotime("+$prazoLimite days", strtotime($prazoData))));
-        return $saida->diff($entrada)->invert;
     }
 }

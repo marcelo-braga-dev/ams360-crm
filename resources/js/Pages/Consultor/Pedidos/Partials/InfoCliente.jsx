@@ -39,7 +39,7 @@ export default function InfoCliente({setData, data}) {
             {data.pessoa === 'Pessoa Física' && (<Col className={"mb-3"} lg={"4"}>
                 <InputMask maskChar=''
                            mask="99.999.999-*" value={data.rg} onChange={e => setData('rg', e.target.value)}>
-                    {() => <TextField label={'RG'}  required fullWidth/>}
+                    {() => <TextField label={'RG'} required fullWidth/>}
                 </InputMask>
             </Col>)}
             {data.pessoa === 'Pessoa Física' && (<Col className={"mb-3"} lg={"4"}>
@@ -59,7 +59,7 @@ export default function InfoCliente({setData, data}) {
             <Col className={"mb-3"} lg={"4"}>
                 <TextField label="Data Nascimento" id="nascimento" required
                            onBlur={e => setData('nascimento', e.target.value)} type={'date'}
-                           fullWidth InputLabelProps={{ shrink: true }}></TextField>
+                           fullWidth InputLabelProps={{shrink: true}}></TextField>
             </Col>
             <Col className={"mb-3"} lg={"4"}>
                 <InputMask maskChar=''
@@ -68,19 +68,43 @@ export default function InfoCliente({setData, data}) {
                     {() => <TextField label={'Telefone'} required fullWidth/>}
                 </InputMask>
             </Col>
-            <Col>
+            <Col className="mb-3">
                 <TextField label="Email" value={data.email} type="email"
                            onChange={e => setData('email', e.target.value)} fullWidth>
                 </TextField>
             </Col>
         </Row>
         <Row>
-            <Col>
-                <TextField label="Endereço" id="endereco" value={data.endereco}
-                           onChange={e => setData('endereco', e.target.value)}
-                           fullWidth required>
-                </TextField>
+            <Col className="mb-3 col-6 col-md-2">
+                <TextField label="Cep" fullWidth required
+                           onChange={e => setData('cep', e.target.value)}/>
+            </Col>
+            <Col className="mb-3 col-12 col-md-10">
+                <TextField label="Rua/Av." fullWidth required
+                           onChange={e => setData('rua', e.target.value)}/>
+            </Col>
+            <Col className="mb-3 col-6 col-md-2">
+                <TextField label="Número" fullWidth required
+                           onChange={e => setData('numero', e.target.value)}/>
+            </Col>
+            <Col className="mb-3 col-6 col-md-4">
+                <TextField label="Complemento" fullWidth
+                           onChange={e => setData('complemento', e.target.value)}/>
+            </Col>
+            <Col className="mb-3 col-12 col-md-6">
+                <TextField label="Bairro" fullWidth required
+                           onChange={e => setData('bairro', e.target.value)}/>
             </Col>
         </Row>
-    </Box>;
+        <Row>
+            <Col>
+                <TextField label="Cidade" fullWidth required
+                           onChange={e => setData('cidade', e.target.value)}/>
+            </Col>
+            <Col>
+                <TextField label="Estado" fullWidth required
+                           onChange={e => setData('estado', e.target.value)}/>
+            </Col>
+        </Row>
+    </Box>
 }

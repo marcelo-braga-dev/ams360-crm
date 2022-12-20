@@ -5,9 +5,9 @@ namespace App\src\Pedidos\Status;
 use App\Models\Pedidos;
 use App\Models\PedidosPrazos;
 
-class NovoStatusPedido implements PedidosStatus
+class RevisarStatusPedido implements PedidosStatus
 {
-    private string $status = 'novo';
+    private string $status = 'revisar';
 
     function getStatus(): string
     {
@@ -16,12 +16,12 @@ class NovoStatusPedido implements PedidosStatus
 
     function getPrazo(): int
     {
-        return (new PedidosPrazos())->getNovo();
+        return (new PedidosPrazos())->getRevisar();
     }
 
     function getNomeStatus(): string
     {
-        return 'Cadastrado';
+        return 'Revisar Informações';
     }
 
     public function reprovado(int $id, ?string $motivo)

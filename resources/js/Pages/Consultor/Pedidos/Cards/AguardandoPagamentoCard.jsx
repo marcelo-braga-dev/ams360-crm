@@ -14,16 +14,12 @@ import {
     styled
 } from '@mui/material';
 
-import {Row, Col, Form} from 'reactstrap';
+import {Row, Col, Form, Button} from 'reactstrap';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleRight';
 import PersonIcon from '@mui/icons-material/Person';
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 
 
 const ExpandMore = styled((props) => {
@@ -66,14 +62,8 @@ export default function OrcamentoLine1({dados}) {
         setAnchorEl(null);
     };
 
-    // Modal
-    const [openModal, setOpen] = React.useState(false);
-    const handleOpenModal = () => setOpen(true);
-    const handleCloseModal = () => setOpen(false);
-
     function handleSubmit(e) {
         e.preventDefault()
-        handleCloseModal()
         Inertia.put(route('consultor.pedidos.update', dados.id))
     }
 
@@ -88,8 +78,7 @@ export default function OrcamentoLine1({dados}) {
                             aria-controls={open ? 'long-menu' : undefined}
                             aria-expanded={open ? 'true' : undefined}
                             aria-haspopup="true"
-                            onClick={handleClick}
-                        >
+                            onClick={handleClick}>
                             <MoreVertIcon/>
                         </IconButton>
                         <Menu
@@ -98,8 +87,7 @@ export default function OrcamentoLine1({dados}) {
                             anchorEl={anchorEl}
                             open={open}
                             onClose={handleClose}
-                            PaperProps={{style: {maxHeight: 48 * 4.5, width: '20ch'},}}
-                        >
+                            PaperProps={{style: {maxHeight: 48 * 4.5, width: '20ch'},}}>
                             <Link href={route('consultor.pedidos.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Ver Informações
@@ -120,7 +108,7 @@ export default function OrcamentoLine1({dados}) {
             />
             {/*Conteudo Card*/}
             <Row className={"mx-0"}>
-                <Col md="9">
+                <Col>
                     <Typography variant="subtitle2" color="text.secondary">
                         Preço: R$ {dados.preco} <br/>
                         Fornecedor: {dados.fornecedor}
@@ -130,10 +118,17 @@ export default function OrcamentoLine1({dados}) {
                     </Typography>
                 </Col>
                 {/*Abre Modal*/}
-                <Col md="3" className="mt-1">
+                <Col className="mt-1 text-right">
                     <Link href={route('consultor.aguardando-pagamento.show', dados.id)}>
-                        <ArrowCircleUpIcon onClick={handleOpenModal} style={{cursor: 'pointer'}}
-                                           fontSize={"large"}></ArrowCircleUpIcon>
+                        {dados.situacao === 0 &&
+                            <Button size="sm" color="danger">
+                                <i className="fas fa-file-pdf mr-1"></i>
+                                Boleto/Nota
+                            </Button>
+                        }
+                        {dados.situacao === 1 &&
+                                <ArrowCircleUpIcon style={{cursor: 'pointer'}} fontSize={"large"}/>
+                        }
                     </Link>
                 </Col>
             </Row>

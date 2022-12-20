@@ -19,6 +19,8 @@ class Admins
         if (auth()->user()->tipo === (new \App\src\Usuarios\Admins())->getTipo()) {
             return $next($request);
         }
+
+        modalErro('Você não tem permissão de acesso!');
         return redirect()->route('home');
     }
 }

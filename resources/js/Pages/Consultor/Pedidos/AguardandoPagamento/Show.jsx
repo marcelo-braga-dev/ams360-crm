@@ -1,19 +1,15 @@
 import Layout from '@/Layouts/Consultor/Layout';
 import {Inertia} from '@inertiajs/inertia'
 
-import React, {useState} from 'react';
+import React from 'react';
 import {useForm, usePage} from '@inertiajs/inertia-react';
-import {Container, Row, Col, Form} from 'reactstrap';
-
-import Button from "@mui/material/Button";
+import {Container, Row, Col, Form, Button} from 'reactstrap';
 
 //step
-import {FormControl, InputAdornment, InputLabel, OutlinedInput, TextField, Typography} from "@mui/material";
+import {TextField, Typography} from "@mui/material";
+import ImagePdf from "@/Components/Inputs/ImagePdf";
 
-
-export default function Create({id}) {
-    const {errors} = usePage().props;
-
+export default function Create({id, files}) {
     const {data, setData, progress} = useForm({
         file_recibo: null
     });
@@ -26,12 +22,18 @@ export default function Create({id}) {
         })
     }
 
-    return (<Layout titlePage="Pedidos">
-
+    return (<Layout titlePage="Pedidos" url={route('consultor.pedidos.index')} textButton="Voltar">
             <Container fluid="lg" className="bg-white px-lg-6 py-lg-5">
+                <Row>
+                    <Col>
+                        <Typography variant={"body1"} component="p">Baixar Nota/Boleto</Typography>
+                        <ImagePdf url={files.url_boleto}/>
+                    </Col>
+                </Row>
+                <hr/>
                 <Form onSubmit={submit}>
-                    <Typography variant={"h6"}>Recibo do Pagamento</Typography>
-                    <Row className={"mt-4"}>
+                    <Typography variant={"body1"}>Recibo do Pagamento</Typography>
+                    <Row>
                         <Col className={"mb-3"} lg={"6"}>
                             <TextField
                                 fullWidth required type="file"
@@ -40,8 +42,8 @@ export default function Create({id}) {
                         </Col>
                     </Row>
 
-                    <Button variant="contained" type='submit'>
-                        Atualizar Status
+                    <Button variant="contained" type='submit' color="primary">
+                        Enviar para Faturamento
                     </Button>
                 </Form>
             </Container>

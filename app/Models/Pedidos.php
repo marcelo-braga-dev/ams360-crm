@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\src\Pedidos\Status\NovoStatusPedido;
+use App\src\Pedidos\Status\ConferenciaStatusPedido;
+use App\src\Pedidos\Status\RevisarStatusPedido;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +16,6 @@ use Illuminate\Database\Eloquent\Model;
  *  info_pedido
  *      informacoes de pagamento e instalacao
  */
-
 class Pedidos extends Model
 {
     use HasFactory;
@@ -25,6 +25,7 @@ class Pedidos extends Model
         'status',
         'status_data',
         'prazo',
+        'sac',
         'preco_venda',
         'preco_custo',
         'forma_pagamento',
@@ -36,13 +37,12 @@ class Pedidos extends Model
 
     function create($dados)
     {
-        $prazo = (new NovoStatusPedido())->getPrazo();
-        $id = auth()->id();
-        $status = (new NovoStatusPedido())->getStatus();
+        $prazo = (new ConferenciaStatusPedido())->getPrazo();
+        $status = (new ConferenciaStatusPedido())->getStatus();
 
         $pedido = $this->newQuery()
             ->create([
-                'users_id' => $id,
+                'users_id' => auth()->id(),
                 'status' => $status,
                 'status_data' => now(),
                 'prazo' => $prazo,
@@ -51,7 +51,9 @@ class Pedidos extends Model
                 'fornecedor' => $dados->fornecedor,
                 'info_pedido' => $dados->obs
             ]);
+
         (new PedidosHistoricos())->create($pedido->id, $status, $prazo, $dados->obs);
+
         return $pedido->id;
     }
 
@@ -83,11 +85,21 @@ class Pedidos extends Model
             ]);
     }
 
-    function cliente() {
+    function cliente()
+    {
         return $this->hasOne(PedidosClientes::class);
     }
 
-    function img() {
+    function img()
+    {
         return $this->hasOne(PedidosImagens::class);
+    }
+
+    public function updateSituacao($id, $code)
+    {
+        $this->newQuery()
+            ->find($id)->update([
+                'situacao' => $code
+            ]);
     }
 }

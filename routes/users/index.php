@@ -10,9 +10,12 @@ Route::get('/', function () {
             return Inertia::render('Admin/Home');
         case (new \App\src\Usuarios\Consultores())->getTipo() :
             return Inertia::render('Consultor/Home');
+        case (new \App\src\Usuarios\Supervisores())->getTipo() :
+            return Inertia::render('Supervisor/Home');
         default :
         {
             auth()->logout();
+            modalErro('Tipo de usuário não encontrado.');
             return redirect('/');
         }
     }

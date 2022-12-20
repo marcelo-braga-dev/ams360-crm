@@ -19,6 +19,8 @@ class Consultores
         if (auth()->user()->tipo === (new \App\src\Usuarios\Consultores())->getTipo()) {
             return $next($request);
         }
+
+        modalErro('Você não tem permissão de acesso!');
         return redirect()->route('home');
     }
 }

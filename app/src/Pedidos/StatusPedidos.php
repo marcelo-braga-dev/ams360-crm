@@ -10,13 +10,13 @@ use App\src\Pedidos\Status\ConferenciaStatusPedido;
 use App\src\Pedidos\Status\EntregueStatus;
 use App\src\Pedidos\Status\FaturadoStatus;
 use App\src\Pedidos\Status\LancadoStatus;
-use App\src\Pedidos\Status\NovoStatusPedido;
+use App\src\Pedidos\Status\RevisarStatusPedido;
 
 class StatusPedidos
 {
     public function getStatus(): array
     {
-        $novo = (new NovoStatusPedido());
+        $novo = (new RevisarStatusPedido());
         $conferencia = (new ConferenciaStatusPedido());
         $lancado = (new LancadoStatus());
         $nota = (new AguardandoNotaStatus());
@@ -42,6 +42,6 @@ class StatusPedidos
 
     public function getNomeStatus(string $status) : string
     {
-        return $this->getStatus()[$status];
+        return $this->getStatus()[$status] ?? '';
     }
 }

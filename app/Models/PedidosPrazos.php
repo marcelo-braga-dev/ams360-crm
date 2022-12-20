@@ -24,10 +24,10 @@ class PedidosPrazos extends Model
         'valor'
     ];
 
-    public function getNovo()
+    public function getRevisar()
     {
         return $this->newQuery()
-            ->where('prazo', 'novo')->first('valor')->valor ?? 0;
+            ->where('prazo', 'revisar')->first('valor')->valor ?? 0;
     }
 
     public function getConferencia()
@@ -67,11 +67,11 @@ class PedidosPrazos extends Model
     }
 
 
-    public function setNovo(int $valor)
+    public function setRevisar(int $valor)
     {
         $this->newQuery()
             ->updateOrCreate(
-                ['prazo' => 'novo'],
+                ['prazo' => 'revisar'],
                 ['valor' => $valor]
             );
     }

@@ -1,4 +1,4 @@
-import IntegradorLayout from '@/Layouts/Consultor/Layout';
+import Layout from '@/Layouts/Consultor/Layout';
 
 import React, {useState} from 'react';
 import {useForm, usePage} from '@inertiajs/inertia-react';
@@ -12,31 +12,11 @@ import AlertDanger from "./Partials/AlertDanger";
 import Box from '@mui/material/Box';
 import {Button} from "reactstrap";
 
-export default function Create({auth}) {
+export default function Create({fornecedores}) {
     const {errors} = usePage().props;
 
     const {data, setData, post, progress, processing} = useForm({
         pessoa: 'Pessoa Física',
-        nome: '',
-        razao_social: '',
-        nascimento: '',
-        rg: '',
-        cpf: '',
-        cnpj: '',
-        telefone: '',
-        email: '',
-        endereco: '',
-        file_rg: '',
-        file_cpf: '',
-        file_cnh: '',
-        file_cartao_cnpj: '',
-        file_comprovante_residencia: '',
-        preco: '',
-        fornecedor: '',
-        file_imagem_pedido: '',
-        file_orcamento: '',
-        obs: '',
-        forma_pagamento: ''
     });
 
     function submit(e) {
@@ -45,11 +25,8 @@ export default function Create({auth}) {
     }
 
     return (
-        <IntegradorLayout
-            auth={auth}
-            errors={errors}
+        <Layout
             titlePage="Cadastrar Pedido"
-            button={true}
             url={route('consultor.pedidos.index')} textButton={'Voltar'}>
 
             <Form onSubmit={submit}>
@@ -60,10 +37,10 @@ export default function Create({auth}) {
                     </Box>
                 </Container>
                 <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 mb-4">
-                        <Anexos setData={setData} data={data}></Anexos>
+                    <Anexos setData={setData} data={data}></Anexos>
                 </Container>
                 <Container fluid="lg" className="bg-white px-lg-6 py-lg-5">
-                        <Pedidos setData={setData} data={data}></Pedidos>
+                    <Pedidos fornecedores={fornecedores} setData={setData} data={data}></Pedidos>
                     <Row className="text-center mb-3">
                         <Col>
                             {progress && (
@@ -80,7 +57,7 @@ export default function Create({auth}) {
                     </Row>
                 </Container>
             </Form>
-        </IntegradorLayout>
+        </Layout>
     )
 }
 

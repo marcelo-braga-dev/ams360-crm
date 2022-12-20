@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\Chamados\ChamadosController;
 use App\Http\Controllers\Admin\Chamados\RespostasController;
-use App\Http\Controllers\Admin\Consultor\ConsultoresController;
+use App\Http\Controllers\Admin\Fornecedores\FornecedoresController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoFaturamentoController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoNotaController;
 use App\Http\Controllers\Admin\Pedidos\AguardandoPagamentoController;
@@ -13,6 +13,9 @@ use App\Http\Controllers\Admin\Pedidos\EntregueController;
 use App\Http\Controllers\Admin\Pedidos\FaturadoController;
 use App\Http\Controllers\Admin\Pedidos\LancadoController;
 use App\Http\Controllers\Admin\Pedidos\PedidosController;
+use App\Http\Controllers\Admin\Usuarios\Consultor\ConsultoresController;
+use App\Http\Controllers\Admin\Usuarios\Supervisor\SupervisoresController;
+use App\Http\Controllers\Admin\Usuarios\UsuariosController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'auth.admins'])
@@ -33,9 +36,17 @@ Route::middleware(['auth', 'auth.admins'])
         Route::get('historicos', [PedidosController::class, 'historico'])
             ->name('pedidos.historico.index');
 
-        Route::resource('consultores', ConsultoresController::class);
-
         Route::resource('chamados', ChamadosController::class);
+    });
+
+// Chamado Status
+Route::middleware(['auth', 'auth.admins'])
+    ->name('admin.usuarios.')
+    ->prefix('admin/usuarios')
+    ->group(function () {
+        Route::resource('usuario', UsuariosController::class);
+        Route::resource('consultores', ConsultoresController::class);
+        Route::resource('supervisores', SupervisoresController::class);
     });
 
 // Chamado Status
@@ -46,5 +57,18 @@ Route::middleware(['auth', 'auth.admins'])
         Route::resource('responder', RespostasController::class);
     });
 
+// Fornecedores
+Route::middleware(['auth', 'auth.admins'])
+    ->name('admin.')
+    ->prefix('admin')
+    ->group(function () {
+        Route::resource('fornecedores', FornecedoresController::class);
+    });
 
-
+// SAC
+Route::middleware(['auth', 'auth.admins'])
+    ->name('admin.chamados.')
+    ->prefix('admin')
+    ->group(function () {
+        Route::resource('novo', ChamadosController::class);
+    });

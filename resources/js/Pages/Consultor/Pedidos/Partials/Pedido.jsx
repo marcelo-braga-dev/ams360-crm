@@ -3,7 +3,7 @@ import {
     FormControl,
     FormLabel,
     InputAdornment,
-    InputLabel,
+    InputLabel, MenuItem,
     OutlinedInput,
     Radio,
     RadioGroup,
@@ -13,16 +13,26 @@ import Box from "@mui/material/Box";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextFieldMoney from "@/Components/Inputs/TextFieldMoney";
 
-export default function Pedido({setData, data}) {
+export default function Pedido({fornecedores, setData, data}) {
 
     return <Box>
-        <Row className={"my-4"}>
-            <Col className={"mb-3"} lg={"6"}>
+        <Row className="my-4">
+            <Col className="mb-3 col-md-4">
                 <TextFieldMoney label="Preço" value={data.preco} setData={setData} index="preco" required/>
             </Col>
-            <Col className={"mb-3 text-red-600 text-right"} lg={"6"}>
-                <TextField label="Fornecedor" fullWidth value={data.fornecedor} required
-                           onChange={e => setData('fornecedor', e.target.value)}></TextField></Col>
+            <Col className="mb-3 text-red-600">
+                <TextField label="Fornecedor" select fullWidth
+                           onChange={e => setData('fornecedor', e.target.value)}>
+                    {fornecedores.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                            {option.nome}
+                        </MenuItem>
+                    ))}
+                </TextField>
+
+                {/*<TextField label="Fornecedor" fullWidth value={data.fornecedor} required*/}
+                {/*           onChange={e => setData('fornecedor', e.target.value)}/>*/}
+            </Col>
         </Row>
         <Row className={"mb-3"}>
             <Col className={"mb-3"} lg={"6"}>
@@ -48,8 +58,8 @@ export default function Pedido({setData, data}) {
         <Row className={"mb-3"}>
             <Col className={"mb-3"} lg={"12"}>
                 <TextField
-                    label="Anotações" multiline
-                    rows={4} fullWidth id="obs" value={data.obs} onChange={e => setData('obs', e.target.value)}/>
+                    label="Anotações" multiline rows={4} fullWidth
+                    value={data.obs} onChange={e => setData('obs', e.target.value)}/>
             </Col>
         </Row>
     </Box>

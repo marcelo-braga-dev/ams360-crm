@@ -1,10 +1,23 @@
 import Layout from '@/Layouts/Admin/Layout';
 import {Button, Card, Col, Container, Row, Table} from "reactstrap";
 import Typography from "@mui/material/Typography";
+import {TextField} from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+
+const currencies = [
+    {
+        value: 'ativo',
+        label: 'Ativo',
+    },
+    {
+        value: 'bloqueado',
+        label: 'Bloqueado',
+    }
+];
 
 export default function Index({consultor, pedidos}) {
 
-    return (<Layout titlePage="Informações do Consultor" button={true} url={route('admin.consultores.index')}
+    return (<Layout titlePage="Informações do Consultor" button={true} url={route('admin.usuarios.usuario.index')}
                     textButton={'Voltar'}>
 
         <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 rounded">
@@ -12,6 +25,22 @@ export default function Index({consultor, pedidos}) {
                 <Col>
                     <Typography>Nome: {consultor.name}</Typography>
                     <Typography>Email: {consultor.email}</Typography>
+                </Col>
+                <Col>
+                    <TextField
+                        id="outlined-select-currency"
+                        select
+                        label="Status"
+                        defaultValue="ativo"
+                        helperText="Status de acesso do usuário"
+                    >
+                        {currencies.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <Button className="mx-3" color="primary">Atualizar</Button>
                 </Col>
             </Row>
         </Container>

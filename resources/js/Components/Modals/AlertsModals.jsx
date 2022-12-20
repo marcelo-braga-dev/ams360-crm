@@ -31,6 +31,7 @@ function modalErro(msg) {
     })
 }
 export default function ModalsAllerts() {
+
     const {flash} = usePage().props
     if (flash.sucesso) modalSucesso(flash.sucesso)
     if (flash.erro) modalErro(flash.erro)

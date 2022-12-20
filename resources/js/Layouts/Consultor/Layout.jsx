@@ -5,7 +5,7 @@ import {Button} from 'reactstrap';
 
 import ModalsAllerts from "@/Components/Modals/AlertsModals";
 
-export default function Layout({button, url, textButton, children, titlePage}) {
+export default function Layout({url, textButton, children, titlePage}) {
 
     return (
         <>

@@ -4,7 +4,8 @@ export default function ImagePdf({url}) {
 
     if (url && url.split('.').pop() === 'pdf') {
         return (
-            <Button className="mt-2" color="danger" size="sm" href={"/storage/" + url}>
+            <Button className="mt-2 mb-3" color="danger" size="sm" href={"/storage/" + url}
+             target="_blank">
                 <i className="fas fa-file-pdf"></i> Abrir PDF
             </Button>)
     }

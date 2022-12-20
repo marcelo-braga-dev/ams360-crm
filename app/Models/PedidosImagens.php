@@ -45,7 +45,7 @@ class PedidosImagens extends Model
             ]);
     }
 
-    public function imagens(int $id)
+    public function getImagens(int $id)
     {
         return $this->newQuery()
             ->where('pedidos_id', $id)->first();

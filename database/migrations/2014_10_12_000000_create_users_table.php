@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Usuarios\Status\AtivoUsuarios;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('status', 32)->default((new AtivoUsuarios())->getStatus());
             $table->string('tipo', 32);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

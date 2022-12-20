@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Consultor;
+namespace App\Http\Controllers\Admin\Usuarios\Consultor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pedidos;
@@ -18,19 +18,20 @@ class ConsultoresController extends Controller
         $tipo = (new Consultores())->getTipo();
         $consultores = (new User())->newQuery()->where('tipo', $tipo)->get();
 
-        return Inertia::render('Admin/Consultores/Index', compact('consultores'));
+        return Inertia::render('Admin/Usuarios/Consultores/Index', compact('consultores'));
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Consultores/Create');
+        return Inertia::render('Admin/Usuarios/Consultores/Create');
     }
 
     public function store(Request $request)
     {
         (new Usuarios())->cadastrar($request, new Consultores);
+
         modalSucesso('Cadastrado com sucesso!');
-        return redirect()->route('admin.consultores.index');
+        return redirect()->route('admin.usuarios.usuario.index');
     }
 
     public function show($id)
@@ -48,6 +49,6 @@ class ConsultoresController extends Controller
             ];
         });
 
-        return Inertia::render('Admin/Consultores/Show', compact('consultor', 'pedidos'));
+        return Inertia::render('Admin/Usuarios/Consultores/Show', compact('consultor', 'pedidos'));
     }
 }

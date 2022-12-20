@@ -149,11 +149,11 @@ export default function Edit({pedido, cliente, img}) {
                     <Row className={"mt-4"}>
                         {data.pessoa === 'Pessoa Física' && (
                             <Col className={"mb-3"} lg={"4"}>
-                                <ImagePdf url={data.file_rg}></ImagePdf>
+                                <ImagePdf url={data.file_rg}/>
                                 <FormControl fullWidth>
                                     <InputLabel>RG</InputLabel>
                                     <OutlinedInput
-                                        startAdornment={<InputAdornment position="start"></InputAdornment>}
+                                        startAdornment={<InputAdornment position="start"/>}
                                         label="Amount" type="file" id="file_rg"
                                         onChange={e => setData('file_rg', e.target.files[0])}
                                     />
@@ -166,7 +166,7 @@ export default function Edit({pedido, cliente, img}) {
                                 <FormControl fullWidth>
                                     <InputLabel>CPF</InputLabel>
                                     <OutlinedInput
-                                        startAdornment={<InputAdornment position="start"></InputAdornment>}
+                                        startAdornment={<InputAdornment position="start"/>}
                                         label="Amount" type="file" id="file_cpf"
                                         onChange={e => setData('file_cpf', e.target.files[0])}
                                     />
@@ -175,11 +175,11 @@ export default function Edit({pedido, cliente, img}) {
                         )}
                         {data.pessoa === 'Pessoa Física' && (
                             <Col className={"mb-3"} lg={"4"}>
-                                <ImagePdf url={data.file_cnh}></ImagePdf>
+                                <ImagePdf url={data.file_cnh}/>
                                 <FormControl fullWidth>
                                     <InputLabel>CNH</InputLabel>
                                     <OutlinedInput
-                                        startAdornment={<InputAdornment position="start"></InputAdornment>}
+                                        startAdornment={<InputAdornment position="start"/>}
                                         label="Amount" type="file" id="file_cnh"
                                         onChange={e => setData('file_cnh', e.target.files[0])}
                                     />
@@ -190,11 +190,11 @@ export default function Edit({pedido, cliente, img}) {
                     <Row className={"mb-3"}>
                         {data.pessoa === 'Jurídica' && (
                             <Col className={"mb-3"} lg={"6"}>
-                                <ImagePdf url={data.file_cartao_cnpj}></ImagePdf>
+                                <ImagePdf url={data.file_cartao_cnpj}/>
                                 <FormControl fullWidth>
                                     <InputLabel>Cartão CNPJ</InputLabel>
                                     <OutlinedInput
-                                        startAdornment={<InputAdornment position="start"></InputAdornment>}
+                                        startAdornment={<InputAdornment position="start"/>}
                                         label="Amount" type="file" id="file_cartao_cnpj"
                                         onChange={e => setData('file_cartao_cnpj', e.target.files[0])}
                                     />
@@ -203,16 +203,15 @@ export default function Edit({pedido, cliente, img}) {
                         )}
                         <Col className={"mb-3"} lg={"6"}>
                             <div>
-                                <ImagePdf url={data.file_comprovante_residencia}></ImagePdf>
+                                <ImagePdf url={data.file_comprovante_residencia}/>
                             </div>
 
                             <FormControl fullWidth>
                                 <InputLabel>Comprovante Residencia</InputLabel>
                                 <OutlinedInput
-                                    startAdornment={<InputAdornment position="start"></InputAdornment>}
+                                    startAdornment={<InputAdornment position="start"/>}
                                     label="Amount" type="file" id="file_comprovante_residencia"
-                                    onChange={e => setData('file_comprovante_residencia', e.target.files[0])}
-                                />
+                                    onChange={e => setData('file_comprovante_residencia', e.target.files[0])}/>
                             </FormControl>
                         </Col>
                     </Row>
@@ -224,12 +223,12 @@ export default function Edit({pedido, cliente, img}) {
                             <TextFieldMoney label="Preço" value={data.preco} setData={setData} index="preco"></TextFieldMoney>
                         </Col>
                         <Col className={"mb-3 text-red-600 text-right"} lg={"6"}>
-                            <TextField label="Fornecedor" fullWidth value={data.fornecedor} prefix={"x"}
+                            <TextField label="Fornecedor" fullWidth value={data.fornecedor}
                                        onChange={e => setData('fornecedor', e.target.value)}></TextField></Col>
                     </Row>
                     <Row className={"mb-3"}>
                         <Col className={"mb-3"} lg={"6"}>
-                            <ImagePdf url={data.file_orcamento}></ImagePdf>
+                            <ImagePdf url={data.file_orcamento}/>
                             <FormControl fullWidth>
                                 <InputLabel>Orçamento</InputLabel>
                                 <OutlinedInput
@@ -256,9 +255,9 @@ export default function Edit({pedido, cliente, img}) {
                     <Row className={"mb-3"}>
                         <Col className={"mb-3"} lg={"12"}>
                             <TextField
-                                label="Anotações" multiline
-                                rows={4} fullWidth id="obs" value={data.obs} onChange={e => setData('obs', e.target.value)}
-                            /></Col>
+                                label="Anotações" multiline rows={4} fullWidth
+                               id="obs" value={data.obs} onChange={e => setData('obs', e.target.value)}/>
+                        </Col>
                     </Row>
                     <Row className="text-center">
                         <Col>

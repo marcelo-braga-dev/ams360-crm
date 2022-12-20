@@ -74,11 +74,6 @@ export default function OrcamentoLine1({dados}) {
                                     Ver Informações
                                 </MenuItem>
                             </Link>
-                            <Link href={route('consultor.chamado.novo.create', {'id' : dados.id})} underline="none" color="inherit">
-                            <MenuItem key={dados.id} onClick={handleClose}>
-                                Abrir SAQ
-                            </MenuItem>
-                        </Link>
                         </Menu>
                     </div>
                 }

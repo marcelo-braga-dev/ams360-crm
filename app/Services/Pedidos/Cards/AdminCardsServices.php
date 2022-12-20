@@ -12,7 +12,7 @@ use App\src\Pedidos\Status\ConferenciaStatusPedido;
 use App\src\Pedidos\Status\EntregueStatus;
 use App\src\Pedidos\Status\FaturadoStatus;
 use App\src\Pedidos\Status\LancadoStatus;
-use App\src\Pedidos\Status\NovoStatusPedido;
+use App\src\Pedidos\Status\RevisarStatusPedido;
 use DateTime;
 
 class AdminCardsServices
@@ -21,7 +21,7 @@ class AdminCardsServices
     {
         $pedidosAll = (new Pedidos())->newQuery()->orderByDesc('situacao')->get();
 
-        $novoStatus = (new NovoStatusPedido())->getStatus();
+        $novoStatus = (new RevisarStatusPedido())->getStatus();
         $conferenciaStatus = (new ConferenciaStatusPedido())->getStatus();
         $lancadoStatus = (new LancadoStatus())->getStatus();
         $notaStatus = (new AguardandoNotaStatus())->getStatus();
