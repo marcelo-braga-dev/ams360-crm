@@ -1,20 +1,21 @@
 import IntegradorLayout from '@/Layouts/Consultor/Layout';
 
-import React, {useState} from 'react';
-import {Table, Th, Td} from "@/Components/Kanban/styles";
-import {Container, Row} from 'reactstrap';
-import RevisarCard from './Cards/RevisarCard';
-import Conferencia from './Cards/ConferenciaCard';
-import LancadoCard from "./Cards/LancadoCard";
-import AguardandoNotaCard from "./Cards/AguardandoNotaCard";
-import AguardandoPagamentoCard from "./Cards/AguardandoPagamentoCard";
-import AguardandoFaturamentoCard from "./Cards/AguardandoFaturamentoCard";
-import EntregueCard from "./Cards/EntregueCard";
-import FaturadoCard from './Cards/FaturadoCard';
-
 import DoubleScrollbar from 'react-double-scrollbar/dist/DoubleScrollbar';
 
-export default function Dashboard({auth, errors, pedidos, clientes}) {
+import ConferenciaCard from './Cards/Conferencia/ConferenciaCard';
+import CardReprovado from './Cards/Reprovado/ReprovadoCard';
+import CardLancado from './Cards/Lancado/CardLancado';
+import CardBoleto from './Cards/Boleto/CardBoleto';
+import CardPagamento from './Cards/Pagamento/CardPagamento';
+import CardFaturando from './Cards/Faturando/CardFaturando';
+import CardFaturado from './Cards/Faturado/CardFaturado';
+import CardEntregue from './Cards/Entregue/CardEntregue';
+import CardCancelado from './Cards/Cancelado/CardCancelado';
+
+
+
+export default function Dashboard({auth, errors, pedidos}) {
+
     return (
         <IntegradorLayout
             auth={auth}
@@ -22,107 +23,136 @@ export default function Dashboard({auth, errors, pedidos, clientes}) {
             titlePage="Pedidos"
             button={true}
             url={route('consultor.pedidos.create')} textButton={'Cadastrar Pedido'}>
+                <div className='container'>
+                <div className='row justify-content-around bg-white shadow py-3 rounded'
+                    style={{fontSize: 12, fontWeight: 700}}>
+                    <div className='col-auto border-end text-danger'>Reprovados: {pedidos.reprovado.length}</div>
+                    <div className='col-auto border-end text-warning'>Conferência: {pedidos.conferencia.length}</div>
+                    <div className='col-auto border-end text-success'>Lançados: {pedidos.lancado.length}</div>
+                    <div className='col-auto border-end text-info'>Aguard. Nota/Boleto: {pedidos.nota.length}</div>
+                    <div className='col-auto border-end text-primary'>Aguard. Pagamento: {pedidos.pagamento.length}</div>
+                    <div className='col-auto border-end text-pink-600'>Aguard. Faturamento: {pedidos.faturamento.length}</div>
+                    <div className='col-auto border-end text-purple-700'>Faturados: {pedidos.faturado.length}</div>
+                    <div className='col-auto border-end text-green-700'>Entregues: {pedidos.entregue.length}</div>
+                    <div className='col-auto text-black'>Cancelados: {pedidos.cancelado.length}</div>
+                </div>
+                </div>
+            <div className='container-fluid'>
 
-            <Container fluid>
-                <div className="overflow-x-auto">
-                    <DoubleScrollbar>
-                            <Table className={"mt-2"}>
-                                <thead>
-                                <tr className={"text-center text-white"}>
-                                    <Th color="bg-red-500">Pedidos para Revisão</Th>
-                                    <Th color="bg-blue-700">Em Coferência</Th>
-                                    <Th color="bg-green-700">Lançado</Th>
-                                    <Th color="bg-yellow-600">Aguardando Nota/Boleto</Th>
-                                    <Th color="bg-orange-600">Aguadando Pagamento</Th>
-                                    <Th color="bg-purple-700">Aguardando Faturamento</Th>
-                                    <Th color="bg-pink-700">Faturado</Th>
-                                    <Th color="bg-gray-700">Entregue</Th>
-                                    <Th color="bg-black">Cancelados</Th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr className="align-top">
-                                    <Td color="bg-red-300">
-                                        {pedidos.novo.map((dados) => {
-                                                return (
-                                                    <RevisarCard key={dados.id} dados={dados}/>
-                                                )
-                                            }
-                                        )}
-                                    </Td>
-                                    <Td color="bg-blue-400">
-                                        {pedidos.conferencia.map((dados) => {
-                                                return (
-                                                    <Conferencia key={dados.id} dados={dados}/>
-                                                )
-                                            }
-                                        )}
-                                    </Td>
-                                    <Td color="bg-green-400">
-                                        {pedidos.lancado.map((dados) => {
-                                                return (
-                                                    <LancadoCard key={dados.id} dados={dados}/>
-                                                )
-                                            }
-                                        )}
-                                    </Td>
-                                    <Td color="bg-yellow-300">
-                                        {pedidos.nota.map((dados) => {
-                                                return (
-                                                    <AguardandoNotaCard key={dados.id} dados={dados}/>
-                                                )
-                                            }
-                                        )}
-                                    </Td>
-                                    <Td color="bg-orange-400">
-                                        {pedidos.pagamento.map((dados) => {
-                                                return (
-                                                    <AguardandoPagamentoCard key={dados.id} dados={dados}/>
-                                                )
-                                            }
-                                        )}
-                                    </Td>
-                                    <Td color="bg-purple-400">
-                                        {pedidos.faturamento.map((dados) => {
-                                                return (
-                                                    <AguardandoFaturamentoCard key={dados.id} dados={dados}/>
-                                                )
-                                            }
-                                        )}
-                                    </Td>
-                                    <Td color="bg-pink-500">
-                                        {pedidos.faturado.map((dados) => {
-                                                return (
-                                                    <FaturadoCard key={dados.id} dados={dados}/>
-                                                )
-                                            }
-                                        )}
-                                    </Td>
-                                    <Td color="bg-gray-400">
-                                        {pedidos.entregue.map((dados) => {
-                                                return (
-                                                    <EntregueCard key={dados.id} dados={dados}/>
-                                                )
-                                            }
-                                        )}
-                                    </Td>
-                                    <Td color="bg-black">
-                                        {pedidos.cancelado.map((dados) => {
-                                                return (
-                                                    <EntregueCard key={dados.id} dados={dados}/>
-                                                )
-                                            }
-                                        )}
-                                    </Td>
-                                </tr>
-                                </tbody>
-                            </Table>
+            <div className="overflow-x-auto mb-6">
+                <DoubleScrollbar>
+                    <table className='mt-2'>
+                        <thead>
+                            <th>
+                                <div className='row bg-danger justify-content-between rounded-top text-white mx-1 p-2'>
+                                    <div className='col-auto'>Reprovados</div>
+                                    <div className='col-auto'>Qdt: {pedidos.reprovado.length}</div>
+                                </div>
+                            </th>
+                            <th>
+                                <div className='row bg-warning justify-content-between rounded-top text-white mx-1 p-2'>
+                                    <div className='col-auto'>Conferência</div>
+                                    <div className='col-auto'>Qdt: {pedidos.conferencia.length}</div>
+                                </div>
+                            </th>
+                            <th>
+                                <div className='row bg-success justify-content-between rounded-top text-white mx-1 p-2'>
+                                    <div className='col-auto'>Lançado</div>
+                                    <div className='col-auto'>Qdt: {pedidos.lancado.length}</div>
+                                </div>
+                            </th>
+                            <th>
+                                <div className='row bg-info justify-content-between rounded-top text-white mx-1 p-2'>
+                                    <div className='col-auto'>Aguard. Nota/Boleto</div>
+                                    <div className='col-auto'>Qdt: {pedidos.nota.length}</div>
+                                </div>
+                            </th>
+                            <th>
+                                <div className='row bg-primary justify-content-between rounded-top text-white mx-1 p-2'>
+                                    <div className='col-auto'>Aguard. Pagamento</div>
+                                    <div className='col-auto'>Qdt: {pedidos.pagamento.length}</div>
+                                </div>
+                            </th>
+                            <th>
+                                <div className='row bg-pink-600 justify-content-between rounded-top text-white mx-1 p-2'>
+                                    <div className='col-auto'>Aguard. Faturamento</div>
+                                    <div className='col-auto'>Qdt: {pedidos.faturamento.length}</div>
+                                </div>
+                            </th>
+                            <th>
+                                <div className='row bg-purple-700 justify-content-between rounded-top text-white mx-1 p-2'>
+                                    <div className='col-auto'>Faturado</div>
+                                    <div className='col-auto'>Qdt: {pedidos.faturado.length}</div>
+                                </div>
+                            </th>
+                            <th>
+                                <div className='row bg-green-700 justify-content-between rounded-top text-white mx-1 p-2'>
+                                    <div className='col-auto'>Entregue</div>
+                                    <div className='col-auto'>Qdt: {pedidos.entregue.length}</div>
+                                </div>
+                            </th>
+                            <th>
+                                <div className='row bg-black justify-content-between rounded-top text-white mx-1 p-2'>
+                                    <div className='col-auto'>Cancelados</div>
+                                    <div className='col-auto'>Qdt: {pedidos.cancelado.length}</div>
+                                </div>
+                            </th>
+                        </thead>
+                        <tbody>
+                        <tr className="align-top">
+                            <td className='shadow-sm' style={{minWidth: 300}}>
+                                {pedidos.reprovado.map((dados) => {
+                                    return ( <CardReprovado key={dados.id} dados={dados}/> )
+                                })}
+                            </td>
+                            <td className='shadow-sm' style={{minWidth: 300}}>
+                                {pedidos.conferencia.map((dados) => {
+                                    return (<ConferenciaCard key={dados.id} dados={dados}/>
+                                    )})}
+                            </td>
+                            <td className='shadow-sm' style={{minWidth: 300}}>
+                                {pedidos.lancado.map((dados) => {
+                                    return (<CardLancado key={dados.id} dados={dados}/>
+                                    )})}
+                            </td>
+                            <td className='shadow-sm' style={{minWidth: 300}}>
+                                {pedidos.nota.map((dados) => {
+                                    return (<CardBoleto key={dados.id} dados={dados}/>
+                                    )})}
+                            </td>
+                            <td className='shadow-sm' style={{minWidth: 300}}>
+                                {pedidos.pagamento.map((dados) => {
+                                    return (<CardPagamento key={dados.id} dados={dados}/>
+                                    )})}
+                            </td>
+                            <td className='shadow-sm' style={{minWidth: 300}}>
+                                {pedidos.faturamento.map((dados) => {
+                                    return (<CardFaturando key={dados.id} dados={dados}/>
+                                    )})}
+                            </td>
+                            <td className='shadow-sm' style={{minWidth: 300}}>
+                                {pedidos.faturado.map((dados) => {
+                                    return (<CardFaturado key={dados.id} dados={dados}/>
+                                    )})}
+                            </td>
+                            <td className='shadow-sm' style={{minWidth: 300}}>
+                                {pedidos.entregue.map((dados) => {
+                                    return (<CardEntregue key={dados.id} dados={dados}/>
+                                    )})}
+                            </td>
+                            <td className='shadow-sm' style={{minWidth: 300}}>
+                                {pedidos.cancelado.map((dados) => {
+                                    return (<CardCancelado key={dados.id} dados={dados}/>
+                                    )})}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                     </DoubleScrollbar>
                 </div>
-            </Container>
+            </div>
         </IntegradorLayout>
     )
-
 }
 
 

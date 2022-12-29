@@ -2,6 +2,7 @@
 
 namespace App\Services\Pedidos;
 
+use App\Models\Fornecedores;
 use App\Models\Pedidos;
 use App\Models\PedidosClientes;
 use App\Models\User;
@@ -12,11 +13,13 @@ class PedidosServices
 {
     public array $usuarios = [];
     public array $clientes = [];
+    public array $fornecedores = [];
 
     public function __construct()
     {
         $this->clientes = (new PedidosClientes())->dados();
         $this->usuarios = (new User())->getNomes();
+        $this->fornecedores = (new Fornecedores())->getFornecedores();
     }
 
     public function pedido($dados): array
@@ -32,12 +35,33 @@ class PedidosServices
             'status' => (new StatusPedidos())->getNomeStatus($dados->status),
             'preco' => convert_float_money($dados->preco_venda),
             'preco_float' => $dados->preco_venda,
-            'fornecedor' => $dados->fornecedor,
+            'fornecedor' => $this->fornecedores[$dados->fornecedor],
             'obs' => $dados->obs,
             'situacao' => $dados->situacao,
             'email' => $this->clientes[$dados->id]['email'],
             'telefone' => $this->clientes[$dados->id]['telefone'],
             'nascimento' => $this->clientes[$dados->id]['nascimento']
+        ];
+    }
+
+    public function pedidoCard($dados): array
+    {
+        return [
+            'id' => $dados->id,
+            'nome' => $this->usuarios[$dados->users_id],
+            'cliente' => $this->clientes[$dados->id]['nome'],
+            'data' => date('d/m/y H:i', strtotime($dados->status_data)),
+            'prazo' => date('d/m/y H:i', strtotime("+$dados->prazo days", strtotime($dados->status_data))),
+            'prazo_atrasado' => $this->getDiferenca($dados->status_data, $dados->prazo),
+            'prazoDias' => $dados->prazo,
+            'status' => (new StatusPedidos())->getNomeStatus($dados->status),
+            'preco' => convert_float_money($dados->preco_venda),
+            'fornecedor' => $this->fornecedores[$dados->fornecedor],
+            'alerta' => $dados->obs,
+            'sac' => $dados->sac,
+            'situacao' => $dados->situacao,
+            'email' => $this->clientes[$dados->id]['email'],
+            'telefone' => $this->clientes[$dados->id]['telefone'],
         ];
     }
 

@@ -12,4 +12,16 @@ class Fornecedores extends Model
     protected $fillable = [
         'nome'
     ];
+
+    public function getFornecedores()
+    {
+        $items = $this->newQuery()->get();
+
+        $dados = [];
+        foreach ($items as $dado) {
+            $dados[$dado->id] = $dado->nome;
+        }
+
+        return $dados;
+    }
 }

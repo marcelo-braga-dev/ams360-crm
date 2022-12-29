@@ -31,7 +31,7 @@ class AdminCardsServices
         $entregueStatus = (new EntregueStatus())->getStatus();
         $canceladoStatus = (new CanceladoStatus())->getStatus();
 
-        $pedidos['novo'] = [];
+        $pedidos['reprovado'] = [];
         $pedidos['conferencia'] = [];
         $pedidos['lancado'] = [];
         $pedidos['nota'] = [];
@@ -47,31 +47,31 @@ class AdminCardsServices
 
             switch ($dados->status) {
                 case $novoStatus :
-                    $pedidos['novo'][] = $adminCardsServices->pedido($dados);
+                    $pedidos['reprovado'][] = $adminCardsServices->pedidoCard($dados);
                     break;
                 case $conferenciaStatus :
-                    $pedidos['conferencia'][] = $adminCardsServices->pedido($dados);
+                    $pedidos['conferencia'][] = $adminCardsServices->pedidoCard($dados);
                     break;
                 case $lancadoStatus :
-                    $pedidos['lancado'][] = $adminCardsServices->pedido($dados);
+                    $pedidos['lancado'][] = $adminCardsServices->pedidoCard($dados);
                     break;
                 case $notaStatus :
-                    $pedidos['nota'][] = $adminCardsServices->pedido($dados);
+                    $pedidos['nota'][] = $adminCardsServices->pedidoCard($dados);
                     break;
                 case $pagamentoStatus :
-                    $pedidos['pagamento'][] = $adminCardsServices->pedido($dados);
+                    $pedidos['pagamento'][] = $adminCardsServices->pedidoCard($dados);
                     break;
                 case $faturamentoStatus :
-                    $pedidos['faturamento'][] = $adminCardsServices->pedido($dados);
+                    $pedidos['faturamento'][] = $adminCardsServices->pedidoCard($dados);
                     break;
                 case $faturadoStatus :
-                    $pedidos['faturado'][] = $adminCardsServices->pedido($dados);
+                    $pedidos['faturado'][] = $adminCardsServices->pedidoCard($dados);
                     break;
                 case $entregueStatus :
-                    $pedidos['entregue'][] = $adminCardsServices->pedido($dados);
+                    $pedidos['entregue'][] = $adminCardsServices->pedidoCard($dados);
                     break;
                     case $canceladoStatus :
-                    $pedidos['cancelado'][] = $adminCardsServices->pedido($dados);
+                    $pedidos['cancelado'][] = $adminCardsServices->pedidoCard($dados);
                     break;
             }
             $clientes[$dados->id] = '';

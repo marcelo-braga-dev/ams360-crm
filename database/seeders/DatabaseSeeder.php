@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\src\Usuarios\Admins;
+use App\src\Usuarios\Consultores;
+use App\src\Usuarios\Supervisores;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,9 +21,24 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => Hash::make('1234')
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('1234'),
+            'tipo' => (new Admins)->getTipo()
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Consultor User',
+            'email' => 'consultor@example.com',
+            'password' => Hash::make('1234'),
+            'tipo' => (new Consultores)->getTipo()
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Supervisor User',
+            'email' => 'supervisor@example.com',
+            'password' => Hash::make('1234'),
+            'tipo' => (new Supervisores)->getTipo()
         ]);
     }
 }
