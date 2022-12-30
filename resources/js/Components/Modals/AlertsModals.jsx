@@ -1,7 +1,8 @@
 // MODAL
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
-import {usePage} from '@inertiajs/inertia-react'
+import {usePage} from '@inertiajs/inertia-react';
+import { useEffect } from 'react';
 
 const MySwal = withReactContent(Swal)
 
@@ -31,8 +32,12 @@ function modalErro(msg) {
     })
 }
 export default function ModalsAllerts() {
-
     const {flash} = usePage().props
-    if (flash.sucesso) modalSucesso(flash.sucesso)
-    if (flash.erro) modalErro(flash.erro)
+
+    useEffect(() => {
+            if (flash.sucesso) modalSucesso(flash.sucesso)
+            if (flash.erro) modalErro(flash.erro)
+    }, []);
+
+
 }

@@ -60,6 +60,7 @@ class PedidosServices
             'preco' => convert_float_money($dados->preco_venda),
             'fornecedor' => $this->fornecedores[$dados->fornecedor],
             'alerta' => $dados->obs,
+            'pin' => $dados->pin,
             'sac' => $dados->sac,
             'situacao' => $dados->situacao,
             'email' => $this->clientes[$dados->id]['email'],
@@ -78,10 +79,11 @@ class PedidosServices
         return $pedidos;
     }
 
-    private function getDiferenca(mixed $prazoData, int $prazoLimite): int
+    private function getDiferenca(mixed $prazoData, int $prazoLimite): ?int
     {
         $entrada = new DateTime(now());
         $saida = new DateTime(date('Y-m-d H:i:s', strtotime("+$prazoLimite days", strtotime($prazoData))));
-        return $saida->diff($entrada)->invert;
+
+        return $saida->diff($entrada)->invert ? null : 1;
     }
 }

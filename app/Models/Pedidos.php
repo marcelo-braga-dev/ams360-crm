@@ -27,6 +27,7 @@ class Pedidos extends Model
         'status_data',
         'prazo',
         'sac',
+        'pin',
         'preco_venda',
         'preco_custo',
         'forma_pagamento',

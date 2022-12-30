@@ -15,7 +15,8 @@ class UsuariosController extends Controller
 {
     public function index()
     {
-        $users = (new User())->newQuery()->get(['id', 'name', 'email', 'tipo', 'status']);
+        $users = (new User())->getAll();
+
         $adminTipo = (new Admins)->getTipo();
         $supervisorTipo = (new Supervisores())->getTipo();
         $consultorTipo = (new Consultores())->getTipo();
@@ -23,11 +24,18 @@ class UsuariosController extends Controller
         $usuarios['admins'] = [];
         $usuarios['supervisores'] = [];
         $usuarios['consultores'] = [];
+
         foreach ($users as $user) {
             switch ($user->tipo) {
-                case $adminTipo: $usuarios['admins'][] = $user; break;
-                case $supervisorTipo: $usuarios['supervisores'][] = $user; break;
-                case $consultorTipo: $usuarios['consultores'][] = $user; break;
+                case $adminTipo:
+                    $usuarios['admins'][] = $user;
+                    break;
+                case $supervisorTipo:
+                    $usuarios['supervisores'][] = $user;
+                    break;
+                case $consultorTipo:
+                    $usuarios['consultores'][] = $user;
+                    break;
             }
         }
 

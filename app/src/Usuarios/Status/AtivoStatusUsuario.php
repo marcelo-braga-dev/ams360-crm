@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Usuarios\Status;
+namespace App\src\Usuarios\Status;
 
-class AtivoUsuarios
+class AtivoStatusUsuario
 {
     private string $status = 'ativo';
 

@@ -42,6 +42,7 @@ function a11yProps(index) {
 }
 
 // Tab - fim
+
 export default function Index({usuarios}) {
     // Tab
     const [value, setValue] = React.useState(0);
@@ -155,7 +156,11 @@ export default function Index({usuarios}) {
                 {/*Admins*/}
                 <TabPanel value={value} index={2}>
                     <Row className={"mb-3 text-right"}>
-                        {/*<Col><Button color={"warning"} href={route('admin.consultores.create')}>Cadastrar Consultor</Button></Col>*/}
+                        <Col>
+                            <Button color={"warning"} href={route('admin.usuarios.admins.create')}>
+                                Cadastrar Admin
+                            </Button>
+                        </Col>
                     </Row>
                     <Table hover responsive>
                         <thead>

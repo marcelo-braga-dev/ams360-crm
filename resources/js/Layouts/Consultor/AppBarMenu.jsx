@@ -22,9 +22,9 @@ const pages = [
 
 const logo = "/storage/crm/imagens/logo_ams.png";
 
-const settings = []
-//     {'title': 'Perfil', 'url': route('consultor.clientes.index')}
-// ];
+const settings = [
+    {'title': 'Perfil', 'url': route('consultor.perfil.index')}
+];
 
 function pageCurrent(url) {
     if (url === window.location.href) {

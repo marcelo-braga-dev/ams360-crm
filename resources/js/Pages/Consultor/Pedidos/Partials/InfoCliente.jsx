@@ -77,43 +77,42 @@ export default function InfoCliente({setData, data}) {
         </Row>
         <Row>
             <Col className="mb-3 col-6 col-md-2">
-                <InputMask maskChar=''
-                    mask="99999-999" value={data.cep}
-                    onChange={e => setData('cep', e.target.value)}
-                    onBlur={e => pesquisaCep(e.target.value)}>
-                    {() => <TextField label={'Cep'} required fullWidth/>}
+                <InputMask maskChar='' mask="99999-999" value={data.cep}
+                           onChange={e => setData('cep', e.target.value)}
+                           onBlur={e => pesquisaCep(e.target.value)}>
+                    {() => <TextField label={'Cep'} InputLabelProps={{shrink: true}} required fullWidth/>}
                 </InputMask>
             </Col>
             <Col className="mb-3 col-12 col-md-10">
                 <TextField label="Rua/Av." fullWidth required id="rua"
-                            InputLabelProps={{ shrink: true }}
+                           InputLabelProps={{shrink: true}}
                            onChange={e => setData('rua', e.target.value)}/>
             </Col>
             <Col className="mb-3 col-6 col-md-2">
                 <TextField label="Número" fullWidth required
-                            InputLabelProps={{ shrink: true }}
+                           InputLabelProps={{shrink: true}}
                            onChange={e => setData('numero', e.target.value)}/>
             </Col>
             <Col className="mb-3 col-6 col-md-4">
                 <TextField label="Complemento" fullWidth
-                            InputLabelProps={{ shrink: true }}
+                           InputLabelProps={{shrink: true}}
                            onChange={e => setData('complemento', e.target.value)}/>
             </Col>
             <Col className="mb-3 col-12 col-md-6">
                 <TextField label="Bairro" fullWidth required id="bairro"
-                            InputLabelProps={{ shrink: true }}
+                           InputLabelProps={{shrink: true}}
                            onChange={e => setData('bairro', e.target.value)}/>
             </Col>
         </Row>
         <Row>
             <Col>
                 <TextField label="Cidade" fullWidth required id="cidade"
-                            InputLabelProps={{ shrink: true }}
+                           InputLabelProps={{shrink: true}}
                            onChange={e => setData('cidade', e.target.value)}/>
             </Col>
             <Col>
                 <TextField label="Estado" fullWidth required id="estado"
-                            InputLabelProps={{ shrink: true }}
+                           InputLabelProps={{shrink: true}}
                            onChange={e => setData('estado', e.target.value)}/>
             </Col>
         </Row>

@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Supervisor\Pedidos\AguardandoFaturamentoController;
@@ -12,8 +13,7 @@ use App\Http\Controllers\Supervisor\Pedidos\FaturadoController;
 use App\Http\Controllers\Supervisor\Pedidos\LancadoController;
 use App\Http\Controllers\Supervisor\Pedidos\PedidosController;
 
-Route::middleware(['auth', 'auth.supervisores'])
-    ->name('supervisor.pedidos.')
+Route::name('supervisor.pedidos.')
     ->prefix('supervisor/pedidos')
     ->group(function () {
         Route::resource('pedido', PedidosController::class);

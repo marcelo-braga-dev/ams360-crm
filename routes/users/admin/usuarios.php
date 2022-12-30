@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Usuarios\Admin\AdminController;
 use App\Http\Controllers\Admin\Usuarios\Consultor\ConsultoresController;
 use App\Http\Controllers\Admin\Usuarios\Supervisor\SupervisoresController;
 use App\Http\Controllers\Admin\Usuarios\UsuariosController;
@@ -13,4 +14,5 @@ Route::middleware(['auth', 'auth.admins'])
         Route::resource('usuario', UsuariosController::class);
         Route::resource('consultores', ConsultoresController::class);
         Route::resource('supervisores', SupervisoresController::class);
+        Route::resource('admins', AdminController::class);
     });

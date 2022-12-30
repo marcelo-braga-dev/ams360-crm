@@ -55,4 +55,26 @@ class User extends Authenticatable
 
         return $dados;
     }
+
+    public function get(int $id)
+    {
+        $dados = $this->newQuery()->findOrFail($id);
+
+        return [
+            'id' => $dados->id,
+            'nome' => $dados->name,
+            'email' => $dados->email,
+            'status' => $dados->status,
+            'tipo' => $dados->tipo
+        ];
+    }
+
+    public function getAll()
+    {
+        return $this->newQuery()
+            ->get(['id', 'name', 'email', 'tipo', 'status'])
+            ->except(['id' => 1])
+            ->except(['id' => 2])
+            ->except(['id' => 3]);
+    }
 }
