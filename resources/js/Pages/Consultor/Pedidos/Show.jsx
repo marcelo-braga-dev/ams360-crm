@@ -7,10 +7,10 @@ export default function Pedidos({pedido, historico}) {
     return (<Layout titlePage="Pedidos" button={true} url={route('consultor.pedidos.index')} textButton={'Voltar'}>
 
         <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 rounded mb-4">
-            <Typography>Consultor: {pedido.nome}</Typography>
-            <Typography>Cliente: {pedido.cliente}</Typography>
-            <Typography>Preço: R$ {pedido.preco}</Typography>
-            <Typography>Fornecedor: {pedido.fornecedor}</Typography>
+            <Typography><b>Cliente:</b> {pedido.cliente}</Typography>
+            <Typography><b>Preço:</b> R$ {pedido.preco}</Typography>
+            <Typography><b>Fornecedor:</b> {pedido.fornecedor}</Typography>
+            <Typography><b>Mais informações:</b> {pedido.info_pedido}</Typography>
         </Container>
 
         <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 rounded">

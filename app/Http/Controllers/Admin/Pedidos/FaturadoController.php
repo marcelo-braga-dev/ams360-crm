@@ -15,7 +15,7 @@ class FaturadoController extends Controller
 {
     public function show($id)
     {
-        $pedido = (new Pedidos)->newQuery()->findOrFail($id);
+        $pedido = (new Pedidos)->get($id);
 
         return Inertia::render('Admin/Pedidos/Faturado/Show', compact('pedido'));
     }

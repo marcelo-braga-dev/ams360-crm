@@ -11,7 +11,7 @@ import {TextField} from "@mui/material";
 import ImagePdf from "@/Components/Inputs/ImagePdf";
 
 export default function Pedidos({pedido, cliente, img, pedidoDados}) {
-
+console.log(pedido);
     const {put, setData} = useForm({
         'reprovado': ''
     })
@@ -46,17 +46,18 @@ export default function Pedidos({pedido, cliente, img, pedidoDados}) {
                     <Col className={"mb-3"}>
                         <Typography><b>Consultor:</b> {pedido.nome}</Typography>
                     </Col>
-                    <Col className={"mb-3"}>
-                        <Typography>ID do Pedido: {pedido.id}</Typography>
+                    <Col className="mb-3 text-right">
+                        <Typography>ID do Pedido: #{pedido.id}</Typography>
                     </Col>
                 </Row>
+                <hr/>
                 <Row>
                     <Col className={"mb-3"}>
                         <Typography className="mb-2" variant={"h6"} component="">Dados do Pedido </Typography>
                         <Typography><b>Preço:</b> R$ {pedido.preco}</Typography>
                         <Typography><b>Forma Pagamento:</b> {pedidoDados.forma_pagamento}</Typography>
                         <Typography className="pb-2"><b>Fornecedor:</b> {pedido.fornecedor}</Typography>
-                        <Typography><b>Anotações:</b> {pedidoDados.info_pedido}</Typography>
+                        <Typography><b>Mais informações:</b> {pedidoDados.info_pedido}</Typography>
                     </Col>
                     <Col className={"mb-3"}>
                         <Typography className="mb-2" variant={"h6"} component="">Dados do Cliente</Typography>
@@ -143,8 +144,7 @@ export default function Pedidos({pedido, cliente, img, pedidoDados}) {
                         <TextField
                             className="mb-4"
                             label="Motivos da reprovação"
-                            multiline fullWidth required
-                            rows={6} maxRows={5}
+                            multiline fullWidth rows={6} required
                             onChange={event => setData('reprovado', event.target.value)}/>
                         <div className="text-center">
                             <Button type="submit" color="primary">Salvar</Button>

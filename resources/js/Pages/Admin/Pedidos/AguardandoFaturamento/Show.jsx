@@ -32,14 +32,15 @@ export default function Create({pedido, files}) {
 
     return (<Layout titlePage="Pedidos">
 
-            <Container fluid="lg" className="bg-white px-lg-6 py-lg-5">
+            <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 mb-4">
                 <Row>
                     <Col>
                         <Typography variant={"body1"} component="p">Baixar Comprovante Pagamento/Recibo</Typography>
                         <ImagePdf url={files.url_boleto}/>
                     </Col>
                 </Row>
-                <hr/>
+            </Container>
+            <Container fluid="lg" className="bg-white px-lg-6 py-lg-5">
                 <Form onSubmit={submit}>
                     <Typography variant="body1">Nota Fiscal do Pedido n. {pedido.id}</Typography>
                     <Row className={"mt-2"}>

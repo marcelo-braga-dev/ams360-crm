@@ -38,6 +38,9 @@ class PedidosChamados extends Model
         // Cria historico
         (new PedidosChamadosHistoricos())->create($idPedido, $dados->id, $status, $mensagem, $prazo);
 
+        // Seta SAC no pedido
+        (new Pedidos())->updateChamado($idPedido, 1);
+
         modalSucesso('SAC criado com sucesso!');
     }
 

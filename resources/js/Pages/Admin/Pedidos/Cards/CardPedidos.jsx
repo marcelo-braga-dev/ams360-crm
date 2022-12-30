@@ -25,6 +25,7 @@ export default function CardPedidos({dados, menuMore, btnAvancaStatus, border}) 
                         {dados.cliente}
                     </span>
                 </div>
+                {/*Menu More*/}
                 <div className='col-2'>
                     {menuMore}
                 </div>

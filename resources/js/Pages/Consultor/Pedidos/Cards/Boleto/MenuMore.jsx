@@ -33,9 +33,9 @@ const handleClose = () => setAnchorEl(null);
                 MenuListProps={{'aria-labelledby': 'long-button',}}
                 anchorEl={anchorEl} open={open} onClose={handleClose}
                 PaperProps={{style: {minWidth: '10rem'}}}>
-                    {moreMenu.map(({title, url}) => {
-                        return (<Link href={url} underline="none" color="inherit">
-                            <MenuItem key={id} onClick={handleClose}>
+                    {moreMenu.map(({title, url}, index) => {
+                        return (<Link key={index} href={url} underline="none" color="inherit">
+                            <MenuItem  onClick={handleClose}>
                                 {title}
                             </MenuItem>
                         </Link>)

@@ -7,10 +7,8 @@ import {Container, Row, Col, Form, Button} from 'reactstrap';
 import {Typography} from "@mui/material";
 
 
-export default function Create({auth, pedido}) {
-    const {data, setData, progress} = useForm({
-        prazo : ''
-    });
+export default function Create({pedido}) {
+    const {data} = useForm();
 
     function submit(e) {
         e.preventDefault()
@@ -20,18 +18,23 @@ export default function Create({auth, pedido}) {
         })
     }
 
-    return (<Layout titlePage="Pedidos">
-
+    return (
+        <Layout titlePage="Pedido Faturado">
             <Container fluid="lg" className="bg-white px-lg-6 py-lg-5">
-                <Form onSubmit={submit}>
-                    <Typography variant={"h6"}>Pedido n. {pedido.id}</Typography>
+                <div className="row mb-4">
+                    <div className="col">
+                        <Typography className="mb-2" variant={"h6"}>Pedido n. {pedido.id}</Typography>
+                        <Typography variant={"body1"}><b>Consultor:</b> {pedido.nome}</Typography>
+                        <Typography variant={"body1"}><b>Cliente:</b> {pedido.cliente}</Typography>
+                    </div>
+                </div>
 
-                    <Button variant="contained" type='submit' color="primary">
-                        Atualizar Status
-                    </Button>
-                </Form>
+                <form onSubmit={submit}>
+                    <button className="btn btn-primary" type='submit'>
+                        Atualizar Status para Entregue
+                    </button>
+                </form>
             </Container>
-
         </Layout>
     )
 }

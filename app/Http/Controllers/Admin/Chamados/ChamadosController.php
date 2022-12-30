@@ -93,6 +93,7 @@ class ChamadosController extends Controller
 
         if ($request->finalizar) {
             (new FinalizadosChamadoStatus())->updateStatus($request->id_pedido);
+            (new Pedidos())->updateChamado($request->id_pedido, 0);
         }
 
         return redirect()->route('admin.chamados.index');

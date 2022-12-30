@@ -41,7 +41,8 @@ class PedidosServices
             'situacao' => $dados->situacao,
             'email' => $this->clientes[$dados->id]['email'],
             'telefone' => $this->clientes[$dados->id]['telefone'],
-            'nascimento' => $this->clientes[$dados->id]['nascimento']
+            'nascimento' => $this->clientes[$dados->id]['nascimento'],
+            'info_pedido' => $dados->info_pedido
         ];
     }
 

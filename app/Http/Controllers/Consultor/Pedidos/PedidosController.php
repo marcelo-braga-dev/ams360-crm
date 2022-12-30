@@ -37,21 +37,9 @@ class PedidosController extends Controller
 
     public function show($id)
     {
-        $dados = (new Pedidos())->newQuery()->find($id);
-        $pedido = (new PedidosServices())->pedido($dados);
+        $pedido = (new Pedidos())->get($id);
 
-        $historico = (new PedidosHistoricos())->newQuery()
-            ->where('pedidos_id', $dados->id)->get();
-
-        $historico = $historico->map(function ($dados) {
-            return [
-                'id' => $dados->id,
-                'data' => date('d/m/y H:i', strtotime($dados->created_at)),
-                'status' => (new StatusPedidos())->getNomeStatus($dados->status),
-                'prazo' => $dados->prazo,
-                'obs' => $dados->obs
-            ];
-        });
+        $historico = (new PedidosHistoricos())->historico($id);
 
         return Inertia::render('Consultor/Pedidos/Show',
             compact('pedido', 'historico'));

@@ -15,7 +15,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 export default function MenuMore({id}) {
     // MoreMenu
 const moreMenu = [
-    {title: 'Ver Informações', url: route('consultor.pedidos.show', id)},
+    {title: 'Ver Informações', url: route('admin.pedidos.show', id)},
     {title: 'Carcelar Pedido', url: route('admin.cancelado.show', id)},
     {title: 'Abrir SAC', url: route('admin.chamados.create', {id: id})},
 ];
@@ -35,9 +35,9 @@ const handleClose = () => setAnchorEl(null);
                 MenuListProps={{'aria-labelledby': 'long-button',}}
                 anchorEl={anchorEl} open={open} onClose={handleClose}
                 PaperProps={{style: {minWidth: '10rem'}}}>
-                    {moreMenu.map(({title, url}) => {
-                        return (<Link href={url} underline="none" color="inherit">
-                            <MenuItem key={id} onClick={handleClose}>
+                    {moreMenu.map(({title, url}, index) => {
+                        return (<Link key={index} href={url} underline="none" color="inherit">
+                            <MenuItem onClick={handleClose}>
                                 {title}
                             </MenuItem>
                         </Link>)

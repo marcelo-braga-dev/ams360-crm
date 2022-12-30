@@ -7,6 +7,6 @@ export default function CardFaturando({dados}) {
     return ( <CardPedidos
         dados={dados}
         menuMore={<MenuMore id={dados.id}/>}
-        btnAvancaStatus={<BtnAvancaStatus id={dados.id}/>}
+        btnAvancaStatus={<BtnAvancaStatus dados={dados}/>}
         border="pink"/> )
 }

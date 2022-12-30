@@ -45,63 +45,71 @@ export default function Pedidos({pedidos}) {
                     <DoubleScrollbar>
                         <table className='mt-2'>
                             <thead>
-                            <th>
-                                <div className='row bg-danger justify-content-between rounded-top text-white mx-1 p-2'>
-                                    <div className='col-auto'>Reprovados</div>
-                                    <div className='col-auto'>Qdt: {pedidos.reprovado.length}</div>
-                                </div>
-                            </th>
-                            <th>
-                                <div className='row bg-warning justify-content-between rounded-top text-white mx-1 p-2'>
-                                    <div className='col-auto'>Conferência</div>
-                                    <div className='col-auto'>Qdt: {pedidos.conferencia.length}</div>
-                                </div>
-                            </th>
-                            <th>
-                                <div className='row bg-success justify-content-between rounded-top text-white mx-1 p-2'>
-                                    <div className='col-auto'>Lançado</div>
-                                    <div className='col-auto'>Qdt: {pedidos.lancado.length}</div>
-                                </div>
-                            </th>
-                            <th>
-                                <div className='row bg-info justify-content-between rounded-top text-white mx-1 p-2'>
-                                    <div className='col-auto'>Aguard. Nota/Boleto</div>
-                                    <div className='col-auto'>Qdt: {pedidos.nota.length}</div>
-                                </div>
-                            </th>
-                            <th>
-                                <div className='row bg-primary justify-content-between rounded-top text-white mx-1 p-2'>
-                                    <div className='col-auto'>Aguard. Pagamento</div>
-                                    <div className='col-auto'>Qdt: {pedidos.pagamento.length}</div>
-                                </div>
-                            </th>
-                            <th>
-                                <div
-                                    className='row bg-pink-600 justify-content-between rounded-top text-white mx-1 p-2'>
-                                    <div className='col-auto'>Aguard. Faturamento</div>
-                                    <div className='col-auto'>Qdt: {pedidos.faturamento.length}</div>
-                                </div>
-                            </th>
-                            <th>
-                                <div
-                                    className='row bg-purple-700 justify-content-between rounded-top text-white mx-1 p-2'>
-                                    <div className='col-auto'>Faturado</div>
-                                    <div className='col-auto'>Qdt: {pedidos.faturado.length}</div>
-                                </div>
-                            </th>
-                            <th>
-                                <div
-                                    className='row bg-green-700 justify-content-between rounded-top text-white mx-1 p-2'>
-                                    <div className='col-auto'>Entregue</div>
-                                    <div className='col-auto'>Qdt: {pedidos.entregue.length}</div>
-                                </div>
-                            </th>
-                            <th>
-                                <div className='row bg-black justify-content-between rounded-top text-white mx-1 p-2'>
-                                    <div className='col-auto'>Cancelados</div>
-                                    <div className='col-auto'>Qdt: {pedidos.cancelado.length}</div>
-                                </div>
-                            </th>
+                            <tr>
+                                <th>
+                                    <div
+                                        className='row bg-danger justify-content-between rounded-top text-white mx-1 p-2'>
+                                        <div className='col-auto'>Reprovados</div>
+                                        <div className='col-auto'>Qdt: {pedidos.reprovado.length}</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        className='row bg-warning justify-content-between rounded-top text-white mx-1 p-2'>
+                                        <div className='col-auto'>Conferência</div>
+                                        <div className='col-auto'>Qdt: {pedidos.conferencia.length}</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        className='row bg-success justify-content-between rounded-top text-white mx-1 p-2'>
+                                        <div className='col-auto'>Lançado</div>
+                                        <div className='col-auto'>Qdt: {pedidos.lancado.length}</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        className='row bg-info justify-content-between rounded-top text-white mx-1 p-2'>
+                                        <div className='col-auto'>Aguard. Nota/Boleto</div>
+                                        <div className='col-auto'>Qdt: {pedidos.nota.length}</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        className='row bg-primary justify-content-between rounded-top text-white mx-1 p-2'>
+                                        <div className='col-auto'>Aguard. Pagamento</div>
+                                        <div className='col-auto'>Qdt: {pedidos.pagamento.length}</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        className='row bg-pink-600 justify-content-between rounded-top text-white mx-1 p-2'>
+                                        <div className='col-auto'>Aguard. Faturamento</div>
+                                        <div className='col-auto'>Qdt: {pedidos.faturamento.length}</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        className='row bg-purple-700 justify-content-between rounded-top text-white mx-1 p-2'>
+                                        <div className='col-auto'>Faturado</div>
+                                        <div className='col-auto'>Qdt: {pedidos.faturado.length}</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        className='row bg-green-700 justify-content-between rounded-top text-white mx-1 p-2'>
+                                        <div className='col-auto'>Entregue</div>
+                                        <div className='col-auto'>Qdt: {pedidos.entregue.length}</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div
+                                        className='row bg-black justify-content-between rounded-top text-white mx-1 p-2'>
+                                        <div className='col-auto'>Cancelados</div>
+                                        <div className='col-auto'>Qdt: {pedidos.cancelado.length}</div>
+                                    </div>
+                                </th>
+                            </tr>
                             </thead>
                             <tbody>
                             <tr className="align-top">

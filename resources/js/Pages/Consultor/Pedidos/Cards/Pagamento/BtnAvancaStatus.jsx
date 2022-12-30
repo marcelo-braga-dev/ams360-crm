@@ -5,10 +5,10 @@ export default function BtnAvancaStatus({id, situacao}) {
     return (
         <a href={route('consultor.aguardando-pagamento.show', id)}>
             {situacao === 0 &&
-                <a className='btn btn-danger btn-sm text-white'>
+                <button className='btn btn-danger btn-sm text-white'>
                     <DownloadIcon sx={{ fontSize: 17 }}/>
                     Boleto/Nota
-                </a>
+                </button>
             }
             {situacao === 1 &&
                     <DoubleArrowIcon

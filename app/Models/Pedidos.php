@@ -53,7 +53,7 @@ class Pedidos extends Model
                 'info_pedido' => $dados->obs
             ]);
 
-        (new PedidosHistoricos())->create($pedido->id, $status, $prazo, $dados->obs);
+        (new PedidosHistoricos())->create($pedido->id, $status, $prazo, null);
 
         return $pedido->id;
     }
@@ -90,6 +90,13 @@ class Pedidos extends Model
                 'fornecedor' => $dados->fornecedor,
                 'info_pedido' => $dados->obs
             ]);
+    }
+
+    public function updateChamado(int $id, int $valor)
+    {
+        $this->newQuery()
+            ->find($id)
+            ->update(['sac' => $valor]);
     }
 
     //Remover

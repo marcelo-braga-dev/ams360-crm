@@ -96,7 +96,7 @@ export default function Pedidos({pedido, cliente, img}) {
                             <Typography><b>Cliente:</b> {pedido.cliente}</Typography>
                             <Typography><b>Fornecedor:</b> {pedido.fornecedor}</Typography>
                             <Typography><b>Valor:</b> {pedido.preco}</Typography>
-                            <Typography className="mt-3"><b>Anotações:</b> {pedido.obs}</Typography>
+                            <Typography className="mt-3"><b>Mais informações:</b> {pedido.info_pedido}</Typography>
                         </Col>
                         <Col>
                             <Paper className={"p-3"} elevation={1}>
