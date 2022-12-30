@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('url_comprovante_residencia')->nullable();
             $table->string('url_cnpj')->nullable();
             $table->string('url_boleto')->nullable();
-            $table->string('url_recibo')->nullable();
+            $table->string('url_recibo_1')->nullable();
+            $table->string('url_recibo_2')->nullable();
             $table->string('url_nota_fiscal')->nullable();
         });
     }

@@ -54,8 +54,8 @@ class ChamadosController extends Controller
 
     public function show($id)
     {
-        $chamado = (new PedidosChamados())->dados($id);
-        $mensagens = (new PedidosChamadosHistoricos())->getMensagens($chamado['id']);
+        $chamado = (new PedidosChamados())->get($id);
+        $mensagens = (new PedidosChamadosHistoricos())->getMensagens($id);
 
         return Inertia::render('Admin/Chamados/Show',
             compact('chamado', 'mensagens'));
@@ -66,7 +66,7 @@ class ChamadosController extends Controller
         $pedidoDados = (new Pedidos())->newQuery()->findOrFail($request->id);
         $pedido = (new PedidosServices())->pedido($pedidoDados);
 
-        return Inertia::render('Admin/Chamados/Novo/Create', compact('pedido'));
+        return Inertia::render('Admin/Chamados/Create', compact('pedido'));
     }
 
     public function store(Request $request)
@@ -74,6 +74,27 @@ class ChamadosController extends Controller
         (new NovoChamadoStatus())->create($request->id, $request->titulo, $request->mensagem);
 
         modalSucesso('Chamado criado com sucesso!');
-        return redirect()->route('admin.chamados.novo.index');
+        return redirect()->route('admin.chamados.index');
+    }
+
+    public function edit($id)
+    {
+        $chamado = (new PedidosChamados())->get($id);
+        $mensagens = (new PedidosChamadosHistoricos())->getMensagens($id);
+
+        return Inertia::render('Admin/Chamados/Edit',
+            compact('chamado', 'mensagens'));
+    }
+
+    public function update(Request $request)
+    {
+        (new RespondidoChamadoStatus())
+            ->responder($request->id_pedido, $request->id_chamado, $request->mensagem);
+
+        if ($request->finalizar) {
+            (new FinalizadosChamadoStatus())->updateStatus($request->id_pedido);
+        }
+
+        return redirect()->route('admin.chamados.index');
     }
 }

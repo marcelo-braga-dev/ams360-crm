@@ -24,9 +24,9 @@ class RespondidoChamadoStatus implements ChamadosStatus
         return 4;
     }
 
-    public function responder($id, $mensagem)
+    public function responder(int $idPedido, int $idChamado, string $mensagem)
     {
-        (new PedidosChamadosHistoricos())->create($id, $this->status, $mensagem, $this->getPrazo());
-        (new PedidosChamados())->updateStatus($id, $this->status, $this->getPrazo());
+        (new PedidosChamadosHistoricos())->create($idPedido, $idChamado, $this->status, $mensagem, $this->getPrazo());
+        (new PedidosChamados())->updateStatus($idPedido, $this->status, $this->getPrazo());
     }
 }

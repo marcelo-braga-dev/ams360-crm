@@ -11,7 +11,7 @@ export default function Create({pedido}) {
 
     function submit(e) {
         e.preventDefault()
-        post(route('admin.chamados.novo.store', {id: pedido.id}))
+        post(route('admin.chamados.store', {id: pedido.id}))
     }
 
     return (

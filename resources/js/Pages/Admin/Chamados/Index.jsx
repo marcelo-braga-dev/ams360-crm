@@ -16,8 +16,8 @@ import {Container} from "reactstrap";
 export default function Pedidos({chamados}) {
 
     const submenu = [
-        {'title': 'Histórico', 'url': route('admin.pedidos.historico.index')},
-        {'title': 'Configurações', 'url': route('admin.config.index')}
+        // {'title': 'Histórico', 'url': route('admin.pedidos.historico.index')},
+        // {'title': 'Configurações', 'url': route('admin.config.index')}
     ]
 
     return (
@@ -28,8 +28,7 @@ export default function Pedidos({chamados}) {
                         <thead>
                         <tr className={"text-center text-white"}>
                             <Th color="bg-green-700">Em Aberto</Th>
-                            {/*<Th color="bg-blue-700">Em Análise</Th>*/}
-                            <Th color="bg-orange-700">Respondidos</Th>
+                            <Th color="bg-orange-700">Em Andamento</Th>
                             <Th color="bg-black">Finalizados</Th>
                         </tr>
                         </thead>
@@ -40,11 +39,6 @@ export default function Pedidos({chamados}) {
                                     return <NovoCard key={dados.id} dados={dados}></NovoCard>
                                 })}
                             </Td>
-                            {/*<Td color="bg-blue-400">*/}
-                            {/*    {chamados.analise.map((dados) => {*/}
-                            {/*        return <AnaliseCard key={dados.id} dados={dados}></AnaliseCard>*/}
-                            {/*    })}*/}
-                            {/*</Td>*/}
                             <Td color="bg-orange-400">
                                 {chamados.respondido.map((dados) => {
                                     return <RespondidosCard key={dados.id} dados={dados}></RespondidosCard>

@@ -82,6 +82,7 @@ class PedidosClientes extends Model
     public function getNomeCliente($id)
     {
         $cliente = $this->newQuery()->where('pedidos_id', $id)->first();
+        if ($cliente === null) return 'Não Encontrado';
         return $cliente->nome ?? $cliente->razao_social;
     }
 }

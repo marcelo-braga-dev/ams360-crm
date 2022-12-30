@@ -10,9 +10,7 @@ import {TextField, Typography} from "@mui/material";
 import ImagePdf from "@/Components/Inputs/ImagePdf";
 
 export default function Create({id, files}) {
-    const {data, setData, progress} = useForm({
-        file_recibo: null
-    });
+    const {data, setData, progress} = useForm();
 
     function submit(e) {
         e.preventDefault()
@@ -23,28 +21,40 @@ export default function Create({id, files}) {
     }
 
     return (<Layout titlePage="Pedidos" url={route('consultor.pedidos.index')} textButton="Voltar">
-            <Container fluid="lg" className="bg-white px-lg-6 py-lg-5">
+            {/*Baixar Nota*/}
+            <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 mb-4">
                 <Row>
                     <Col>
                         <Typography variant={"body1"} component="p">Baixar Nota/Boleto</Typography>
                         <ImagePdf url={files.url_boleto}/>
                     </Col>
                 </Row>
-                <hr/>
+            </Container>
+
+            {/*Envio de Comprovantes*/}
+            <Container fluid="lg" className="bg-white px-lg-6 py-lg-5">
                 <Form onSubmit={submit}>
+                    <Typography className="mb-3" variant="h5">Enviar Comprovantes de Pagametos</Typography>
                     <Typography variant={"body1"}>Recibo do Pagamento</Typography>
-                    <Row>
+                    <Row className="mb-4">
                         <Col className={"mb-3"} lg={"6"}>
                             <TextField
                                 fullWidth required type="file"
-                                onChange={e => setData('file_recibo', e.target.files[0])}>
+                                onChange={e => setData('file_recibo_1', e.target.files[0])}>
+                            </TextField>
+                        </Col>
+                        <Col className={"mb-3"} lg={"6"}>
+                            <TextField
+                                fullWidth type="file"
+                                onChange={e => setData('file_recibo_2', e.target.files[0])}>
                             </TextField>
                         </Col>
                     </Row>
-
-                    <Button variant="contained" type='submit' color="primary">
-                        Enviar para Faturamento
-                    </Button>
+                    <div className="text-center">
+                        <Button variant="contained" type='submit' color="primary">
+                            Enviar
+                        </Button>
+                    </div>
                 </Form>
             </Container>
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('pedidos_id');
             $table->bigInteger('users_id');
+            $table->bigInteger('chamados_id');
             $table->string('status', 32);
             $table->string('msg', 1024)->nullable();
             $table->string('url_img_1')->nullable();

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Pedidos\PedidosServices;
 use App\src\Pedidos\Status\ConferenciaStatusPedido;
 use App\src\Pedidos\Status\RevisarStatusPedido;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -57,6 +58,12 @@ class Pedidos extends Model
         return $pedido->id;
     }
 
+    public function get(int $id): array
+    {
+        $pedidoDados = $this->newQuery()->findOrFail($id);
+        return (new PedidosServices())->pedido($pedidoDados);
+    }
+
     function updateStatus(int $id, string $status, int $prazo, ?string $obs = null, $situacao = 0)
     {
         $this->newQuery()
@@ -85,6 +92,7 @@ class Pedidos extends Model
             ]);
     }
 
+    //Remover
     function cliente()
     {
         return $this->hasOne(PedidosClientes::class);

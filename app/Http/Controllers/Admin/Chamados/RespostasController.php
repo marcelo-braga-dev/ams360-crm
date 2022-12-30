@@ -14,16 +14,11 @@ class RespostasController extends Controller
 {
     public function show($id)
     {
-        $chamado = (new PedidosChamados())->dados($id);
-        $mensagens = (new PedidosChamadosHistoricos())->getMensagens($chamado['id']);
+        $chamado = (new PedidosChamados())->get($id);
+        $mensagens = (new PedidosChamadosHistoricos())->getMensagens($chamado['id_pedido']);
 
         return Inertia::render('Admin/Chamados/Responder/Show', compact('chamado', 'mensagens'));
     }
 
-    public function update(Request $request)
-    {
-        (new RespondidoChamadoStatus())->responder($request->id, $request->mensagem);
 
-        return redirect()->route('admin.chamados.index');
-    }
 }

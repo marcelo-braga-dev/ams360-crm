@@ -12,34 +12,44 @@ class PedidosChamados extends Model
 
     protected $fillable = [
         'pedidos_id',
-        'users_id',
-        'analizador',
+        'consultor',
+        'admin',
         'status',
         'status_data',
         'titulo',
         'prazo'
     ];
 
-    public function create($id, $titulo, $status, $prazo)
+    public function create($idPedido, $titulo, $status, $prazo, $mensagem)
     {
-        return $this->newQuery()
+        $pedido = (new Pedidos())->get($idPedido);
+
+        $dados = $this->newQuery()
             ->create([
-                'pedidos_id' => $id,
-                'users_id' => auth()->id(),
+                'pedidos_id' => $idPedido,
+                'consultor' => $pedido['id_consultor'],
+                'admin' => auth()->id(),
                 'status' => $status,
                 'status_data' => now(),
                 'titulo' => $titulo,
                 'prazo' => $prazo,
             ]);
+
+        // Cria historico
+        (new PedidosChamadosHistoricos())->create($idPedido, $dados->id, $status, $mensagem, $prazo);
+
+        modalSucesso('SAC criado com sucesso!');
     }
 
-    public function dados($id)
+    // Retorna Infos do Chamado
+    public function get($id)
     {
         $dados = $this->newQuery()->findOrFail($id);
 
         return [
-            'id' => $dados->id,
-            'cliente' => getNomeCliente($id),
+            'id' => $id,
+            'id_pedido' => $dados->pedidos_id,
+            'cliente' => getNomeCliente($dados->pedidos_id),
             'status' => (new StatusChamados())->getNomeStatus($dados->status),
             'titulo' => $dados->titulo,
             'prazo' => $dados->prazo,
@@ -47,6 +57,14 @@ class PedidosChamados extends Model
         ];
     }
 
+    // Retorna Chamados do Consultor
+    public function getConsultor()
+    {
+        return $this->newQuery()
+            ->where('consultor', auth()->id())->get();
+    }
+
+    // Atualiza Status do Chamado
     public function updateStatus(int $id, string $status, int $prazo)
     {
         $this->newQuery()
@@ -54,7 +72,7 @@ class PedidosChamados extends Model
             ->update([
                 'status' => $status,
                 'status_data' => now(),
-                'analizador' => auth()->id(),
+                'admin' => auth()->id(),
                 'prazo' => $prazo
             ]);
     }

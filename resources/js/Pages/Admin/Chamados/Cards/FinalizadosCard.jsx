@@ -73,16 +73,11 @@ export default function ConferenciaCard({dados}) {
                             open={open}
                             onClose={handleClose}
                             PaperProps={{style: {maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'},}}>
-                            <Link href={route('consultor.chamados.show', dados.id)} underline="none" color="inherit">
+                            <Link href={route('admin.chamados.show', dados.id)} underline="none" color="inherit">
                                 <MenuItem key={dados.id} onClick={handleClose}>
                                     Ver Informações
                                 </MenuItem>
                             </Link>
-                            {/*<Link href={route('admin.cancelado.show', dados.id)} underline="none" color="inherit">*/}
-                            {/*    <MenuItem key={dados.id} onClick={handleClose}>*/}
-                            {/*        Cancelar Pedido*/}
-                            {/*    </MenuItem>*/}
-                            {/*</Link>*/}
                         </Menu>
                     </div>
                 }
@@ -105,7 +100,7 @@ export default function ConferenciaCard({dados}) {
             <Row className={"mx-0"}>
                 <Col md="9">
                     <Typography variant="caption" component="p" color="text.secondary">
-                        Título:
+                        Título: {dados.titulo}
                     </Typography>
                     <Typography variant="subtitle2" component="p" color="text.secondary">
                         {dados.msg}

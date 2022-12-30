@@ -78,11 +78,6 @@ export default function ConferenciaCard({dados}) {
                                     Ver Informações
                                 </MenuItem>
                             </Link>
-                            {/*<Link href={route('admin.cancelado.show', dados.id)} underline="none" color="inherit">*/}
-                            {/*    <MenuItem key={dados.id} onClick={handleClose}>*/}
-                            {/*        Cancelar Pedido*/}
-                            {/*    </MenuItem>*/}
-                            {/*</Link>*/}
                         </Menu>
                     </div>
                 }
@@ -113,7 +108,7 @@ export default function ConferenciaCard({dados}) {
                 </Col>
                 {/*SHOW*/}
                 <Col md="3" className="mt-1">
-                    <Link href={route('admin.chamado.responder.show', dados.id)}>
+                    <Link href={route('admin.chamados.edit', dados.id)}>
                         <ArrowCircleUpIcon style={{cursor: 'pointer'}} fontSize={"large"}/>
                     </Link>
                 </Col>

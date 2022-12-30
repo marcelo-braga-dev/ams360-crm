@@ -14,30 +14,34 @@ class PedidosChamadosHistoricos extends Model
     protected $fillable = [
         'pedidos_id',
         'users_id',
+        'chamados_id',
         'status',
         'msg',
         'url_img_1',
         'prazo'
     ];
 
-    public function create($id, $status, $msg, $prazo)
+    public function create($idPedidos, $idChamado, $status, $msg, $prazo)
     {
         // $img_1 = (new Images())->armazenar($dados, 'img_1', 'chamados/' . $dados->id);
 
         $this->newQuery()
             ->create([
-                'pedidos_id' => $id,
+                'pedidos_id' => $idPedidos,
                 'users_id' => auth()->id(),
+                'chamados_id' => $idChamado,
                 'status' => $status,
                 'msg' => $msg,
                 'url_img_1' => null,
                 'prazo' => $prazo,
             ]);
+
+        modalSucesso('Mensagem registrada!');
     }
 
     public function getMensagens($id)
     {
-        $dados = $this->newQuery()->where('pedidos_id', $id)->get();
+        $dados = $this->newQuery()->where('chamados_id', $id)->get();
 
         return $dados->map(function ($dados) {
             return [

@@ -20,12 +20,14 @@ export default function Create({chamado, mensagens}) {
                         </Col>
                     </Row>
                     <Row>
-                        <Col md="12" className="mb-3">
+                        <Col className="mb-3">
                             <Typography variant="subtitle1">
                                 <b>Título:</b> {chamado.titulo}
                             </Typography>
                         </Col>
                     </Row>
+
+                    {/*Historico de Mensagens*/}
                     {mensagens.map((dado) => {
                         return (<Row className="border rounded p-2 mb-3">
                             <Col className="mb-2" md="12">
@@ -42,6 +44,7 @@ export default function Create({chamado, mensagens}) {
                             </Col>
                         </Row>)
                     })}
+                    {/*Historico de Mensagens - fim*/}
 
                 </Container>
         </Layout>

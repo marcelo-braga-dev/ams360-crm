@@ -14,8 +14,8 @@ class RespostasController extends Controller
 {
     public function show($id)
     {
-        $chamado = (new PedidosChamados())->dados($id);
-        $mensagens = (new PedidosChamadosHistoricos())->getMensagens($chamado['id']);
+        $chamado = (new PedidosChamados())->get($id);
+        $mensagens = (new PedidosChamadosHistoricos())->getMensagens($chamado['id_pedido']);
 
         return Inertia::render('Consultor/Chamados/Responder/Show', compact('chamado', 'mensagens'));
     }

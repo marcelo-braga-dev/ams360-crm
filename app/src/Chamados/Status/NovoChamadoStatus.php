@@ -24,12 +24,9 @@ class NovoChamadoStatus implements ChamadosStatus
         return 3;
     }
 
-    public function create(int $id, string $titulo, ?string $mensagem)
+    public function create(int $idPedido, string $titulo, ?string $mensagem)
     {
-        if (!(new PedidosChamados())->newQuery()->find($id)) {
-            (new PedidosChamados())->create($id, $titulo, $this->status, $this->getPrazo());
-        }
-
-        (new PedidosChamadosHistoricos())->create($id, $this->status, $mensagem, $this->getPrazo());
+        (new PedidosChamados())
+            ->create($idPedido, $titulo, $this->status, $this->getPrazo(), $mensagem);
     }
 }

@@ -105,7 +105,7 @@ export default function ConferenciaCard({dados}) {
             <Row className={"mx-0"}>
                 <Col md="9">
                     <Typography variant="caption" component="p" color="text.secondary">
-                        Título:
+                        Título: {dados.titulo}
                     </Typography>
                     <Typography variant="subtitle2" component="p" color="text.secondary">
                         {dados.msg}

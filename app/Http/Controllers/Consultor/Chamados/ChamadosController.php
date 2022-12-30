@@ -19,8 +19,7 @@ class ChamadosController extends Controller
 {
     public function index()
     {
-        $chamadosAll = (new PedidosChamados())->newQuery()
-            ->where('users_id', auth()->id())->get();
+        $chamadosAll = (new PedidosChamados())->getConsultor();
 
         $novoStatus = (new NovoChamadoStatus())->getStatus();
         $analiseStatus = (new AnaliseChamadosStatus())->getStatus();
@@ -53,10 +52,10 @@ class ChamadosController extends Controller
         return Inertia::render('Consultor/Chamados/Index', compact('chamados'));
     }
 
-    public function show($id)
+    public function show($idChamado)
     {
-        $chamado = (new PedidosChamados())->dados($id);
-        $mensagens = (new PedidosChamadosHistoricos())->getMensagens($chamado['id']);
+        $chamado = (new PedidosChamados())->get($idChamado);
+        $mensagens = (new PedidosChamadosHistoricos())->getMensagens($chamado['id_pedido']);
 
         return Inertia::render('Consultor/Chamados/Show',
             compact('chamado', 'mensagens'));

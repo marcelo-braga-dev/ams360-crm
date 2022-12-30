@@ -26,6 +26,7 @@ class PedidosServices
     {
         return [
             'id' => $dados->id,
+            'id_consultor' => $dados->users_id,
             'nome' => $this->usuarios[$dados->users_id],
             'cliente' => $this->clientes[$dados->id]['nome'],
             'data' => date('d/m/y H:i', strtotime($dados->status_data)),

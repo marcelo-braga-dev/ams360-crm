@@ -20,7 +20,8 @@ class PedidosImagens extends Model
         'url_comprovante_residencia',
         'url_cnpj',
         'url_boleto',
-        'url_recibo',
+        'url_recibo_1',
+        'url_recibo_2',
         'url_nota_fiscal'
     ];
 
@@ -85,12 +86,19 @@ class PedidosImagens extends Model
 
     function updateRecibo($id, $dados)
     {
-        $url = (new Images())->armazenar($dados, 'file_recibo', 'pedidos/' . $id);
+        $url1 = (new Images())->armazenar($dados, 'file_recibo_1', 'pedidos/' . $id);
+        $url2 = (new Images())->armazenar($dados, 'file_recibo_2', 'pedidos/' . $id);
 
         $this->newQuery()
             ->where('pedidos_id', $id)
             ->updateOrCreate(
-                ['pedidos_id' => $id], ['url_recibo' => $url]
+                ['pedidos_id' => $id], ['url_recibo_1' => $url1]
+            );
+
+        $this->newQuery()
+            ->where('pedidos_id', $id)
+            ->updateOrCreate(
+                ['pedidos_id' => $id], ['url_recibo_2' => $url2]
             );
     }
 

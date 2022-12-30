@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('pedidos_chamados', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('pedidos_id');
-            $table->bigInteger('users_id');
-            $table->bigInteger('analizador')->nullable();
+            $table->bigInteger('consultor');
+            $table->bigInteger('admin');
             $table->string('status', 32);
             $table->dateTime('status_data');
             $table->string('titulo');
