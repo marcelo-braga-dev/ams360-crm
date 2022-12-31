@@ -11,19 +11,18 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Typography} from "@mui/material";
 
-
 export default function Dashboard({auth, errors, naoAtendidos, emAndamento, offset}) {
 
     function handleOnDragEnd(result) {
         if (!result.destination) return;
-        const items = Array.from(characters);
+        const items = Array.from(naoAtendidoList);
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
 
-        updateCharacters(items);
+        updateNaoAtendidoList(items);
     }
 
-    const [characters, updateCharacters] = useState(naoAtendidos);
+    const [naoAtendidoList, updateNaoAtendidoList] = useState(naoAtendidos);
 
     return (
         <IntegradorLayout
@@ -51,7 +50,7 @@ export default function Dashboard({auth, errors, naoAtendidos, emAndamento, offs
                                     <Droppable droppableId="characters">
                                         {(provided) => (
                                             <div ref={provided.innerRef} {...provided.draggableProps}>
-                                                {characters.map(({id, empresa, data, obs, telefone, email}, index) => {
+                                                {naoAtendidoList.map(({id, empresa, data, obs, telefone, email}, index) => {
                                                     return (
                                                         <Draggable key={id} draggableId={id} index={index}>
                                                             {(provided) => (
@@ -74,7 +73,7 @@ export default function Dashboard({auth, errors, naoAtendidos, emAndamento, offs
                             </td>
                             <td className="bg-blue-400" style={{minWidth: 280}}>
                                 {
-                                    naoAtendidos.map((data, index) => (
+                                    emAndamento.map((data, index) => (
                                         <Atendendo nome={data.empresa} data={data.status_data}
                                                    obs={data.status_anotacoes}
                                                    id={data.id}></Atendendo>

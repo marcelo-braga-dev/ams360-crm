@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\src\Usuarios\Consultores;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -72,6 +73,16 @@ class User extends Authenticatable
     public function getAll()
     {
         return $this->newQuery()
+            ->get(['id', 'name', 'email', 'tipo', 'status'])
+            ->except(['id' => 1])
+            ->except(['id' => 2])
+            ->except(['id' => 3]);
+    }
+
+    public function getConsultores()
+    {
+        return $this->newQuery()
+            ->where('tipo', (new Consultores())->getTipo())
             ->get(['id', 'name', 'email', 'tipo', 'status'])
             ->except(['id' => 1])
             ->except(['id' => 2])

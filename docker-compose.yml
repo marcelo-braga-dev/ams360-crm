@@ -1,5 +1,5 @@
 # For more information: https://laravel.com/docs/sail
-version: '3'
+version: '3.5'
 services:
     laravel.test:
         build:
@@ -30,7 +30,7 @@ services:
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_PASSWORD: ''
             MYSQL_ROOT_HOST: "%"
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
@@ -42,12 +42,23 @@ services:
         networks:
             - sail
         healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}" ]
             retries: 3
             timeout: 5s
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+            - "8088:80"
+        networks:
+            - sail
+        environment:
+            - PMA_ARBITRARY=1
+        depends_on:
+            - mysql
 networks:
     sail:
         driver: bridge
 volumes:
     sail-mysql:
-        driver: local
+        driver: localy

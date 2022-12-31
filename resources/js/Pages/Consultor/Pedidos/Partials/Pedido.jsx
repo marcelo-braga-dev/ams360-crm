@@ -21,7 +21,7 @@ export default function Pedido({fornecedores, setData, data}) {
                 <TextFieldMoney label="Preço" value={data.preco} setData={setData} index="preco" required/>
             </Col>
             <Col className="mb-3 text-red-600">
-                <TextField label="Fornecedor" select fullWidth
+                <TextField label="Fornecedor" select fullWidth required
                            onChange={e => setData('fornecedor', e.target.value)}>
                     {fornecedores.map((option) => (
                         <MenuItem key={option.id} value={option.id}>
@@ -29,9 +29,6 @@ export default function Pedido({fornecedores, setData, data}) {
                         </MenuItem>
                     ))}
                 </TextField>
-
-                {/*<TextField label="Fornecedor" fullWidth value={data.fornecedor} required*/}
-                {/*           onChange={e => setData('fornecedor', e.target.value)}/>*/}
             </Col>
         </Row>
         <Row className={"mb-3"}>

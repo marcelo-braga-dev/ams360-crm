@@ -1,5 +1,5 @@
-import IntegradorLayout from '@/Layouts/Consultor/Layout';
-import React, {useState} from 'react';
+import IntegradorLayout from '@/Layouts/Admin/Layout';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Container} from 'reactstrap';
 import {alpha} from '@mui/material/styles';
@@ -16,39 +16,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import {visuallyHidden} from '@mui/utils';
 
-function createData(name, calories, fat, carbs, protein) {
-    return {
-        name,
-        calories,
-        fat,
-        carbs,
-        protein,
-    };
-}
-
-const rows = [
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Donut', 452, 25.0, 51, 4.9),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Honeycomb', 408, 3.2, 87, 6.5),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Jelly Bean', 375, 0.0, 94, 0.0),
-    createData('KitKat', 518, 26.0, 65, 7.0),
-    createData('Lollipop', 392, 0.2, 98, 0.0),
-    createData('Marshmallow', 318, 0, 81, 2.0),
-    createData('Nougat', 360, 19.0, 9, 37.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-];
+import MenuItem from '@mui/material/MenuItem';
+import {useForm} from "@inertiajs/inertia-react";
+import {TextField} from "@mui/material";
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -82,31 +54,19 @@ function stableSort(array, comparator) {
 
 const headCells = [
     {
-        id: 'name',
+        id: 'empresa',
         numeric: false,
         disablePadding: true,
-        label: 'Empresa',
+        label: 'Pessoa Física/Jurídica',
     },
     {
-        id: 'calories',
-        numeric: true,
+        id: 'info',
+        numeric: false,
         disablePadding: false,
-        label: 'Status',
+        label: 'Anotações',
     },
     {
-        id: 'fat',
-        numeric: true,
-        disablePadding: false,
-        label: 'Integrador',
-    },
-    {
-        id: 'carbs',
-        numeric: true,
-        disablePadding: false,
-        label: '',
-    },
-    {
-        id: 'protein',
+        id: 'data',
         numeric: true,
         disablePadding: false,
         label: 'Data',
@@ -173,50 +133,52 @@ function EnhancedTableToolbar(props) {
     const {numSelected} = props;
 
     return (
-        <Toolbar
-            sx={{
-                pl: {sm: 2},
-                pr: {xs: 1, sm: 1},
-                ...(numSelected > 0 && {
-                    bgcolor: (theme) =>
-                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-                }),
-            }}
-        >
-            {numSelected > 0 ? (
-                <Typography
-                    sx={{flex: '1 1 100%'}}
-                    color="inherit"
-                    variant="subtitle1"
-                    component="div"
-                >
-                    {numSelected} selected
-                </Typography>
-            ) : (
-                <Typography
-                    sx={{flex: '1 1 100%'}}
-                    variant="h6"
-                    id="tableTitle"
-                    component="div"
-                >
-                    Nutrition
-                </Typography>
-            )}
+        <div className="mb-3">
+            <Toolbar
+                sx={{
+                    pl: {sm: 2, md: 4},
+                    pr: {xs: 1, sm: 2},
+                    ...(numSelected > 0 && {
+                        bgcolor: (theme) =>
+                            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+                    }),
+                }}
+            >
+                {numSelected > 0 ? (
+                    <Typography
+                        sx={{flex: '1 1 100%'}}
+                        color="inherit"
+                        variant="subtitle1"
+                        component="div"
+                    >
+                        {numSelected} selecionados
+                    </Typography>
+                ) : (
+                    <Typography
+                        sx={{flex: '1 1 100%'}}
+                        variant="h6"
+                        id="tableTitle"
+                        component="div"
+                    >
+                        Leads para Enviar para Consultores
+                    </Typography>
+                )}
 
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton>
-                        <DeleteIcon/>
-                    </IconButton>
-                </Tooltip>
-            ) : (
-                <Tooltip title="Filter list">
-                    <IconButton>
-                        <FilterListIcon/>
-                    </IconButton>
-                </Tooltip>
-            )}
-        </Toolbar>
+                {/*{numSelected > 0 ? (*/}
+                {/*    <Tooltip title="Delete">*/}
+                {/*        <IconButton>*/}
+                {/*            <DeleteIcon/>*/}
+                {/*        </IconButton>*/}
+                {/*    </Tooltip>*/}
+                {/*) : (*/}
+                {/*    <Tooltip title="Filter list">*/}
+                {/*        <IconButton>*/}
+                {/*            <FilterListIcon/>*/}
+                {/*        </IconButton>*/}
+                {/*    </Tooltip>*/}
+                {/*)}*/}
+            </Toolbar>
+        </div>
     );
 }
 
@@ -224,12 +186,12 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function Create({auth, errors, clientes}) {
+export default function Create({leads, consultores, auth, errors}) {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(20);
+    const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -239,7 +201,7 @@ export default function Create({auth, errors, clientes}) {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelected = clientes.map((n) => n.id);
+            const newSelected = leads.map((n) => n.id);
             setSelected(newSelected);
             return;
         }
@@ -278,22 +240,51 @@ export default function Create({auth, errors, clientes}) {
     const isSelected = (name) => selected.indexOf(name) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - clientes.length) : 0;
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - leads.length) : 0;
 
+    // Form
+    const {data, post, setData} = useForm();
+
+    useEffect(function () {
+        setData({...data, selected})
+    }, [selected])
+
+    function submit(e) {
+        e.preventDefault()
+        post(route('admin.leads.store'))
+    }
+
+    // form - fim
     return (
         <IntegradorLayout
             auth={auth}
             errors={errors}
-            titlePage="Clientes"
-            button={true}
-            url={route('consultor.clientes.index')} textButton={'Voltar'}>
+            titlePage="Leads"
+            button={true}>
 
             <Container>
 
                 <Box sx={{width: '100%'}}>
                     <Paper sx={{width: '100%', mb: 2}}>
-                        <EnhancedTableToolbar numSelected={selected.length}/>
+                        <EnhancedTableToolbar numSelected={selected.length} dados={selected}/>
+
+                        <form onSubmit={submit}>
+                            <div className="row">
+                                <div className="col-md-4 ml-4">
+                                    <TextField label="Selecione o Consultor..." select fullWidth required size="small"
+                                               onChange={e => setData('consultor', e.target.value)}>
+                                        {consultores.map((option) => (
+                                            <MenuItem key={option.id} value={option.id}>
+                                                {option.name}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                </div>
+                                <div className="col-auto p-0">
+                                    <button className="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
                         <TableContainer>
                             <Table
                                 sx={{minWidth: 750}}
@@ -305,12 +296,10 @@ export default function Create({auth, errors, clientes}) {
                                     orderBy={orderBy}
                                     onSelectAllClick={handleSelectAllClick}
                                     onRequestSort={handleRequestSort}
-                                    rowCount={clientes.length}
+                                    rowCount={leads.length}
                                 />
                                 <TableBody>
-                                    {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.sort(getComparator(order, orderBy)).slice() */}
-                                    {stableSort(clientes, getComparator(order, orderBy))
+                                    {stableSort(leads, getComparator(order, orderBy))
                                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         .map((row, index) => {
                                             const isItemSelected = isSelected(row.id);
@@ -335,18 +324,11 @@ export default function Create({auth, errors, clientes}) {
                                                             }}
                                                         />
                                                     </TableCell>
-                                                    <TableCell
-                                                        component="th"
-                                                        id={labelId}
-                                                        scope="row"
-                                                        padding="none"
-                                                    >
+                                                    <TableCell component="th" id={labelId} scope="row" padding="none">
                                                         {row.empresa}
                                                     </TableCell>
-                                                    <TableCell align="right">{row.calories}</TableCell>
+                                                    <TableCell>{row.status_anotacoes}</TableCell>
                                                     <TableCell align="right">{row.fat}</TableCell>
-                                                    <TableCell align="right">{row.carbs}</TableCell>
-                                                    <TableCell align="right">{row.protein}</TableCell>
                                                 </TableRow>
                                             );
                                         })}
@@ -362,7 +344,7 @@ export default function Create({auth, errors, clientes}) {
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 25]}
                             component="div"
-                            count={clientes.length}
+                            count={leads.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}

@@ -1,23 +1,27 @@
 <?php
 
-namespace App\Http\Controllers\Consultor;
+namespace App\Http\Controllers\Consultor\Leads;
 
 use App\Http\Controllers\Controller;
-use App\Models\Clientes;
+use App\Models\Leads;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ClientesController extends Controller
+class LeadsController extends Controller
 {
     public function index(Request $request)
     {
         $offset = $request->page ?? 0;
         $limit = 30;
 
-        $naoAtendidosQuery = (new Clientes)->newQuery()
-            ->where('status', 0)->offset($offset)->limit($limit)->get();
-        $emAndamento = (new Clientes)->newQuery()
-            ->where('status', 1)->offset($offset)->limit($limit)->get();
+        $naoAtendidosQuery = (new Leads())->newQuery()
+            ->where('status', 'novo')
+            ->where('users_id', auth()->id())
+            ->offset($offset)->limit($limit)->get();
+
+        $emAndamento = (new Leads())->newQuery()
+            ->where('status', 'atendendo')
+            ->offset($offset)->limit($limit)->get();
 
         $naoAtendidos = $naoAtendidosQuery->map(function ($dados) {
             return [
@@ -32,19 +36,19 @@ class ClientesController extends Controller
         });
 
         $offset += $limit;
-        return Inertia::render('Consultor/Clientes/Index',
+        return Inertia::render('Consultor/Leads/Index',
             compact('naoAtendidos', 'emAndamento', 'offset'));
     }
 
     public function create()
     {
-        return Inertia::render('Consultor/Clientes/Create');
+        return Inertia::render('Consultor/Leads/Create');
     }
 
     public function show($id)
     {
-        $cliente = (new Clientes())->newQuery()->find($id);
-        return Inertia::render('Consultor/Clientes/Show', compact('cliente'));
+        $cliente = (new Leads())->newQuery()->find($id);
+        return Inertia::render('Consultor/Leads/Show', compact('cliente'));
     }
 
     public function store(Request $request)

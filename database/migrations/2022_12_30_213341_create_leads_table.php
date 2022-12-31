@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('clientes', function (Blueprint $table) {
+        Schema::create('leads', function (Blueprint $table) {
             $table->id();
-            $table->integer('users_id')->nullable();
-            $table->integer('status')->default(0);
+            $table->bigInteger('users_id')->nullable();
+            $table->string('status', 32);
             $table->string('status_anotacoes')->nullable();
             $table->string('nome')->nullable();
             $table->string('empresa');
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('leads');
     }
 };

@@ -16,6 +16,7 @@ import {useForm} from '@inertiajs/inertia-react'
 
 const pages = [
     {'title': 'Pedidos', 'url': route('admin.pedidos.index')},
+    {'title': 'Leads', 'url': route('admin.leads.create')},
     {'title': 'Usuários', 'url': route('admin.usuarios.usuario.index')},
     {'title': 'SAC', 'url': route('admin.chamados.index')},
     {'title': 'Forncecedores', 'url': route('admin.fornecedores.index')},
@@ -62,8 +63,8 @@ export default function ResponsiveAppBar() {
         <AppBar position="static" style={{"backgroundColor": "#252525"}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Link href="/" sx={{display: {xs: 'none', md: 'flex'}, width: 150}}>
-                        <img alt="logo" src={logo} style={{height: 50, margin: 15}}></img>
+                    <Link href="/" sx={{display: {xs: 'none', md: 'flex'}}}>
+                        <img alt="logo" src={logo} style={{height: 40, margin: 5}}></img>
                     </Link>
 
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -109,12 +110,10 @@ export default function ResponsiveAppBar() {
                     </Link>
 
                     {/*MENU HORIZONTAL*/}
-                    <Box sx={{flexGrow: 1, ml: 3, display: {xs: 'none', md: 'flex'}}}>
+                    <Box className="text-center" sx={{flexGrow: 1, ml: 3, display: {xs: 'none', md: 'flex'}}}>
                         {
                             pages.map(({title, url}) => (
-                                <Button
-                                    key={title} href={url} onClick={handleCloseNavMenu} variant="text"
-                                    sx={pageCurrent(url)}>
+                                <Button key={title} href={url} variant="text" sx={pageCurrent(url)}>
                                     {title}
                                 </Button>
                             ))}
@@ -151,7 +150,8 @@ export default function ResponsiveAppBar() {
                                 </Typography>
                             ))}
                             <form onSubmit={submit} style={{minWidth: 150}}>
-                                <Typography style={{ width: '100%'}} color={"black"} variant={"inherit"} type={"submit"} component={"button"}>
+                                <Typography style={{width: '100%'}} color={"black"} variant={"inherit"} type={"submit"}
+                                            component={"button"}>
                                     <MenuItem key={"Sair"} onClick={handleCloseUserMenu}>
                                         Sair
                                     </MenuItem>
