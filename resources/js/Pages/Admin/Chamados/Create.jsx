@@ -17,7 +17,7 @@ export default function Create({pedido}) {
     return (
         <Layout
             titlePage="Abrir SAQ"
-            url={route('consultor.pedidos.index')} textButton={'Voltar'}>
+            url={route('admin.chamados.index')} textButton={'Voltar'}>
 
             <Form onSubmit={submit}>
                 <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 mb-4">

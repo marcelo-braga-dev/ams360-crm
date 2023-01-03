@@ -17,14 +17,12 @@ class AguardandoFaturamentoController extends Controller
     public function show($id)
     {
         (new Pedidos())->updateSituacao($id, 1);
-        $files = (new PedidosImagens())->getImagens($id);
 
-        $pedido = (new Pedidos)->newQuery()->findOrFail($id);
-        $cliente = $pedido->cliente;
-        $img = $pedido->img;
+        $pedido = (new Pedidos)->get($id);
+        $img = (new PedidosImagens())->getImagens($pedido['id']);
 
         return Inertia::render('Admin/Pedidos/AguardandoFaturamento/Show',
-            compact('pedido', 'cliente', 'img', 'files'));
+            compact('pedido', 'img'));
     }
 
     public function update($id, Request $request)

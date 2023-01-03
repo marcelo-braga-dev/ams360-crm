@@ -7,9 +7,12 @@ import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
 import TruckIcon from '@mui/icons-material/LocalShippingOutlined';
-import DownloadIcon from '@mui/icons-material/DownloadRounded';
+
+import EmailIcon from './Partials/IconsCard/EmailIconPopover';
+import TelephoneIcon from './Partials/IconsCard/TelefoneIcon';
 
 import { Alert } from '@mui/material';
+import TelefoneIcon from "@/Pages/Consultor/Pedidos/Cards/IconsCard/TelefoneIcon";
 
 export default function CardPedidos({dados, menuMore, btnAvancaStatus, border}) {
 
@@ -42,6 +45,12 @@ export default function CardPedidos({dados, menuMore, btnAvancaStatus, border}) 
                         <TruckIcon className='mr-2' sx={{ fontSize: 22 }}></TruckIcon>
                         {dados.fornecedor}
                     </span>
+                    {/*Icons Buttons*/}
+                    <div className="pt-2">
+                        {/*<PinIcon dados={dados} />*/}
+                        <TelefoneIcon dados={dados}/>
+                        <EmailIcon dados={dados}/>
+                    </div>
                 </div>
                 {/* Btn Avanca Status */}
                 <div className='col-auto pt-4 text-right'>

@@ -25,12 +25,14 @@ class PedidosClientes extends Model
 
     public function create($id, $dados)
     {
+        $idEndereco = (new Enderecos())->create($dados->get('endereco'));
+
         $this->newQuery()
             ->create([
                 'pedidos_id' => $id,
                 'nome' => $dados->nome,
                 'razao_social' => $dados->razao_social,
-                'endereco' => $dados->endereco,
+                'endereco' => $idEndereco,
                 'telefone' => $dados->telefone,
                 'email' => $dados->email,
                 'cpf' => $dados->cpf,
@@ -43,8 +45,7 @@ class PedidosClientes extends Model
     public function getCliente(int $id)
     {
         return $this->newQuery()
-            ->where('pedidos_id', $id)
-            ->first();
+            ->where('pedidos_id', $id)->first();
     }
 
     public function dados(): array
@@ -56,6 +57,7 @@ class PedidosClientes extends Model
             $dados[$cliente->pedidos_id]['nome'] = $cliente->nome ?? $cliente->razao_social;
             $dados[$cliente->pedidos_id]['telefone'] = $cliente->telefone;
             $dados[$cliente->pedidos_id]['email'] = $cliente->email;
+            $dados[$cliente->pedidos_id]['endereco'] = getEnderecoCompleto($cliente->endereco);
             $dados[$cliente->pedidos_id]['nascimento'] = date('d/m/Y', strtotime($cliente->data_nascimento));
         }
 
@@ -64,12 +66,13 @@ class PedidosClientes extends Model
 
     public function updateDados(int $id, $dados)
     {
+        (new Enderecos())->updateDados($id, $dados->get('endereco'));
+
         $this->newQuery()
             ->where('pedidos_id', $id)
             ->update([
                 'nome' => $dados->nome,
                 'razao_social' => $dados->razao_social,
-                'endereco' => $dados->endereco,
                 'telefone' => $dados->telefone,
                 'email' => $dados->email,
                 'cpf' => $dados->cpf,

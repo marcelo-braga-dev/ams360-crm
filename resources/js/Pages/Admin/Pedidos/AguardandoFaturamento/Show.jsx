@@ -9,12 +9,7 @@ import {TextField, Typography} from "@mui/material";
 import * as PropTypes from "prop-types";
 import ImagePdf from "@/Components/Inputs/ImagePdf";
 
-function Div(props) {
-    return null;
-}
-
-Div.propTypes = {children: PropTypes.node};
-export default function Create({pedido, files}) {
+export default function Create({pedido, img}) {
     const {errors} = usePage().props;
 
     const {data, setData, progress} = useForm({
@@ -33,12 +28,21 @@ export default function Create({pedido, files}) {
     return (<Layout titlePage="Pedidos">
 
             <Container fluid="lg" className="bg-white px-lg-6 py-lg-5 mb-4">
-                <Row>
-                    <Col>
-                        <Typography variant={"body1"} component="p">Baixar Comprovante Pagamento/Recibo</Typography>
-                        <ImagePdf url={files.url_boleto}/>
-                    </Col>
-                </Row>
+                <div className="row">
+                    <div className="col mb-4">
+                        <Typography><b>Consultor:</b> {pedido.nome}</Typography>
+                        <Typography><b>Cliente:</b> {pedido.cliente}</Typography>
+                    </div>
+                </div>
+                <Typography variant={"h6"} component="h5">Baixar Comprovante Pagamento/Recibo</Typography>
+                <div className="row">
+                    <div className="col-md-4">
+                        <ImagePdf url={img.url_recibo_1}/>
+                    </div>
+                    <div className="col-md-4">
+                        <ImagePdf url={img.url_recibo_2}/>
+                    </div>
+                </div>
             </Container>
             <Container fluid="lg" className="bg-white px-lg-6 py-lg-5">
                 <Form onSubmit={submit}>

@@ -15,12 +15,10 @@ class AguardandoNotaController extends Controller
 {
     public function show($id)
     {
-        $pedido = (new Pedidos)->newQuery()->findOrFail($id);
-        $cliente = $pedido->cliente;
-        $img = $pedido->img;
+        $pedido = (new Pedidos)->get($id);
 
         return Inertia::render('Admin/Pedidos/AguardandoNota/Show',
-            compact('pedido', 'cliente', 'img'));
+            compact('pedido'));
     }
 
     public function update($id, Request $request)

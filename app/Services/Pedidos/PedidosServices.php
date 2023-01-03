@@ -11,15 +11,15 @@ use DateTime;
 
 class PedidosServices
 {
-    public array $usuarios = [];
     public array $clientes = [];
+    public array $usuarios = [];
     public array $fornecedores = [];
 
     public function __construct()
     {
         $this->clientes = (new PedidosClientes())->dados();
         $this->usuarios = (new User())->getNomes();
-        $this->fornecedores = (new Fornecedores())->getFornecedores();
+        $this->fornecedores = (new Fornecedores())->getNomeFornecedores();
     }
 
     public function pedido($dados): array
@@ -42,7 +42,9 @@ class PedidosServices
             'email' => $this->clientes[$dados->id]['email'],
             'telefone' => $this->clientes[$dados->id]['telefone'],
             'nascimento' => $this->clientes[$dados->id]['nascimento'],
-            'info_pedido' => $dados->info_pedido
+            'info_pedido' => $dados->info_pedido,
+            'endereco' => $this->clientes[$dados->id]['endereco'],
+            'forma_pagamento' => $dados->forma_pagamento
         ];
     }
 

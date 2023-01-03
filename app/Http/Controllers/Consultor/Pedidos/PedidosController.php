@@ -50,7 +50,6 @@ class PedidosController extends Controller
         $idPedido = (new Pedidos())->create($request);
         (new PedidosClientes())->create($idPedido, $request);
         (new PedidosImagens())->create($idPedido, $request);
-        (new Enderecos())->create($request);
 
         modalSucesso('Pedido cadastrado com sucesso!');
         return redirect()->route('consultor.pedidos.index');

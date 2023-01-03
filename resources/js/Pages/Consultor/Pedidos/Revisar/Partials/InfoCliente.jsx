@@ -63,7 +63,7 @@ export default function InfoCliente({setData, data}) {
         </Row>
         <Row className="mb-4">
             <Col className={"mb-3"} lg={"4"}>
-                <TextField label="Data Nascimento" id="nascimento" required
+                <TextField label="Data Nascimento" id="nascimento" required value={data.nascimento}
                            onBlur={e => setData('nascimento', e.target.value)} type={'date'}
                            fullWidth InputLabelProps={{shrink: true}}></TextField>
             </Col>
@@ -82,30 +82,29 @@ export default function InfoCliente({setData, data}) {
         </Row>
         <Row>
             <Col className="mb-3 col-6 col-md-2">
-                <InputMask maskChar='' mask="99999-999"
+                <InputMask maskChar='' mask="99999-999" value={data.endereco.cep}
                            onChange={e => setData('endereco', {...data.endereco, cep: e.target.value})}
                            onBlur={e => pesquisaCep(e.target.value, setData, data)}>
-                    {() => <TextField label={'Cep'} InputLabelProps={{shrink: true}} required fullWidth/>}
+                    {() => <TextField label="Cep" InputLabelProps={{shrink: true}} required fullWidth/>}
                 </InputMask>
             </Col>
             <Col className="mb-3 col-12 col-md-10">
-                <TextField label="Rua/Av." fullWidth required
+                <TextField label="Rua/Av." fullWidth required value={data.endereco.rua}
                            InputLabelProps={{shrink: true}} id="rua"
                            onChange={e => setData('endereco', {...data.endereco, rua: e.target.value})}/>
             </Col>
             <Col className="mb-3 col-6 col-md-2">
                 <TextField label="Número" fullWidth required
-                           InputLabelProps={{shrink: true}}
+                           InputLabelProps={{shrink: true}} value={data.endereco.numero}
                            onChange={e => setData('endereco', {...data.endereco, numero: e.target.value})}/>
             </Col>
             <Col className="mb-3 col-6 col-md-4">
                 <TextField label="Complemento" fullWidth
-                           InputLabelProps={{shrink: true}}
+                           InputLabelProps={{shrink: true}} value={data.endereco.complemento}
                            onChange={e => setData('endereco', {...data.endereco, complemento: e.target.value})}/>
-                               {/*'complemento', e.target.value)}/>*/}
             </Col>
             <Col className="mb-3 col-12 col-md-6">
-                <TextField label="Bairro" fullWidth required
+                <TextField label="Bairro" fullWidth required value={data.endereco.bairro}
                            InputLabelProps={{shrink: true}} id="bairro"
                            onChange={e => setData('endereco', {...data.endereco, bairro: e.target.value})}/>
             </Col>
@@ -113,12 +112,12 @@ export default function InfoCliente({setData, data}) {
         <Row>
             <Col>
                 <TextField label="Cidade" fullWidth required id="cidade"
-                           InputLabelProps={{shrink: true}}
+                           InputLabelProps={{shrink: true}} value={data.endereco.cidade}
                            onChange={e => setData('endereco', {...data.endereco, cidade: e.target.value})}/>
             </Col>
             <Col>
                 <TextField label="Estado" fullWidth required id="estado"
-                           InputLabelProps={{shrink: true}}
+                           InputLabelProps={{shrink: true}} value={data.endereco.estado}
                            onChange={e => setData('endereco', {...data.endereco, estado: e.target.value})}/>
             </Col>
         </Row>

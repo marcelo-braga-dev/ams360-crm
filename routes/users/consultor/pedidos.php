@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Consultor\Pedidos\AguardandoPagamentoController;
 use App\Http\Controllers\Consultor\Pedidos\FaturadoController;
-use App\Http\Controllers\Consultor\Pedidos\NovosController;
+use App\Http\Controllers\Consultor\Pedidos\RevisarController;
 use App\Http\Controllers\Consultor\Pedidos\PedidosController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +13,7 @@ Route::middleware(['auth', 'auth.consultores'])
     ->group(function () {
 
         Route::resource('pedidos', PedidosController::class);
-        Route::resource('novo', NovosController::class);
+        Route::resource('novo', RevisarController::class);
         Route::resource('aguardando-pagamento', AguardandoPagamentoController::class);
         Route::resource('faturado', FaturadoController::class);
     });

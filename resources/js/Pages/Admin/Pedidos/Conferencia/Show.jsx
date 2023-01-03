@@ -55,9 +55,9 @@ console.log(pedido);
                     <Col className={"mb-3"}>
                         <Typography className="mb-2" variant={"h6"} component="">Dados do Pedido </Typography>
                         <Typography><b>Preço:</b> R$ {pedido.preco}</Typography>
-                        <Typography><b>Forma Pagamento:</b> {pedidoDados.forma_pagamento}</Typography>
+                        <Typography><b>Forma Pagamento:</b> {pedido.forma_pagamento}</Typography>
                         <Typography className="pb-2"><b>Fornecedor:</b> {pedido.fornecedor}</Typography>
-                        <Typography><b>Mais informações:</b> {pedidoDados.info_pedido}</Typography>
+                        <Typography><b>Mais informações:</b> {pedido.info_pedido}</Typography>
                     </Col>
                     <Col className={"mb-3"}>
                         <Typography className="mb-2" variant={"h6"} component="">Dados do Cliente</Typography>
@@ -67,7 +67,7 @@ console.log(pedido);
                         <Typography><b>CPF:</b> {cliente.cpf}</Typography>
                         <Typography><b>CNPJ:</b> {cliente.cnpj}</Typography>
                         <Typography><b>Telefone:</b> {cliente.telefone}</Typography>
-                        <Typography><b>Endereço:</b> {cliente.endereco}</Typography>
+                        <Typography><b>Endereço:</b> {pedido.endereco}</Typography>
                     </Col>
                 </Row>
                 <hr/>

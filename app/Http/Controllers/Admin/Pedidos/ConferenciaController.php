@@ -17,13 +17,12 @@ class ConferenciaController extends Controller
 {
     public function show($id)
     {
-        $pedidoDados = (new Pedidos)->newQuery()->findOrFail($id);
-        $pedido = (new PedidosServices())->pedido($pedidoDados);
-        $cliente = (new PedidosClientes())->getCliente($pedidoDados->id);
-        $img = (new PedidosImagens())->getImagens($pedidoDados->id);
+        $pedido = (new Pedidos())->get($id);
+        $cliente = (new PedidosClientes())->getCliente($pedido['id']);
+        $img = (new PedidosImagens())->getImagens($pedido['id']);
 
         return Inertia::render('Admin/Pedidos/Conferencia/Show',
-            compact('pedido', 'cliente', 'img', 'pedidoDados'));
+            compact('pedido', 'cliente', 'img'));
     }
 
     public function update($id, Request $request)

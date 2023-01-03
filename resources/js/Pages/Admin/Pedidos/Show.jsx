@@ -88,7 +88,7 @@ export default function Pedidos({pedido, cliente, img, historico}) {
                             <Typography><b>RG:</b> {cliente.rg}</Typography>
                             <Typography><b>CPF:</b> {cliente.cpf}</Typography>
                             <Typography><b>Telefone:</b> {cliente.telefone}</Typography>
-                            <Typography><b>Endereço:</b> {cliente.endereco}</Typography>
+                            <Typography><b>Endereço:</b> {pedido.endereco}</Typography>
                         </Col>
                     </Row>
                     <Row>

@@ -10,6 +10,7 @@ export default function Pedidos({pedido, historico}) {
             <Typography><b>Cliente:</b> {pedido.cliente}</Typography>
             <Typography><b>Preço:</b> R$ {pedido.preco}</Typography>
             <Typography><b>Fornecedor:</b> {pedido.fornecedor}</Typography>
+            <Typography><b>Endereço:</b> {pedido.endereco}</Typography>{console.log(pedido)}
             <Typography><b>Mais informações:</b> {pedido.info_pedido}</Typography>
         </Container>
 

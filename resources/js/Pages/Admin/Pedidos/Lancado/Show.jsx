@@ -86,6 +86,7 @@ export default function Pedidos({pedido, cliente, img}) {
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="Pedido" {...a11yProps(0)} />
                         <Tab label="Cliente" {...a11yProps(1)} />
+                        <Tab label="Imagens/Arquivos" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -115,9 +116,11 @@ export default function Pedidos({pedido, cliente, img}) {
                             <Typography><b>RG:</b> {cliente.rg}</Typography>
                             <Typography><b>CPF:</b> {cliente.cpf}</Typography>
                             <Typography><b>Telefone:</b> {cliente.telefone}</Typography>
-                            <Typography><b>Endereço:</b> {cliente.endereco}</Typography>
+                            <Typography><b>Endereço:</b> {pedido.endereco}</Typography>
                         </Col>
                     </Row>
+                </TabPanel>
+                <TabPanel value={value} index={2}>
                     <Row>
                         <Col lg={4} className={"mb-3"}>
                             <Paper className={"p-3"} elevation={1}>
@@ -149,33 +152,6 @@ export default function Pedidos({pedido, cliente, img}) {
                             <Paper className={"p-3"} elevation={1}>
                                 <Typography variant={"body1"}>Comprovante de Residência</Typography>
                                 {img && (<img alt="" src={"/storage/" + img.url_comprovante_residencia}/>)}
-                            </Paper>
-                        </Col>
-                    </Row>
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                    <Row>
-                        <Col className={"mb-3"}>
-                            <Typography variant={"h6"}>Documentos</Typography>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col lg={4} className={"mb-3"}>
-                            <Paper className={"p-3"} elevation={1}>
-                                <Typography variant={"body1"}>Nota/Boleto</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_boleto}/>)}
-                            </Paper>
-                        </Col>
-                        <Col lg={4} className={"mb-3"}>
-                            <Paper className={"p-3"} elevation={1}>
-                                <Typography variant={"body1"}>Comprovante de Pagamento</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_recibo}/>)}
-                            </Paper>
-                        </Col>
-                        <Col lg={4} className={"mb-3"}>
-                            <Paper className={"p-3"} elevation={1}>
-                                <Typography variant={"body1"}>Nota Fiscal</Typography>
-                                {img && (<img alt="" src={"/storage/" + img.url_nota_fiscal}/>)}
                             </Paper>
                         </Col>
                     </Row>
